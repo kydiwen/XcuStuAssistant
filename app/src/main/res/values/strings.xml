@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">许院学梓助手</string>
+    <!--百度开发者密钥-->
+    <string name="my_bd_ak">j27NTmz6EMUhCUKCBaZvMd85</string>
+    <!--百度地图天气请求链接-->
+    <string name="bd_weather_url">http://api.map.baidu.com/telematics/v3/weather?location=</string>
+    <!--mcode,sha1ma加上包名-->
+    <string name="bd_mcode">A2:28:AC:D2:88:F7:3B:63:FB:E3:FB:09:DD:34:57:88:E4:F0:26:DB;xcu.stu.assistant</string>
+</resources>

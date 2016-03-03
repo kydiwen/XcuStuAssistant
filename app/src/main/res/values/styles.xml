@@ -1,0 +1,12 @@
+<resources>
+    <!--主页面底部状态栏样式-->
+    <style name="main_bottom">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">3dp</item>
+        <item name="android:textColor">@drawable/main_color_selector</item>
+    </style>
+</resources>
