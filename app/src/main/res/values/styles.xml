@@ -9,4 +9,17 @@
         <item name="android:padding">3dp</item>
         <item name="android:textColor">@drawable/main_color_selector</item>
     </style>
+    <!--天气详情页面天气舒适度样式-->
+    <style name="weatherdetail_comfort">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:textColor">@color/main_nomal</item>
+        <item name="android:textSize">@dimen/medium</item>
+    </style>
+    <!--未来三天天气样式-->
+    <style name="furture_weather">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+    </style>
 </resources>

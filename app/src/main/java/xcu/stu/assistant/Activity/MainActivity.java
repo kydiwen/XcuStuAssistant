@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -72,20 +75,36 @@ public class MainActivity extends FragmentActivity {
     private LinearLayout weather_info;//顶部天气信息显示区域
     private JSONObject weather;//传入天气详情界面的json数据
     public static final String WEATHER_GIVE = "weather";
+    private LinearLayout main_error;//错误页面
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = MainActivity.this;
         initView();
-        initData();
-        initListener();
     }
 
     //初始化视图
     private void initView() {
         //隐藏标题栏
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //判断网络连接是否可用
+        if (isNetWorkUseful()) {//网络可用，加载正常页面
+            loadNormalPage();
+        } else {//网络不可用，加载错误页面
+            loadErrorPage();
+        }
+    }
+
+    //当网络连接出错时加载提示页面
+    private void loadErrorPage() {
+        setContentView(R.layout.activity_main_errorpage);
+        main_error = (LinearLayout) findViewById(R.id.main_error);
+        initErrorPageListener();
+    }
+
+    //当网络连接正常时加载正常的页面
+    private void loadNormalPage() {
         setTopColorSameToApp();
         setContentView(R.layout.activity_main);
         main_viewpager = (NoscrollViewpager) findViewById(R.id.main_viewpager);
@@ -95,6 +114,20 @@ public class MainActivity extends FragmentActivity {
         main_weather_city = (TextView) findViewById(R.id.main_weather_city);
         main_weather_temp = (TextView) findViewById(R.id.main_weather_temp);
         weather_info = (LinearLayout) findViewById(R.id.weather_info);
+        initData();
+        initListener();
+    }
+
+    //判断当前网络是否可用，返回布尔值
+    private boolean isNetWorkUseful() {
+        //获取网络连接管理类对象
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = manager.getActiveNetworkInfo();
+        if (info == null) {//当前网络不可用
+            return false;
+        } else {
+            return true;
+        }
     }
 
     //初始化数据
@@ -239,6 +272,21 @@ public class MainActivity extends FragmentActivity {
                 Intent intent = new Intent(mContext, WeatherDetailActivity.class);
                 intent.putExtra(WEATHER_GIVE, weather.toString());
                 startActivity(intent);
+            }
+        });
+    }
+
+    //为错误页面设置点击事件
+    private void initErrorPageListener() {
+        //为错误页面设置点击事件，获取当前网络状况，直到网络可用，加载正常页面
+        main_error.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //判断当前网络状况
+                if (isNetWorkUseful()) {
+                    loadNormalPage();
+                    Toast.makeText(mContext, "网络连接已恢复", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

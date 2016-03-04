@@ -1,12 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<!--使用v4包下的SwipeRefreshLayout实现下拉刷新的功能-->
+<android.support.v4.widget.SwipeRefreshLayout
+    android:id="@+id/refresh_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <!--存放天气信息的布局-->
+    <ScrollView
+        android:id="@+id/weather_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="下拉刷新"
-        android:textSize="@dimen/big"></TextView>
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!--顶部返回按钮和城市选择按钮-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <ImageView
+                    android:id="@+id/weather_detail_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/back"></ImageView>
+
+                <TextView
+                    android:id="@+id/weather_detail_currentcity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/main_nomal"
+                    android:textSize="@dimen/big"></TextView>
+
+                <ImageView
+                    android:id="@+id/weather_detail_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/location"></ImageView>
+            </RelativeLayout>
+            <!-- 温度的显示-->
+            <TextView
+                android:id="@+id/weather_detail_temp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:paddingTop="50dp"
+                android:textColor="@color/main_nomal"
+                android:textSize="40sp"></TextView>
+
+            <TextView
+                android:id="@+id/weather_detail_weather"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:textColor="@color/main_nomal"
+                android:textSize="25sp"></TextView>
+
+            <TextView
+                android:id="@+id/weather_detail_pollution"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="@color/main_nomal"
+                android:textSize="@dimen/big"></TextView>
+            <!-- 天气舒适指数显示-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:padding="10dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/comfort_dress"
+                        style="@style/weatherdetail_comfort"></TextView>
+
+                    <TextView
+                        android:id="@+id/comfort_cleancar"
+                        style="@style/weatherdetail_comfort"></TextView>
+
+                    <TextView
+                        android:id="@+id/comfort_travel"
+                        style="@style/weatherdetail_comfort"></TextView>
+
+                    <TextView
+                        android:id="@+id/comfort_ill"
+                        style="@style/weatherdetail_comfort"></TextView>
+
+                    <TextView
+                        android:id="@+id/comfort_play"
+                        style="@style/weatherdetail_comfort"></TextView>
+
+                    <TextView
+                        android:id="@+id/comfort_purple"
+                        style="@style/weatherdetail_comfort"></TextView>
+                </LinearLayout>
+            </RelativeLayout>
+            <!--未来天气显示-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/furtureday_one"
+                        style="@style/weatherdetail_comfort"></TextView>
+
+                    <ImageView
+                        android:id="@+id/furtureday_one_img"
+                        style="@style/furture_weather"></ImageView>
+
+                    <TextView
+                        android:id="@+id/furtureday_one_temp"
+                        style="@style/weatherdetail_comfort"></TextView>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="15dp"
+                    android:background="@color/main_nomal"></View>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/furtureday_two"
+                        style="@style/weatherdetail_comfort"></TextView>
+
+                    <ImageView
+                        android:id="@+id/furtureday_two_img"
+                        style="@style/furture_weather"></ImageView>
+
+                    <TextView
+                        android:id="@+id/furtureday_two_temp"
+                        style="@style/weatherdetail_comfort"></TextView>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="15dp"
+                    android:background="@color/main_nomal"></View>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/furtureday_three"
+                        style="@style/weatherdetail_comfort"></TextView>
+
+                    <ImageView
+                        android:id="@+id/furtureday_three_img"
+                        style="@style/furture_weather"></ImageView>
+
+                    <TextView
+                        android:id="@+id/furtureday_three_temp"
+                        style="@style/weatherdetail_comfort"></TextView>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>
