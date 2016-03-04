@@ -5,10 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.format.DateFormat;
+import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -23,10 +22,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URLEncoder;
 import java.util.Date;
 
 import xcu.stu.assistant.R;
 import xcu.stu.assistant.application.MyApplication;
+import xcu.stu.assistant.utils.callback.jsonCallback;
+import xcu.stu.assistant.utils.requestUtil;
 
 public class WeatherDetailActivity extends Activity {
     private JSONObject weatherData;//天气数据
@@ -56,32 +58,12 @@ public class WeatherDetailActivity extends Activity {
     private String currentCity;//当前所在城市
     private Context mContext;//全局可用的context对象
 
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            Toast.makeText(mContext, "刷新成功", Toast.LENGTH_SHORT).show();
-            refresh_layout.setRefreshing(false);
-        }
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView();
         initData();
         initListener();
-    }
-
-    //初始化监听事件
-    private void initListener() {
-        //设置下拉刷新事件
-        refresh_layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                handler.sendEmptyMessageDelayed(1, 5000);
-            }
-        });
     }
 
     //初始化视图界面
@@ -123,6 +105,48 @@ public class WeatherDetailActivity extends Activity {
             weatherData = new JSONObject(intent.getStringExtra(MainActivity.WEATHER_GIVE));
             showWeather(weatherData);
         } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //初始化监听事件
+    private void initListener() {
+        //为返回按钮设置点击事件
+        weather_detail_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //结束当前activity的生命周期
+                finish();
+            }
+        });
+        //设置下拉刷新事件
+        refresh_layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getWeatherInfo(currentCity);
+                //显示天气信息
+                showWeather(weatherData);
+            }
+        });
+    }
+
+    //刷新数据，重新获取天气信息
+    private void getWeatherInfo(String city) {
+        try {
+            String url = getResources().getString(R.string.bd_weather_url) + URLEncoder.encode(city,
+                    "utf-8") + "&output=json&ak=" + getResources().getString(R.string.my_bd_ak)
+                    + "&mcode=" + getResources().getString(R.string.bd_mcode);
+            requestUtil.jsonRequest(url, new jsonCallback() {
+                @Override
+                public void getJson(JSONObject response) {
+                    //为天气数据重新赋值
+                    weatherData = response;
+                    //完成刷新，刷新状态停止
+                    refresh_layout.setRefreshing(false);
+                    Toast.makeText(mContext, "刷新成功", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
