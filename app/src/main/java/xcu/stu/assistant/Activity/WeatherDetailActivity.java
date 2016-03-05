@@ -57,7 +57,7 @@ public class WeatherDetailActivity extends Activity {
     private TextView furtureday_three_temp;//未来第三天天气温度
     private String currentCity;//当前所在城市
     private Context mContext;//全局可用的context对象
-
+    private  static  final  int CITY_REQUESTCODE=0;//城市选择请求码
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,6 +126,15 @@ public class WeatherDetailActivity extends Activity {
                 getWeatherInfo(currentCity);
                 //显示天气信息
                 showWeather(weatherData);
+            }
+        });
+        //为城市选择按钮设置点击事件
+        weather_detail_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //使用startactivityforresult方式进入城市选择界面，获取选择的城市信息
+                Intent intent =new Intent(mContext,CityListActivity.class);
+                startActivityForResult(intent,CITY_REQUESTCODE);
             }
         });
     }
@@ -318,5 +327,14 @@ public class WeatherDetailActivity extends Activity {
             }
         });
         MyApplication.requestQueue.add(request);
+    }
+    //获取请求页面返回的数据
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==CITY_REQUESTCODE&&resultCode==RESULT_OK){
+            //获取返回idea城市信息，刷新天气数据
+        }
     }
 }

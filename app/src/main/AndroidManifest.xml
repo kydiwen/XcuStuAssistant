@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    package="xcu.stu.assistant"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest package="xcu.stu.assistant"
+          xmlns:android="http://schemas.android.com/apk/res/android">
     //添加所需要的权限
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION">
     </uses-permission>
@@ -57,6 +56,8 @@
             android:value="@string/my_bd_ak"/>
 
         <activity android:name=".Activity.WeatherDetailActivity">
+        </activity>
+        <activity android:name=".Activity.CityListActivity">
         </activity>
     </application>
 
