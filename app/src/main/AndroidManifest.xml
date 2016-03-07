@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="xcu.stu.assistant"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest
+    package="xcu.stu.assistant"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     //添加所需要的权限
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION">
     </uses-permission>
@@ -64,6 +65,8 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"/>
+        <service android:name=".service.weatherUpdateService"></service>
+        <receiver android:name=".receiver.AlarmReceiver"></receiver>
     </application>
 
 </manifest>

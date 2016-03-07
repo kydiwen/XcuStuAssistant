@@ -1,14 +1,18 @@
 package xcu.stu.assistant.utils;
 
+import android.graphics.Bitmap;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONObject;
 
 import xcu.stu.assistant.application.MyApplication;
+import xcu.stu.assistant.utils.callback.BitmapCallback;
 import xcu.stu.assistant.utils.callback.StringCallback;
 import xcu.stu.assistant.utils.callback.jsonCallback;
 
@@ -44,6 +48,22 @@ public class requestUtil {
                 callback.StringListener(response);
             }
         }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        MyApplication.requestQueue.add(request);
+    }
+
+    //获取bitmap数据类型
+    public static void getBitmap(String url, final BitmapCallback callback) {
+        ImageRequest request = new ImageRequest(url, new Response.Listener<Bitmap>() {
+            @Override
+            public void onResponse(Bitmap response) {
+                callback.getBitmap(response);
+            }
+        }, 0, 0, Bitmap.Config.RGB_565, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
 

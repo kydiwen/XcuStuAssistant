@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -16,7 +17,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -41,6 +41,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 
+import xcu.stu.assistant.Constant.myConstant;
 import xcu.stu.assistant.Fragment.baseFragment;
 import xcu.stu.assistant.Fragment.controller.businessController;
 import xcu.stu.assistant.Fragment.controller.haveFunController;
@@ -49,6 +50,7 @@ import xcu.stu.assistant.Fragment.controller.stuClassController;
 import xcu.stu.assistant.R;
 import xcu.stu.assistant.application.MyApplication;
 import xcu.stu.assistant.custom.SystemBarTintManager;
+import xcu.stu.assistant.service.weatherUpdateService;
 import xcu.stu.assistant.utils.callback.jsonCallback;
 import xcu.stu.assistant.utils.requestUtil;
 import xcu.stu.assistant.widget.NoscrollViewpager;
@@ -170,6 +172,15 @@ public class MainActivity extends FragmentActivity {
                 }
                 //获取天气信息并显示
                 getWeatherInfo(bdLocation.getCity());
+                //将当前城市保存到本地文件
+                SharedPreferences preferences = getSharedPreferences(myConstant.SP_NAME, Context
+                        .MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString(myConstant.CURRENT_CITY, bdLocation.getCity());
+                editor.commit();
+                //开启服务，后台定时提示天气信息
+                Intent intent = new Intent(MainActivity.this, weatherUpdateService.class);
+                startService(intent);
             }
         });
         client.start();
@@ -186,7 +197,6 @@ public class MainActivity extends FragmentActivity {
                 @Override
                 public void getJson(JSONObject response) {
                     weather = response;
-                    Log.d("kydiwen", response.toString());
                     try {
                         showWeatherInfo(response);
                     } catch (JSONException e) {

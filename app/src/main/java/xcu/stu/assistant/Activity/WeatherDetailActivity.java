@@ -12,11 +12,6 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,7 +21,7 @@ import java.net.URLEncoder;
 import java.util.Date;
 
 import xcu.stu.assistant.R;
-import xcu.stu.assistant.application.MyApplication;
+import xcu.stu.assistant.utils.callback.BitmapCallback;
 import xcu.stu.assistant.utils.callback.jsonCallback;
 import xcu.stu.assistant.utils.requestUtil;
 
@@ -55,9 +50,10 @@ public class WeatherDetailActivity extends Activity {
     private TextView furtureday_three;//未来第三天
     private ImageView furtureday_three_img;//未来第三天天气图片
     private TextView furtureday_three_temp;//未来第三天天气温度
-    private String currentCity;//当前所在城市
+    private String currentCity = "";//当前所在城市
     private Context mContext;//全局可用的context对象
-    private  static  final  int CITY_REQUESTCODE=0;//城市选择请求码
+    private static final int CITY_REQUESTCODE = 0;//城市选择请求码
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,9 +119,7 @@ public class WeatherDetailActivity extends Activity {
         refresh_layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getWeatherInfo(currentCity);
-                //显示天气信息
-                showWeather(weatherData);
+                updateWeatherInfoShowed();
             }
         });
         //为城市选择按钮设置点击事件
@@ -133,10 +127,17 @@ public class WeatherDetailActivity extends Activity {
             @Override
             public void onClick(View v) {
                 //使用startactivityforresult方式进入城市选择界面，获取选择的城市信息
-                Intent intent =new Intent(mContext,CityListActivity.class);
-                startActivityForResult(intent,CITY_REQUESTCODE);
+                Intent intent = new Intent(mContext, CityListActivity.class);
+                startActivityForResult(intent, CITY_REQUESTCODE);
             }
         });
+    }
+
+    //更新天气信息
+    private void updateWeatherInfoShowed() {
+        getWeatherInfo(currentCity);
+        //显示天气信息
+        //showWeather(weatherData);
     }
 
     //刷新数据，重新获取天气信息
@@ -150,9 +151,10 @@ public class WeatherDetailActivity extends Activity {
                 public void getJson(JSONObject response) {
                     //为天气数据重新赋值
                     weatherData = response;
+                    //显示天气信息
+                    showWeather(weatherData);
                     //完成刷新，刷新状态停止
                     refresh_layout.setRefreshing(false);
-                    Toast.makeText(mContext, "刷新成功", Toast.LENGTH_SHORT).show();
                 }
             });
         } catch (Exception e) {
@@ -313,28 +315,23 @@ public class WeatherDetailActivity extends Activity {
 
     //从网络获取天气图片，并显示到imageview上
     private void loadImg(String url, final ImageView imageView) {
-        //创建iamgview的请求对象
-        ImageRequest request = new ImageRequest(url, new Response.Listener<Bitmap>() {
+        requestUtil.getBitmap(url, new BitmapCallback() {
             @Override
-            public void onResponse(Bitmap response) {
-                //显示图片
-                imageView.setImageBitmap(response);
-            }
-        }, 0, 0, Bitmap.Config.RGB_565, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
+            public void getBitmap(Bitmap bitmap) {
+                imageView.setImageBitmap(bitmap);
             }
         });
-        MyApplication.requestQueue.add(request);
     }
     //获取请求页面返回的数据
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==CITY_REQUESTCODE&&resultCode==RESULT_OK){
+        if (requestCode == CITY_REQUESTCODE && resultCode == RESULT_OK) {
             //获取返回idea城市信息，刷新天气数据
+            currentCity = data.getStringExtra(CityListActivity.RETURN_DATA);
+            updateWeatherInfoShowed();
+            refresh_layout.setRefreshing(true);
         }
     }
 }

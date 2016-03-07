@@ -5,9 +5,9 @@ package xcu.stu.assistant.bean;
  * Created by 孙文权 on 2016/3/5.
  */
 public class city {
-    private  String citynum;//城市编号
-    private  String cityname;//城市名称
-    private  String privincename;//所在省份名称
+    private String citynum;//城市编号
+    private String cityname;//城市名称
+    private String privincename;//所在省份名称
 
     public String getCitynum() {
         return citynum;
