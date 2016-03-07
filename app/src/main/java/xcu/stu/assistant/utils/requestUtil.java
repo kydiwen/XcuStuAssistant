@@ -4,10 +4,12 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONObject;
 
 import xcu.stu.assistant.application.MyApplication;
+import xcu.stu.assistant.utils.callback.StringCallback;
 import xcu.stu.assistant.utils.callback.jsonCallback;
 
 /**
@@ -31,6 +33,22 @@ public class requestUtil {
             }
         });
         //最后要将request对象添加到请求队列才能生效
+        MyApplication.requestQueue.add(request);
+    }
+
+    //获取String类型数据的方法
+    public static void getString(String url, final StringCallback callback) {
+        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                callback.StringListener(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
         MyApplication.requestQueue.add(request);
     }
 }

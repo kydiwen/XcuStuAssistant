@@ -5,5 +5,7 @@
     <!--百度地图天气请求链接-->
     <string name="bd_weather_url">http://api.map.baidu.com/telematics/v3/weather?location=</string>
     <!--mcode,sha1ma加上包名-->
-    <string name="bd_mcode">A2:28:AC:D2:88:F7:3B:63:FB:E3:FB:09:DD:34:57:88:E4:F0:26:DB;xcu.stu.assistant</string>
+    <string name="bd_mcode">64:8E:C2:29:F6:54:00:D5:69:74:12:99:62:E0:70:56:AB:CC:D2:37;xcu.stu.assistant</string>
+    <!--获取城市数据的连接-->
+    <string name="city_url">http://www.weather.com.cn/data/list3/city</string>
 </resources>
