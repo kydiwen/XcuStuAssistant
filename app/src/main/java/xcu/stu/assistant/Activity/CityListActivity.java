@@ -6,11 +6,9 @@ import android.os.Bundle;
 import xcu.stu.assistant.R;
 
 /**
- *
+ *2016年3月7日
  * 城市选择界面
- * 可显示全国城市三级菜单
- * 2016年3月5日
- *
+ * 实现微信联系人界面下效果
  *
  */
 public class CityListActivity extends Activity {

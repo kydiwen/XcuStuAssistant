@@ -8,5 +8,5 @@
 >>
 
 >>另外，在使用SwipeRefreshLayout时必须结合ScrollView。ListView以及GridView这样可滑动的组建才可具有下拉刷新，上拉加载的效果
-=======
->>>>>>> e49907303d8ee552ed2573a7b1809f633ac1f559
+#3月7日
+>>更新GuideActivity，实现全国城市信息的获取，并保存到本地数据库
