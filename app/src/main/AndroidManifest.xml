@@ -26,6 +26,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
     <uses-permission android:name="android.permission.WRITE_APN_SETTINGS"/>
+    <uses-permission android:name="android.permission.VIBRATE"></uses-permission>
 
     <application
         android:name=".application.MyApplication"
@@ -66,7 +67,11 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"/>
         <service android:name=".service.weatherUpdateService"></service>
-        <receiver android:name=".receiver.AlarmReceiver"></receiver>
+        <receiver android:name=".receiver.AlarmReceiver">
+            <intent-filter>
+                <action android:name="xcu.stu.weather.notification"></action>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
