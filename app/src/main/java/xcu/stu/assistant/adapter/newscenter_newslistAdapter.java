@@ -1,14 +1,18 @@
 package xcu.stu.assistant.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import xcu.stu.assistant.Activity.NewsMoreActivity;
+import xcu.stu.assistant.Constant.myConstant;
 import xcu.stu.assistant.R;
 import xcu.stu.assistant.bean.news;
 
@@ -54,6 +58,9 @@ public class newscenter_newslistAdapter extends BaseAdapter {
             //新闻类型
             TextView type = (TextView) view.findViewById(R.id.newscenter_newstype);
             type.setText(data.get(position).getNewsType());
+            ImageView imageView = (ImageView) view.findViewById(R.id.news_loadmore);
+            //为加载更多图片设置点击事件
+            initLoadMore(imageView, data.get(position));
         } else {
             newstype.setVisibility(View.GONE);
         }
@@ -80,5 +87,17 @@ public class newscenter_newslistAdapter extends BaseAdapter {
         }
 
         return -1;
+    }
+
+    //为显示更多设置点击事件
+    private void initLoadMore(ImageView imageView, final news newToload) {
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, NewsMoreActivity.class);
+                intent.putExtra(myConstant.NEWS_GIVE, newToload);
+                mContext.startActivity(intent);
+            }
+        });
     }
 }

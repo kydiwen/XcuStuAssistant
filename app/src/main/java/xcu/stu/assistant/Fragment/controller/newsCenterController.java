@@ -1,6 +1,7 @@
 package xcu.stu.assistant.Fragment.controller;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.os.Handler;
@@ -10,6 +11,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -22,10 +24,11 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import xcu.stu.assistant.Activity.NewsDetailActivity;
+import xcu.stu.assistant.Constant.myConstant;
 import xcu.stu.assistant.Fragment.baseFragment;
 import xcu.stu.assistant.R;
 import xcu.stu.assistant.adapter.newscenter_newslistAdapter;
-import xcu.stu.assistant.bean.imgNews;
 import xcu.stu.assistant.bean.news;
 import xcu.stu.assistant.utils.callback.BitmapCallback;
 import xcu.stu.assistant.utils.callback.HtmlCallback;
@@ -46,7 +49,7 @@ public class newsCenterController extends baseFragment {
     private View headView;//listview的头布局
     private CustomViewPager autorun_img;//轮播图
     private ProgressBar news_loading;//新闻正在加载进度条
-    private ArrayList<imgNews> imgNewses = new ArrayList<imgNews>();//图片新闻数据
+    private ArrayList<news> imgNewses = new ArrayList<news>();//图片新闻数据
     private autoAdapter adapter;
     private static final int UPDATE_NEWS = 0;//更新新闻信息
     private static final int IMG_RUN = 1;//设置图片轮播
@@ -102,7 +105,18 @@ public class newsCenterController extends baseFragment {
 
     @Override
     protected void initListener() {
-
+        //为listview设置点击事件
+        news_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //进入新闻详情页面
+                Intent intent = new Intent(mContext, NewsDetailActivity.class);
+                //传入新闻数据,由于添加了headerview，position减去1
+                news mNews = (news) newscenter_newslistAdapter.getItem(position - 1);
+                intent.putExtra(myConstant.NEWS_GIVE, mNews);
+                startActivity(intent);
+            }
+        });
     }
 
     //初始化头布局
@@ -115,11 +129,11 @@ public class newsCenterController extends baseFragment {
         autorun_img = (CustomViewPager) headView.findViewById(R.id.img_autorun);
         //为数据对象赋值
         for (int i = 0; i < element.getElementsByClass("c50987").size(); i++) {
-            imgNews news = new imgNews();
+            news news = new news();
             Element newsElement = element.getElementsByClass("c50987").get(i);
-            news.setNews_url(newsElement.select("a").attr("href"));
-            news.setNewstitle(newsElement.select("a").attr("title"));
-            news.setImg_url(mContext.getResources().getString(R.string.news_url) + newsElement.select
+            news.setNewsUrl(newsElement.select("a").attr("href"));
+            news.setNewsTitle(newsElement.select("a").attr("title"));
+            news.setImgUrl(mContext.getResources().getString(R.string.news_url) + newsElement.select
                     ("img").attr("src"));
             imgNewses.add(news);
         }
@@ -253,14 +267,17 @@ public class newsCenterController extends baseFragment {
             ImageView imageView = (ImageView) view.findViewById(R.id.imgsnews_img);
             TextView title = (TextView) view.findViewById(R.id.imgnews_title);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            loadImg(imgNewses.get(position).getImg_url(), imageView);
-            title.setText(imgNewses.get(position).getNewstitle());
+            loadImg(imgNewses.get(position).getImgUrl(), imageView);
+            title.setText(imgNewses.get(position).getNewsTitle());
             container.addView(view);
             //设置图片的点击事件
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //点击打开详情页面
+                    Intent intent = new Intent(mContext, NewsDetailActivity.class);
+                    intent.putExtra(myConstant.NEWS_GIVE, imgNewses.get(position));
+                    startActivity(intent);
                 }
             });
             return view;

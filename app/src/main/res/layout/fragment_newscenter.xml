@@ -8,7 +8,8 @@
     <xcu.stu.assistant.widget.customListview
         android:id="@+id/news_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
     </xcu.stu.assistant.widget.customListview>
 
     <ProgressBar

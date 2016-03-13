@@ -19,6 +19,7 @@
         android:textSize="@dimen/big"></TextView>
 
     <ImageView
+        android:id="@+id/news_loadmore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"

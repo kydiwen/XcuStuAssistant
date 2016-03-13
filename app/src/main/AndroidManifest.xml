@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    package="xcu.stu.assistant"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest package="xcu.stu.assistant"
+          xmlns:android="http://schemas.android.com/apk/res/android">
     //添加所需要的权限
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION">
     </uses-permission>
@@ -26,7 +25,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
     <uses-permission android:name="android.permission.WRITE_APN_SETTINGS"/>
-    <uses-permission android:name="android.permission.VIBRATE"></uses-permission>
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:name=".application.MyApplication"
@@ -61,17 +60,26 @@
         </activity>
         <activity android:name=".Activity.CityListActivity">
         </activity>
-        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <!--
+             ATTENTION: This was auto-generated to add Google Play services to your project for
+             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"/>
-        <service android:name=".service.weatherUpdateService"></service>
+
+        <service android:name=".service.weatherUpdateService"/>
+
         <receiver android:name=".receiver.AlarmReceiver">
             <intent-filter>
-                <action android:name="xcu.stu.weather.notification"></action>
+                <action android:name="xcu.stu.weather.notification"/>
             </intent-filter>
         </receiver>
+
+        <activity android:name=".Activity.NewsDetailActivity">
+        </activity>
+        <activity android:name=".Activity.NewsMoreActivity">
+        </activity>
     </application>
 
 </manifest>

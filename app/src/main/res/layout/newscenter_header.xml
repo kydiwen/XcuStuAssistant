@@ -6,6 +6,7 @@
 
     <xcu.stu.assistant.widget.CustomViewPager
         android:id="@+id/img_autorun"
+        android:overScrollMode="never"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></xcu.stu.assistant.widget.CustomViewPager>
 </LinearLayout>
