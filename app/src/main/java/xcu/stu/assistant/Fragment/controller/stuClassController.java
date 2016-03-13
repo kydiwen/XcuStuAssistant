@@ -1,9 +1,9 @@
 package xcu.stu.assistant.Fragment.controller;
 
 import android.view.View;
-import android.widget.TextView;
 
 import xcu.stu.assistant.Fragment.baseFragment;
+import xcu.stu.assistant.R;
 
 /**
  * 创建点到助手的控制器
@@ -13,10 +13,8 @@ import xcu.stu.assistant.Fragment.baseFragment;
 public class stuClassController extends baseFragment {
     @Override
     protected View initView() {
-        TextView tv = new TextView(mContext);
-        tv.setTextSize(25);
-        tv.setText("点到助手");
-        return tv;
+        View view = View.inflate(mContext, R.layout.fragment_stu_class, null);
+        return view;
     }
 
     @Override

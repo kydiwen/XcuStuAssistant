@@ -11,12 +11,12 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -53,7 +53,6 @@ import xcu.stu.assistant.custom.SystemBarTintManager;
 import xcu.stu.assistant.service.weatherUpdateService;
 import xcu.stu.assistant.utils.callback.jsonCallback;
 import xcu.stu.assistant.utils.requestUtil;
-import xcu.stu.assistant.widget.NoscrollViewpager;
 
 /**
  * 程序主界面
@@ -63,10 +62,15 @@ import xcu.stu.assistant.widget.NoscrollViewpager;
  * 底部使用viewpager与radiogroup结合fragment实现模块切换
  * 2016年3月1日
  * 孙文权
+ * 2016年3月13日
+ * 修改碎片的添加方式，使用add方式，代替replace
+ * 解决了数据重复加载的问题
+ * 通过碎片的显示与隐藏实现界面切换
  */
 public class MainActivity extends FragmentActivity {
-    private NoscrollViewpager main_viewpager;//主页面存放控制器的viewpager
     private ArrayList<baseFragment> mainPages;//存放不同的控制器的集合
+    private FragmentManager manager;
+    private android.support.v4.app.FragmentTransaction transaction;//使用事务控制碎片的显示与隐藏
     private RadioGroup main_rg;//底部控制栏
     private TextView main_controller_text;//顶部指示当前模块的textview
     private ImageView main_weather_img;//显示天气信息的图片
@@ -109,7 +113,6 @@ public class MainActivity extends FragmentActivity {
     private void loadNormalPage() {
         setTopColorSameToApp();
         setContentView(R.layout.activity_main);
-        main_viewpager = (NoscrollViewpager) findViewById(R.id.main_viewpager);
         main_rg = (RadioGroup) findViewById(R.id.main_rg);
         main_controller_text = (TextView) findViewById(R.id.main_controller_text);
         main_weather_img = (ImageView) findViewById(R.id.main_weather_img);
@@ -134,20 +137,37 @@ public class MainActivity extends FragmentActivity {
 
     //初始化数据
     private void initData() {
+        manager = getSupportFragmentManager();
         //初始化控制器集合的数据
         mainPages = new ArrayList<baseFragment>();
         mainPages.add(new newsCenterController());
         mainPages.add(new stuClassController());
         mainPages.add(new businessController());
         mainPages.add(new haveFunController());
-        //创建viewpager的适配器
-        myPagerAdapter adapter = new myPagerAdapter(getSupportFragmentManager());
-        main_viewpager.setAdapter(adapter);
+        //使用add的方式添加碎片
+        transaction = manager.beginTransaction();
+        for (baseFragment base : mainPages) {
+            transaction.add(R.id.fragment_container, base);
+        }
         //默认选中第一项,并选中底部控制栏第一项
         main_rg.check(R.id.main_news_rb);
-        main_viewpager.setCurrentItem(0);
+        transaction.show(mainPages.get(0));
+        setFragmentToShow(0, transaction);
         //显示天气信息
         initWeatherInfo();
+    }
+
+    //设置需要显示的fragment
+    private void setFragmentToShow(int position, FragmentTransaction Mytransaction) {
+        for (int i = 0; i < mainPages.size(); i++) {
+            if (i == position) {
+                Mytransaction.show(mainPages.get(position));
+
+            } else {
+                Mytransaction.hide(mainPages.get(i));
+            }
+        }
+        Mytransaction.commit();
     }
 
     //初始化天气信息
@@ -199,6 +219,7 @@ public class MainActivity extends FragmentActivity {
                     weather = response;
                     try {
                         showWeatherInfo(response);
+                        Log.d("kydiwen", response.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -254,6 +275,7 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 int currentId = 0;
+                transaction = manager.beginTransaction();
                 switch (checkedId) {
                     case R.id.main_news_rb:
                         currentId = 0;
@@ -272,7 +294,7 @@ public class MainActivity extends FragmentActivity {
                         main_controller_text.setText("糗事百科");
                         break;
                 }
-                main_viewpager.setCurrentItem(currentId);
+                setFragmentToShow(currentId, transaction);
             }
         });
         //为顶部天气显示区域设置点击事件
@@ -299,24 +321,6 @@ public class MainActivity extends FragmentActivity {
                 }
             }
         });
-    }
-
-    //创建viewpager的适配器
-    private class myPagerAdapter extends FragmentPagerAdapter {
-
-        public myPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mainPages.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mainPages.size();
-        }
     }
 
     //设置状态栏颜色与app一直

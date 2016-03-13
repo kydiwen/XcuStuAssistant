@@ -16,4 +16,6 @@
     <color name="splash_top">#96C4EB</color>
     <!--网络加载错误页面字体颜色 -->
     <color name="error_color">#D8BFD8</color>
+    <!--新闻中心新闻导航背景-->
+    <color name="news_more_bg">#ECECEC</color>
 </resources>

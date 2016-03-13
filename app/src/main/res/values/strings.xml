@@ -8,4 +8,6 @@
     <string name="bd_mcode">64:8E:C2:29:F6:54:00:D5:69:74:12:99:62:E0:70:56:AB:CC:D2:37;xcu.stu.assistant</string>
     <!--获取城市数据的连接-->
     <string name="city_url">http://www.weather.com.cn/data/list3/city</string>
+    <!-- 新闻数据获取连接-->
+    <string name="news_url">http://www.xcu.edu.cn/</string>
 </resources>

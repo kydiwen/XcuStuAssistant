@@ -63,11 +63,11 @@
         </LinearLayout>
     </RelativeLayout>
     <!--主界面内容显示部分-->
-    <xcu.stu.assistant.widget.NoscrollViewpager
-        android:id="@+id/main_viewpager"
+    <FrameLayout
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"></xcu.stu.assistant.widget.NoscrollViewpager>
+        android:layout_weight="1"></FrameLayout>
     <!--底部导航栏，用来在不同模块进行切换-->
     <RadioGroup
         android:id="@+id/main_rg"

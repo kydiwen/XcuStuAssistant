@@ -1,7 +1,6 @@
 package xcu.stu.assistant.Activity;
 
 import android.app.Activity;
-import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--新闻中心页面布局顶部轮播的viewpager和三个listview，可点击查看更多-->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!--添加了头布局的listview-->
+    <xcu.stu.assistant.widget.customListview
+        android:id="@+id/news_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </xcu.stu.assistant.widget.customListview>
+
+    <ProgressBar
+        android:id="@+id/news_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"></ProgressBar>
+</RelativeLayout>

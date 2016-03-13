@@ -19,8 +19,15 @@ public class NoscrollViewpager extends ViewPager {
     }
 
     //拦截滑动事件，设置viewpager为不可滑动
+    //不消费touch事件
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
+        return false;
+    }
+
+    //不消费事件，留给子控件处理
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
         return false;
     }
 }

@@ -57,10 +57,12 @@ public class AlarmReceiver extends BroadcastReceiver {
                                 .setSmallIcon(R.drawable.xculogo)
                                 .setAutoCancel(true)
                                 .setContentTitle(response.getJSONArray("results").getJSONObject
-                                        (0).getJSONArray("weather_data").getJSONObject(0)
-                                        .getString("weather")).setContentText(response
-                                        .getJSONArray("results")
-                                        .getJSONObject(0).getString("currentCity"));
+                                        (0).getJSONArray("weather_data").getJSONObject(0).getString
+                                        ("weather") +"   "+ response.getJSONArray("results").getJSONObject
+                                        (0).getJSONArray("weather_data").getJSONObject(0).getString
+                                        ("temperature"))
+                                .setContentText(response
+                                        .getJSONArray("results").getJSONObject(0).getString("currentCity"));
                         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context
                                 .getApplicationContext());
                         stackBuilder.addParentStack(WeatherDetailActivity.class);

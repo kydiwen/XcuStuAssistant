@@ -10,9 +10,15 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import java.io.IOException;
+import java.net.URL;
 
 import xcu.stu.assistant.application.MyApplication;
 import xcu.stu.assistant.utils.callback.BitmapCallback;
+import xcu.stu.assistant.utils.callback.HtmlCallback;
 import xcu.stu.assistant.utils.callback.StringCallback;
 import xcu.stu.assistant.utils.callback.jsonCallback;
 
@@ -70,5 +76,22 @@ public class requestUtil {
             }
         });
         MyApplication.requestQueue.add(request);
+    }
+
+    //获取html数据
+    public static  void requestHtmlData(final String mUrl, final HtmlCallback callback) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    //避免乱码问题的出现
+                    Document document = Jsoup.parse(new URL(mUrl).openStream(), "utf-8", mUrl);
+                    //回调结果
+                    callback.getHtml(document);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 }
