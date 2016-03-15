@@ -3,11 +3,14 @@ package xcu.stu.assistant.Activity;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -17,6 +20,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.viewpagerindicator.TitlePageIndicator;
 
@@ -51,6 +55,7 @@ public class NewsMoreActivity extends Activity {
     private ArrayList<news> currentNewsData = new ArrayList<news>();//当前页面新闻列表
     private String currentLoadUrl;//当前上拉加载链接
     private static final int LOADNEWS = 1;//显示新闻数据
+    private boolean existNextPage = true;//判断是否存在下一页
     //用来处理更新ui操作的消息
     private Handler handler = new Handler() {
         @Override
@@ -67,16 +72,34 @@ public class NewsMoreActivity extends Activity {
                     //初始化新闻列表
                     //新闻列表数据
                     Element newsElement = newsDocument.getElementsByClass("news-list").get(1);
+                    //获取是上拉加载链接
+                    currentLoadUrl = mContext.getResources().getString(R.string.single_news) + "/list.jsp"
+                            + newsDocument.getElementsByClass("Next").select("a").attr("href");
+                    if (currentLoadUrl.length() > 40) {
+                        existNextPage = true;
+                    } else {
+                        existNextPage = false;
+                    }
                     initNewslistData(newsElement);
                     break;
             }
         }
     };
-    private ListView news_list;
-    private NewsMoreActivity.newsAdapter newsAdapter = new NewsMoreActivity.newsAdapter();
+    private ListView news_list;//新闻列表控件
+    private NewsMoreActivity.newsAdapter newsAdapter;//新闻列表适配器
+    private upToLoadLayout refresh;//刷新组件
+    private boolean upToloadState = false;//判断是否是上拉加载动作
+
 
     //初始化新闻列表数据
     private void initNewslistData(Element element) {
+        if (upToloadState) {
+            //加载完成，取消加载状态
+            upToloadState = false;
+            refresh.setLoading(false);
+        } else {
+            currentNewsData.clear();
+        }
         Elements newslist = element.select("li");
         for (Element e : newslist) {
             news mNews = new news();
@@ -87,6 +110,8 @@ public class NewsMoreActivity extends Activity {
             currentNewsData.add(mNews);
             newsAdapter.notifyDataSetChanged();
         }
+        //停止刷新
+        refresh.setRefreshing(false);
     }
 
     //初始化viewpager的数据
@@ -257,8 +282,11 @@ public class NewsMoreActivity extends Activity {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             View view = View.inflate(mContext, R.layout.newsmore_item, null);
-            final upToLoadLayout refresh = (upToLoadLayout) view.findViewById(R.id.refresh);
+            refresh = (upToLoadLayout) view.findViewById(R.id.refresh);
+            //进刷新组件设置为正在刷新的状态，加载完成后停止刷新状态
+            refresh.setRefreshing(true);
             news_list = (ListView) view.findViewById(R.id.news_list);
+            newsAdapter = new newsAdapter();
             //设置适配器
             news_list.setAdapter(newsAdapter);
             String url = indicators.get(position).getUrl();//获取新闻请求链接
@@ -271,7 +299,7 @@ public class NewsMoreActivity extends Activity {
                     handler.sendMessage(message);
                 }
             });
-            initIndicatorListener(refresh, news_list, currentNewsData);
+            initIndicatorListener(refresh, news_list);
             container.addView(view);
             return view;
         }
@@ -319,20 +347,52 @@ public class NewsMoreActivity extends Activity {
     }
 
     //初始化每个新闻类型页面监听事件
-    private void initIndicatorListener(upToLoadLayout refresh, ListView listView, ArrayList<news>
-            currentNewsData) {
-        //为上拉加载组件设置监听事件
+    private void initIndicatorListener(final upToLoadLayout refresh, ListView listView) {
+        //为刷新组件设置上拉加载监听事件
         refresh.setOnLoadListener(new upToLoadLayout.OnLoadListener() {
             @Override
             public void onLoad() {
-
+                //判断是否存在下一页
+                if (existNextPage) {
+                    //设置为上拉加载状态
+                    upToloadState = true;
+                    refresh.setLoading(true);
+                    //请求下一页新闻数据
+                    requestUtil.requestHtmlData(currentLoadUrl, new HtmlCallback() {
+                        @Override
+                        public void getHtml(Document response) {
+                            Message message = new Message();
+                            message.what = LOADNEWS;
+                            message.obj = response;
+                            handler.sendMessage(message);
+                        }
+                    });
+                } else {
+                    refresh.setLoading(false);
+                    Toast toast = Toast.makeText(mContext, "无更多信息", Toast.LENGTH_SHORT);
+                    //设置土司显示的位置
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                }
+            }
+        });
+        //为刷新组件设置下拉刷新监听事件
+        refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //由于一般并无数据刷新，设置为假刷新状态
+                //停止刷新状态
+                refresh.setRefreshing(false);
             }
         });
         //为listview设置点击事件
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                //打开单条新闻详细页面
+                Intent intent = new Intent(mContext, NewsDetailActivity.class);
+                intent.putExtra(myConstant.NEWS_GIVE, currentNewsData.get(position));
+                startActivity(intent);
             }
         });
     }
