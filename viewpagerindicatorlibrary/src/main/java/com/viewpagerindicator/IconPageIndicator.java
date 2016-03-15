@@ -18,13 +18,13 @@ package com.viewpagerindicator;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+
+import xcu.stu.assistant.widget.LazyViewPager;
 
 import static android.view.ViewGroup.LayoutParams.FILL_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -36,8 +36,8 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 public class IconPageIndicator extends HorizontalScrollView implements PageIndicator {
     private final IcsLinearLayout mIconsLayout;
 
-    private ViewPager mViewPager;
-    private OnPageChangeListener mListener;
+    private LazyViewPager mViewPager;
+    private LazyViewPager.OnPageChangeListener mListener;
     private Runnable mIconSelector;
     private int mSelectedIndex;
 
@@ -108,7 +108,7 @@ public class IconPageIndicator extends HorizontalScrollView implements PageIndic
     }
 
     @Override
-    public void setViewPager(ViewPager view) {
+    public void setViewPager(LazyViewPager view) {
         if (mViewPager == view) {
             return;
         }
@@ -141,7 +141,7 @@ public class IconPageIndicator extends HorizontalScrollView implements PageIndic
     }
 
     @Override
-    public void setViewPager(ViewPager view, int initialPosition) {
+    public void setViewPager(LazyViewPager view, int initialPosition) {
         setViewPager(view);
         setCurrentItem(initialPosition);
     }
@@ -166,7 +166,7 @@ public class IconPageIndicator extends HorizontalScrollView implements PageIndic
     }
 
     @Override
-    public void setOnPageChangeListener(OnPageChangeListener listener) {
+    public void setOnPageChangeListener(LazyViewPager.OnPageChangeListener listener) {
         mListener = listener;
     }
 }

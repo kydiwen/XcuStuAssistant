@@ -16,7 +16,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -219,7 +218,6 @@ public class MainActivity extends FragmentActivity {
                     weather = response;
                     try {
                         showWeatherInfo(response);
-                        Log.d("kydiwen", response.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

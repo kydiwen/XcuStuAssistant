@@ -224,7 +224,7 @@ public class newsCenterController extends baseFragment {
                 news mNews = new news();
                 mNews.setNewsType(CurrentNewsType);
                 mNews.setNewsTime("2016-" + e.select("span").text().trim());
-                mNews.setNewsUrl(mContext.getResources().getString(R.string.news_url) + e.select("a").attr
+                mNews.setNewsUrl(mContext.getResources().getString(R.string.single_news) + e.select("a").attr
                         ("href"));
                 mNews.setNewsTitle(e.select("a").attr("title").trim());
                 //判断是否是最新消息

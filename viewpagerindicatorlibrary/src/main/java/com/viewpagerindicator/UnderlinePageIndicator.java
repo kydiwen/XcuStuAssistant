@@ -31,6 +31,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 
+import xcu.stu.assistant.widget.LazyViewPager;
+
 /**
  * Draws a line for each page. The current page line is colored differently
  * than the unselected page lines.
@@ -46,8 +48,8 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
     private int mFadeLength;
     private int mFadeBy;
 
-    private ViewPager mViewPager;
-    private ViewPager.OnPageChangeListener mListener;
+    private LazyViewPager mViewPager;
+    private LazyViewPager.OnPageChangeListener mListener;
     private int mScrollState;
     private int mCurrentPage;
     private float mPositionOffset;
@@ -58,16 +60,17 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
     private boolean mIsDragging;
 
     private final Runnable mFadeRunnable = new Runnable() {
-      @Override public void run() {
-        if (!mFades) return;
+        @Override
+        public void run() {
+            if (!mFades) return;
 
-        final int alpha = Math.max(mPaint.getAlpha() - mFadeBy, 0);
-        mPaint.setAlpha(alpha);
-        invalidate();
-        if (alpha > 0) {
-          postDelayed(this, FADE_FRAME_MS);
+            final int alpha = Math.max(mPaint.getAlpha() - mFadeBy, 0);
+            mPaint.setAlpha(alpha);
+            invalidate();
+            if (alpha > 0) {
+                postDelayed(this, FADE_FRAME_MS);
+            }
         }
-      }
     };
 
     public UnderlinePageIndicator(Context context) {
@@ -100,7 +103,7 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
 
         Drawable background = a.getDrawable(R.styleable.UnderlinePageIndicator_android_background);
         if (background != null) {
-          setBackgroundDrawable(background);
+            setBackgroundDrawable(background);
         }
 
         a.recycle();
@@ -254,7 +257,8 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
                     final int newPointerIndex = pointerIndex == 0 ? 1 : 0;
                     mActivePointerId = MotionEventCompat.getPointerId(ev, newPointerIndex);
                 }
-                mLastMotionX = MotionEventCompat.getX(ev, MotionEventCompat.findPointerIndex(ev, mActivePointerId));
+                mLastMotionX = MotionEventCompat.getX(ev, MotionEventCompat.findPointerIndex(ev,
+                        mActivePointerId));
                 break;
         }
 
@@ -262,7 +266,7 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
     }
 
     @Override
-    public void setViewPager(ViewPager viewPager) {
+    public void setViewPager(LazyViewPager viewPager) {
         if (mViewPager == viewPager) {
             return;
         }
@@ -277,7 +281,8 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
         mViewPager.setOnPageChangeListener(this);
         invalidate();
         post(new Runnable() {
-            @Override public void run() {
+            @Override
+            public void run() {
                 if (mFades) {
                     post(mFadeRunnable);
                 }
@@ -286,7 +291,7 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
     }
 
     @Override
-    public void setViewPager(ViewPager view, int initialPosition) {
+    public void setViewPager(LazyViewPager view, int initialPosition) {
         setViewPager(view);
         setCurrentItem(initialPosition);
     }
@@ -348,13 +353,13 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
     }
 
     @Override
-    public void setOnPageChangeListener(ViewPager.OnPageChangeListener listener) {
+    public void setOnPageChangeListener(LazyViewPager.OnPageChangeListener listener) {
         mListener = listener;
     }
 
     @Override
     public void onRestoreInstanceState(Parcelable state) {
-        SavedState savedState = (SavedState)state;
+        SavedState savedState = (SavedState) state;
         super.onRestoreInstanceState(savedState.getSuperState());
         mCurrentPage = savedState.currentPage;
         requestLayout();

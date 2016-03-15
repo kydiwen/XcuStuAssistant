@@ -10,4 +10,6 @@
     <string name="city_url">http://www.weather.com.cn/data/list3/city</string>
     <!-- 新闻数据获取连接-->
     <string name="news_url">http://www.xcu.edu.cn/</string>
+    <!--单条新闻数据-->
+    <string name="single_news">http://news.xcu.edu.cn</string>
 </resources>

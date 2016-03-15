@@ -25,12 +25,12 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewConfigurationCompat;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.FloatMath;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
+
+import xcu.stu.assistant.widget.LazyViewPager;
 
 /**
  * Draws a line for each page. The current page line is colored differently
@@ -41,8 +41,8 @@ public class LinePageIndicator extends View implements PageIndicator {
 
     private final Paint mPaintUnselected = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint mPaintSelected = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private ViewPager mViewPager;
-    private ViewPager.OnPageChangeListener mListener;
+    private LazyViewPager mViewPager;
+    private LazyViewPager.OnPageChangeListener mListener;
     private int mCurrentPage;
     private boolean mCentered;
     private float mLineWidth;
@@ -278,7 +278,7 @@ public class LinePageIndicator extends View implements PageIndicator {
     }
 
     @Override
-    public void setViewPager(ViewPager viewPager) {
+    public void setViewPager(LazyViewPager viewPager) {
         if (mViewPager == viewPager) {
             return;
         }
@@ -295,7 +295,7 @@ public class LinePageIndicator extends View implements PageIndicator {
     }
 
     @Override
-    public void setViewPager(ViewPager view, int initialPosition) {
+    public void setViewPager(LazyViewPager view, int initialPosition) {
         setViewPager(view);
         setCurrentItem(initialPosition);
     }
@@ -340,7 +340,7 @@ public class LinePageIndicator extends View implements PageIndicator {
     }
 
     @Override
-    public void setOnPageChangeListener(ViewPager.OnPageChangeListener listener) {
+    public void setOnPageChangeListener(LazyViewPager.OnPageChangeListener listener) {
         mListener = listener;
     }
 
@@ -372,7 +372,7 @@ public class LinePageIndicator extends View implements PageIndicator {
                 result = Math.min(result, specSize);
             }
         }
-        return (int)Math.ceil(result);
+        return (int) Math.ceil(result);
     }
 
     /**
@@ -397,7 +397,7 @@ public class LinePageIndicator extends View implements PageIndicator {
                 result = Math.min(result, specSize);
             }
         }
-        return (int)Math.ceil(result);
+        return (int) Math.ceil(result);
     }
 
     @Override

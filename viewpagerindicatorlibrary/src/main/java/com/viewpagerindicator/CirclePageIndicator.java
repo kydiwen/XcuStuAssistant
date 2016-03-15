@@ -33,6 +33,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 
+import xcu.stu.assistant.widget.LazyViewPager;
+
 import static android.graphics.Paint.ANTI_ALIAS_FLAG;
 import static android.widget.LinearLayout.HORIZONTAL;
 import static android.widget.LinearLayout.VERTICAL;
@@ -48,8 +50,8 @@ public class CirclePageIndicator extends View implements PageIndicator {
     private final Paint mPaintPageFill = new Paint(ANTI_ALIAS_FLAG);
     private final Paint mPaintStroke = new Paint(ANTI_ALIAS_FLAG);
     private final Paint mPaintFill = new Paint(ANTI_ALIAS_FLAG);
-    private ViewPager mViewPager;
-    private ViewPager.OnPageChangeListener mListener;
+    private LazyViewPager mViewPager;
+    private LazyViewPager.OnPageChangeListener mListener;
     private int mCurrentPage;
     private int mSnapPage;
     private float mPageOffset;
@@ -96,7 +98,8 @@ public class CirclePageIndicator extends View implements PageIndicator {
         mPaintPageFill.setColor(a.getColor(R.styleable.CirclePageIndicator_pageColor, defaultPageColor));
         mPaintStroke.setStyle(Style.STROKE);
         mPaintStroke.setColor(a.getColor(R.styleable.CirclePageIndicator_strokeColor, defaultStrokeColor));
-        mPaintStroke.setStrokeWidth(a.getDimension(R.styleable.CirclePageIndicator_strokeWidth, defaultStrokeWidth));
+        mPaintStroke.setStrokeWidth(a.getDimension(R.styleable.CirclePageIndicator_strokeWidth,
+                defaultStrokeWidth));
         mPaintFill.setStyle(Style.FILL);
         mPaintFill.setColor(a.getColor(R.styleable.CirclePageIndicator_fillColor, defaultFillColor));
         mRadius = a.getDimension(R.styleable.CirclePageIndicator_radius, defaultRadius);
@@ -104,7 +107,7 @@ public class CirclePageIndicator extends View implements PageIndicator {
 
         Drawable background = a.getDrawable(R.styleable.CirclePageIndicator_android_background);
         if (background != null) {
-          setBackgroundDrawable(background);
+            setBackgroundDrawable(background);
         }
 
         a.recycle();
@@ -231,7 +234,8 @@ public class CirclePageIndicator extends View implements PageIndicator {
         final float shortOffset = shortPaddingBefore + mRadius;
         float longOffset = longPaddingBefore + mRadius;
         if (mCentered) {
-            longOffset += ((longSize - longPaddingBefore - longPaddingAfter) / 2.0f) - ((count * threeRadius) / 2.0f);
+            longOffset += ((longSize - longPaddingBefore - longPaddingAfter) / 2.0f) - ((count *
+                    threeRadius) / 2.0f);
         }
 
         float dX;
@@ -354,7 +358,8 @@ public class CirclePageIndicator extends View implements PageIndicator {
                     final int newPointerIndex = pointerIndex == 0 ? 1 : 0;
                     mActivePointerId = MotionEventCompat.getPointerId(ev, newPointerIndex);
                 }
-                mLastMotionX = MotionEventCompat.getX(ev, MotionEventCompat.findPointerIndex(ev, mActivePointerId));
+                mLastMotionX = MotionEventCompat.getX(ev, MotionEventCompat.findPointerIndex(ev,
+                        mActivePointerId));
                 break;
         }
 
@@ -362,7 +367,7 @@ public class CirclePageIndicator extends View implements PageIndicator {
     }
 
     @Override
-    public void setViewPager(ViewPager view) {
+    public void setViewPager(LazyViewPager view) {
         if (mViewPager == view) {
             return;
         }
@@ -378,7 +383,7 @@ public class CirclePageIndicator extends View implements PageIndicator {
     }
 
     @Override
-    public void setViewPager(ViewPager view, int initialPosition) {
+    public void setViewPager(LazyViewPager view, int initialPosition) {
         setViewPager(view);
         setCurrentItem(initialPosition);
     }
@@ -432,7 +437,7 @@ public class CirclePageIndicator extends View implements PageIndicator {
     }
 
     @Override
-    public void setOnPageChangeListener(ViewPager.OnPageChangeListener listener) {
+    public void setOnPageChangeListener(LazyViewPager.OnPageChangeListener listener) {
         mListener = listener;
     }
 
@@ -453,8 +458,7 @@ public class CirclePageIndicator extends View implements PageIndicator {
     /**
      * Determines the width of this view
      *
-     * @param measureSpec
-     *            A measureSpec packed into an int
+     * @param measureSpec A measureSpec packed into an int
      * @return The width of the view, honoring constraints from measureSpec
      */
     private int measureLong(int measureSpec) {
@@ -468,7 +472,7 @@ public class CirclePageIndicator extends View implements PageIndicator {
         } else {
             //Calculate the width according the views count
             final int count = mViewPager.getAdapter().getCount();
-            result = (int)(getPaddingLeft() + getPaddingRight()
+            result = (int) (getPaddingLeft() + getPaddingRight()
                     + (count * 2 * mRadius) + (count - 1) * mRadius + 1);
             //Respect AT_MOST value if that was what is called for by measureSpec
             if (specMode == MeasureSpec.AT_MOST) {
@@ -481,8 +485,7 @@ public class CirclePageIndicator extends View implements PageIndicator {
     /**
      * Determines the height of this view
      *
-     * @param measureSpec
-     *            A measureSpec packed into an int
+     * @param measureSpec A measureSpec packed into an int
      * @return The height of the view, honoring constraints from measureSpec
      */
     private int measureShort(int measureSpec) {
@@ -495,7 +498,7 @@ public class CirclePageIndicator extends View implements PageIndicator {
             result = specSize;
         } else {
             //Measure the height
-            result = (int)(2 * mRadius + getPaddingTop() + getPaddingBottom() + 1);
+            result = (int) (2 * mRadius + getPaddingTop() + getPaddingBottom() + 1);
             //Respect AT_MOST value if that was what is called for by measureSpec
             if (specMode == MeasureSpec.AT_MOST) {
                 result = Math.min(result, specSize);
@@ -506,7 +509,7 @@ public class CirclePageIndicator extends View implements PageIndicator {
 
     @Override
     public void onRestoreInstanceState(Parcelable state) {
-        SavedState savedState = (SavedState)state;
+        SavedState savedState = (SavedState) state;
         super.onRestoreInstanceState(savedState.getSuperState());
         mCurrentPage = savedState.currentPage;
         mSnapPage = savedState.currentPage;

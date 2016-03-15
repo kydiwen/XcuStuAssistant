@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="xcu.stu.assistant"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest
+    package="xcu.stu.assistant"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     //添加所需要的权限
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION">
     </uses-permission>
@@ -78,7 +79,8 @@
 
         <activity android:name=".Activity.NewsDetailActivity">
         </activity>
-        <activity android:name=".Activity.NewsMoreActivity">
+        <activity
+            android:name=".Activity.NewsMoreActivity">
         </activity>
     </application>
 
