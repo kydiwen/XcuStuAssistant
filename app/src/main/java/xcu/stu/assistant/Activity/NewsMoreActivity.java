@@ -10,7 +10,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -20,7 +19,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.viewpagerindicator.TitlePageIndicator;
 
@@ -36,6 +34,8 @@ import xcu.stu.assistant.bean.indicator;
 import xcu.stu.assistant.bean.news;
 import xcu.stu.assistant.custom.SystemBarTintManager;
 import xcu.stu.assistant.utils.callback.HtmlCallback;
+import xcu.stu.assistant.utils.callback.toastUtil;
+import xcu.stu.assistant.utils.progressdialogUtil;
 import xcu.stu.assistant.utils.requestUtil;
 import xcu.stu.assistant.widget.LazyViewPager;
 import xcu.stu.assistant.widget.upToLoadLayout;
@@ -55,6 +55,7 @@ public class NewsMoreActivity extends Activity {
     private ArrayList<news> currentNewsData = new ArrayList<news>();//当前页面新闻列表
     private String currentLoadUrl;//当前上拉加载链接
     private static final int LOADNEWS = 1;//显示新闻数据
+    private static final int NEWSNULL = 2;//没有新闻数据
     private boolean existNextPage = true;//判断是否存在下一页
     //用来处理更新ui操作的消息
     private Handler handler = new Handler() {
@@ -82,7 +83,14 @@ public class NewsMoreActivity extends Activity {
                     }
                     initNewslistData(newsElement);
                     break;
+                case NEWSNULL:
+                    currentNewsData.clear();
+                    newsAdapter.notifyDataSetChanged();
+                    toastUtil.show(mContext, "暂无数据");
+                    break;
             }
+            //隐藏进度条
+            progressdialogUtil.cancelDialog();
         }
     };
     private ListView news_list;//新闻列表控件
@@ -145,6 +153,8 @@ public class NewsMoreActivity extends Activity {
     //初始化布局
     private void initView() {
         mContext = NewsMoreActivity.this;
+        //显示进度条
+        progressdialogUtil.showDialog(mContext);
         setTopColorSameToApp();
         setContentView(R.layout.activity_news_more);
         back = (ImageView) findViewById(R.id.back);
@@ -293,10 +303,16 @@ public class NewsMoreActivity extends Activity {
             requestUtil.requestHtmlData(url, new HtmlCallback() {
                 @Override
                 public void getHtml(Document response) {
-                    Message message = new Message();
-                    message.what = LOADNEWS;
-                    message.obj = response;
-                    handler.sendMessage(message);
+                    if (response.getElementsByClass("news-list").select("li").size() == 1) {
+                        Message message = new Message();
+                        message.what = NEWSNULL;
+                        handler.sendMessage(message);
+                    } else {
+                        Message message = new Message();
+                        message.what = LOADNEWS;
+                        message.obj = response;
+                        handler.sendMessage(message);
+                    }
                 }
             });
             initIndicatorListener(refresh, news_list);
@@ -369,10 +385,7 @@ public class NewsMoreActivity extends Activity {
                     });
                 } else {
                     refresh.setLoading(false);
-                    Toast toast = Toast.makeText(mContext, "无更多信息", Toast.LENGTH_SHORT);
-                    //设置土司显示的位置
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
+                    toastUtil.show(mContext, "无更多信息");
                 }
             }
         });

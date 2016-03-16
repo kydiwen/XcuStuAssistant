@@ -1,12 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="新闻详情页面"
-        android:textSize="25sp"></TextView>
-</RelativeLayout>
+        android:background="@color/main_color"
+        android:orientation="horizontal">
+        <!-- 顶部回退按钮-->
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/back"></ImageView>
+    </LinearLayout>
+    <!--取消scrollview的阴影效果-->
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:id="@+id/news_content_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
+            <!-- 新闻标题显示-->
+            <TextView
+                android:id="@+id/news_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/big"></TextView>
+            <!--新闻来源和发布时间-->
+            <TextView
+                android:id="@+id/newsfrom_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:textColor="@color/error_color"
+                android:textSize="@dimen/medium"></TextView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/error_color"></View>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

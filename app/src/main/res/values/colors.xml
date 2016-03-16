@@ -6,7 +6,7 @@
     <color name="guide_button_normal">#FFFAF3</color>
     <color name="guide_button_click">#90E0CE</color>
     //应用主色调
-    <color name="main_color">#209585</color>
+    <color name="main_color">#449296</color>
     //选中时的颜色
     <color name="main_checked">#EB0200</color>
     //未选中时的颜色

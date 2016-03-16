@@ -23,6 +23,7 @@ import java.util.Date;
 import xcu.stu.assistant.R;
 import xcu.stu.assistant.utils.callback.BitmapCallback;
 import xcu.stu.assistant.utils.callback.jsonCallback;
+import xcu.stu.assistant.utils.progressdialogUtil;
 import xcu.stu.assistant.utils.requestUtil;
 
 public class WeatherDetailActivity extends Activity {
@@ -65,6 +66,8 @@ public class WeatherDetailActivity extends Activity {
     //初始化视图界面
     private void initView() {
         mContext = WeatherDetailActivity.this;
+        //显示正在加载进度条
+        progressdialogUtil.showDialog(mContext);
         //隐藏标题栏
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_weather_detail);
@@ -308,6 +311,8 @@ public class WeatherDetailActivity extends Activity {
             String imgUrl3 = daythree.getString("dayPictureUrl");
             //加载天气图片
             loadImg(imgUrl3, furtureday_three_img);
+            //隐藏进度条
+            progressdialogUtil.cancelDialog();
         } catch (Exception e) {
             e.printStackTrace();
         }

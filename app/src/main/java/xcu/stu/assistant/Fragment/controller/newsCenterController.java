@@ -8,13 +8,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.jsoup.nodes.Document;
@@ -33,6 +31,7 @@ import xcu.stu.assistant.adapter.newscenter_newslistAdapter;
 import xcu.stu.assistant.bean.news;
 import xcu.stu.assistant.utils.callback.BitmapCallback;
 import xcu.stu.assistant.utils.callback.HtmlCallback;
+import xcu.stu.assistant.utils.progressdialogUtil;
 import xcu.stu.assistant.utils.requestUtil;
 import xcu.stu.assistant.widget.CustomViewPager;
 import xcu.stu.assistant.widget.customListview;
@@ -49,7 +48,6 @@ public class newsCenterController extends baseFragment {
     private ArrayList<news> newsList = new ArrayList<news>();//新闻数据
     private View headView;//listview的头布局
     private CustomViewPager autorun_img;//轮播图
-    private ProgressBar news_loading;//新闻正在加载进度条
     private ArrayList<news> imgNewses = new ArrayList<news>();//图片新闻数据
     private autoAdapter adapter;
     private static final int UPDATE_NEWS = 0;//更新新闻信息
@@ -77,8 +75,7 @@ public class newsCenterController extends baseFragment {
                     initMediaList(dynamicElements.get(0).select("li"));
                     //通知适配器数据获得更新
                     newscenter_newslistAdapter.notifyDataSetChanged();
-                    //设置进度条不可见
-                    news_loading.setVisibility(View.INVISIBLE);
+                    progressdialogUtil.cancelDialog();
                     break;
                 case IMG_RUN:
                     autorun_img.setCurrentItem((autorun_img.getCurrentItem() + 1) % (imgNewses.size()));
@@ -91,9 +88,10 @@ public class newsCenterController extends baseFragment {
 
     @Override
     protected View initView() {
+        //显示进度条
+        progressdialogUtil.showDialog(mContext);
         View view = View.inflate(mContext, R.layout.fragment_newscenter, null);
         news_list = (customListview) view.findViewById(R.id.news_list);
-        news_loading = (ProgressBar) view.findViewById(R.id.news_loading);
         //初始化头布局
         return view;
     }
@@ -122,8 +120,6 @@ public class newsCenterController extends baseFragment {
 
     //初始化头布局
     private void initHeaderView(Element element) {
-        //设置进度条可见
-        news_loading.setVisibility(View.VISIBLE);
         //获取头布局的viewpager
         headView = news_list.getHeaderView();
         //获取viewpager对象
@@ -225,7 +221,7 @@ public class newsCenterController extends baseFragment {
                 news mNews = new news();
                 mNews.setNewsType(CurrentNewsType);
                 mNews.setNewsTime("2016-" + e.select("span").text().trim());
-                mNews.setNewsUrl(mContext.getResources().getString(R.string.single_news) + e.select("a").attr
+                mNews.setNewsUrl(mContext.getResources().getString(R.string.news_url) + e.select("a").attr
                         ("href"));
                 mNews.setNewsTitle(e.select("a").attr("title").trim());
                 //判断是否是最新消息

@@ -6,28 +6,20 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="kydiwen" />
     <option name="TOOL_WINDOW_LOG_LEVEL" value="DEBUG" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="31a63f96-438a-436b-9a29-6f6c2b4a136c" name="Default" comment="">
-      <change type="DELETED" beforePath="D:\Study\WorkSpace\as\XcuStuAssistant\.idea\libraries\BaiduLBS_Android.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Study\WorkSpace\as\XcuStuAssistant\.idea\libraries\android_android_23.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Study\WorkSpace\as\XcuStuAssistant\.idea\libraries\animated_vector_drawable_23_2_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Study\WorkSpace\as\XcuStuAssistant\.idea\libraries\appcompat_v7_23_2_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Study\WorkSpace\as\XcuStuAssistant\.idea\libraries\com_android_volley_2015_05_28.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Study\WorkSpace\as\XcuStuAssistant\.idea\libraries\jsoup_1_8_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Study\WorkSpace\as\XcuStuAssistant\.idea\libraries\play_services_appindexing_8_1_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Study\WorkSpace\as\XcuStuAssistant\.idea\libraries\play_services_basement_8_1_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Study\WorkSpace\as\XcuStuAssistant\.idea\libraries\support_annotations_23_2_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Study\WorkSpace\as\XcuStuAssistant\.idea\libraries\support_v4_18_0_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Study\WorkSpace\as\XcuStuAssistant\.idea\libraries\support_v4_23_2_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\Study\WorkSpace\as\XcuStuAssistant\.idea\libraries\support_vector_drawable_23_2_0.xml" afterPath="" />
       <change type="DELETED" beforePath="D:\Study\WorkSpace\as\XcuStuAssistant\app\src\test\java\xcu\stu\assistant\ExampleUnitTest.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/Activity/NewsDetailActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/Activity/NewsDetailActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/Activity/NewsMoreActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/Activity/NewsMoreActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/listview_footer.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/listview_footer.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/Activity/WeatherDetailActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/Activity/WeatherDetailActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_news_detail.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_news_detail.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_newscenter.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_newscenter.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/Fragment/controller/newsCenterController.java" afterPath="$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/Fragment/controller/newsCenterController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -59,14 +51,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="newsCenterController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/Fragment/controller/newsCenterController.java">
+      <file leaf-file-name="NewsDetailActivity.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/Activity/NewsDetailActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.44237918">
-              <caret line="184" column="32" selection-start-line="184" selection-start-column="32" selection-end-line="184" selection-end-column="32" />
+            <state vertical-scroll-proportion="0.5576208">
+              <caret line="170" column="26" selection-start-line="170" selection-start-column="26" selection-end-line="170" selection-end-column="26" />
               <folding>
-                <element signature="e#6761#6813#0" expanded="true" />
-                <element signature="e#7146#7198#0" expanded="true" />
+                <element signature="e#4793#5088#0" expanded="true" />
+                <element signature="e#5087#5088#0" expanded="true" />
+                <element signature="e#5416#5468#0" expanded="true" />
+                <element signature="e#5992#6044#0" expanded="true" />
+                <element signature="e#7029#7261#0" expanded="true" />
+                <element signature="e#7260#7261#0" expanded="true" />
+                <element signature="e#7313#7557#0" expanded="true" />
+                <element signature="e#7556#7557#0" expanded="true" />
+                <element signature="e#8429#8621#0" expanded="true" />
+                <element signature="e#8620#8621#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -2416,12 +2416,9 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_stu_class.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/Fragment/controller/stuClassController.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_news_detail.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/Constant/myConstant.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/bean/news.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/Activity/NewsDetailActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/adapter/newscenter_newslistAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_newscenter.xml" />
         <option value="$PROJECT_DIR$/viewpagerindicatorlibrary/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_guide.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/newscenter_header.xml" />
@@ -2445,9 +2442,20 @@
         <option value="$PROJECT_DIR$/viewpagerindicatorlibrary/src/main/java/com/viewpagerindicator/LinePageIndicator.java" />
         <option value="$PROJECT_DIR$/viewpagerindicatorlibrary/src/main/java/com/viewpagerindicator/TabPageIndicator.java" />
         <option value="$PROJECT_DIR$/viewpagerindicatorlibrary/src/main/java/com/viewpagerindicator/UnderlinePageIndicator.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/Activity/NewsMoreActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/listview_footer.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/utils/callback/toastUtil.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/newsdetail_newsitem.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/newsdetail_newsimg.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/utils/progressdialogUtil.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_newscenter.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/Fragment/controller/newsCenterController.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/Activity/WeatherDetailActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/Activity/NewsMoreActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_news_detail.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/newsdetail_videoview.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/Activity/NewsDetailActivity.java" />
       </list>
     </option>
   </component>
@@ -2484,28 +2492,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="XcuStuAssistant" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="XcuStuAssistant" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="XcuStuAssistant" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -2556,81 +2542,37 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
           </PATH>
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="XcuStuAssistant" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assistant" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="XcuStuAssistant" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assistant" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Fragment" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="XcuStuAssistant" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assistant" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Fragment" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controller" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="recentsLimit" value="5" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="94cd391f" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="76d318a8" />
     <property name="last_opened_file_path" value="C:/Android/Git/bin/git.exe" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
@@ -2831,8 +2773,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.62237763" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2260274" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.63286716" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32867134" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2852,6 +2793,7 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2260274" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -2880,90 +2822,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/Activity/NewsDetailActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.07063197">
-          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/Activity/SplashActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.4832716">
-          <caret line="41" column="51" selection-start-line="41" selection-start-column="51" selection-end-line="41" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/Activity/WeatherDetailActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.429368">
-          <caret line="35" column="47" selection-start-line="35" selection-start-column="47" selection-end-line="35" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/adapter/SortAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.5334572">
-          <caret line="96" column="43" selection-start-line="96" selection-start-column="43" selection-end-line="96" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/application/MyApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33271375">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/bean/city.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.11710037">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/custom/CharacterParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.899628">
-          <caret line="15" column="43" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/DB/CitySqliteOpenHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.30111524">
-          <caret line="12" column="40" selection-start-line="12" selection-start-column="40" selection-end-line="12" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/Fragment/baseFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.57992566">
-          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/Fragment/controller/businessController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.022304833">
-          <caret line="15" column="41" selection-start-line="15" selection-start-column="41" selection-end-line="15" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/Fragment/controller/haveFunController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.16356878">
-          <caret line="19" column="5" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/receiver/AlarmReceiver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.6486989">
-          <caret line="32" column="33" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/service/weatherUpdateService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.34758365">
@@ -3003,16 +2861,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2788104">
           <caret line="6" column="22" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
-          <folding>
-            <element signature="e#220#221#0" expanded="false" />
-            <element signature="e#246#247#0" expanded="false" />
-            <element signature="e#284#285#0" expanded="false" />
-            <element signature="e#314#315#0" expanded="false" />
-            <element signature="e#346#347#0" expanded="false" />
-            <element signature="e#374#375#0" expanded="false" />
-            <element signature="e#416#417#0" expanded="false" />
-            <element signature="e#450#451#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3024,18 +2872,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/Activity/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32527882">
-          <caret line="211" column="25" selection-start-line="211" selection-start-column="25" selection-end-line="211" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jsoup/jsoup/1.8.3/17b6b6cb133d73e13e2e1f3550f90d4e23451b10/jsoup-1.8.3-sources.jar!/org/jsoup/nodes/Element.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33271375">
           <caret line="639" column="20" selection-start-line="639" selection-start-column="20" selection-end-line="639" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3065,14 +2905,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.84158415">
           <caret line="13" column="35" selection-start-line="13" selection-start-column="35" selection-end-line="13" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.464684">
-          <caret line="10" column="38" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="38" />
           <folding />
         </state>
       </provider>
@@ -3116,7 +2948,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3124,7 +2955,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.18587361">
           <caret line="51" column="49" selection-start-line="51" selection-start-column="43" selection-end-line="51" selection-end-column="49" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3162,27 +2992,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="4.182156">
           <caret line="117" column="7" selection-start-line="117" selection-start-column="7" selection-end-line="117" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2189#2356#0" expanded="true" />
-            <element signature="e#2355#2356#0" expanded="true" />
-            <element signature="e#2413#2566#0" expanded="true" />
-            <element signature="e#2565#2566#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/news_more_newsitem.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.1431412">
-          <caret line="23" column="52" selection-start-line="23" selection-start-column="52" selection-end-line="23" selection-end-column="52" />
-          <folding>
-            <element signature="e#501#516#0" expanded="true" />
-            <element signature="e#775#790#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3208,65 +3017,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.6951673">
           <caret line="800" column="53" selection-start-line="800" selection-start-column="53" selection-end-line="800" selection-end-column="53" />
-          <folding>
-            <element signature="e#0#32531#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-            <element signature="e#2990#2991#0" expanded="true" />
-            <element signature="e#3032#3033#0" expanded="true" />
-            <element signature="e#3446#3447#0" expanded="true" />
-            <element signature="e#3488#3489#0" expanded="true" />
-            <element signature="e#5052#5053#0" expanded="true" />
-            <element signature="e#5087#5088#0" expanded="true" />
-            <element signature="e#5622#5707#0" expanded="true" />
-            <element signature="e#5757#5846#0" expanded="true" />
-            <element signature="e#5899#5989#0" expanded="true" />
-            <element signature="e#6052#6153#0" expanded="true" />
-            <element signature="e#6198#6262#0" expanded="true" />
-            <element signature="e#6304#6367#0" expanded="true" />
-            <element signature="e#6711#6770#0" expanded="true" />
-            <element signature="e#6814#6877#0" expanded="true" />
-            <element signature="e#6920#6982#0" expanded="true" />
-            <element signature="e#7024#7085#0" expanded="true" />
-            <element signature="e#9836#9837#0" expanded="true" />
-            <element signature="e#9886#9887#0" expanded="true" />
-            <element signature="e#10108#10109#0" expanded="true" />
-            <element signature="e#10148#10149#0" expanded="true" />
-            <element signature="e#10392#10393#0" expanded="true" />
-            <element signature="e#10437#10438#0" expanded="true" />
-            <element signature="e#10640#10641#0" expanded="true" />
-            <element signature="e#10677#10678#0" expanded="true" />
-            <element signature="e#10884#10885#0" expanded="true" />
-            <element signature="e#10928#10929#0" expanded="true" />
-            <element signature="e#11123#11124#0" expanded="true" />
-            <element signature="e#11159#11160#0" expanded="true" />
-            <element signature="e#11324#11325#0" expanded="true" />
-            <element signature="e#11361#11362#0" expanded="true" />
-            <element signature="e#11523#11524#0" expanded="true" />
-            <element signature="e#11555#11556#0" expanded="true" />
-            <element signature="e#11707#11708#0" expanded="true" />
-            <element signature="e#11740#11741#0" expanded="true" />
-            <element signature="e#11921#11922#0" expanded="true" />
-            <element signature="e#11968#11969#0" expanded="true" />
-            <element signature="e#12123#12124#0" expanded="true" />
-            <element signature="e#12164#12165#0" expanded="true" />
-            <element signature="e#12321#12322#0" expanded="true" />
-            <element signature="e#12360#12361#0" expanded="true" />
-            <element signature="e#12510#12511#0" expanded="true" />
-            <element signature="e#12550#12551#0" expanded="true" />
-            <element signature="e#12824#12825#0" expanded="true" />
-            <element signature="e#12871#12872#0" expanded="true" />
-            <element signature="e#26482#26488#0" expanded="true" />
-            <element signature="e#28306#28307#0" expanded="true" />
-            <element signature="e#28334#28335#0" expanded="true" />
-            <element signature="e#29807#29808#0" expanded="true" />
-            <element signature="e#29843#29844#0" expanded="true" />
-            <element signature="e#31536#31537#0" expanded="true" />
-            <element signature="e#31577#31578#0" expanded="true" />
-            <element signature="e#32104#32105#0" expanded="true" />
-            <element signature="e#32161#32162#0" expanded="true" />
-            <element signature="e#32237#32238#0" expanded="true" />
-            <element signature="e#32296#32297#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3335,60 +3085,178 @@
         <state vertical-scroll-proportion="0.4473161">
           <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
           <folding>
-            <element signature="e#612#627#0" expanded="true" />
+            <element signature="e#612#627#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/Activity/NewsMoreActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/utils/callback/toastUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.046468403">
-          <caret line="37" column="39" selection-start-line="37" selection-start-column="39" selection-end-line="37" selection-end-column="39" />
+        <state vertical-scroll-proportion="0.464684">
+          <caret line="12" column="44" selection-start-line="12" selection-start-column="44" selection-end-line="12" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/Activity/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.65055764">
+          <caret line="344" column="5" selection-start-line="323" selection-start-column="4" selection-end-line="344" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Android/SDK/sources/android-23/android/widget/TextView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33271375">
+          <caret line="3864" column="16" selection-start-line="3864" selection-start-column="16" selection-end-line="3864" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/newsdetail_newsitem.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.34791252">
+          <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
           <folding>
-            <element signature="e#1600#1611#0" expanded="true" />
-            <element signature="e#1836#1842#0" expanded="true" />
-            <element signature="e#2055#3290#0" expanded="true" />
-            <element signature="e#2817#2872#0" expanded="true" />
-            <element signature="e#3289#3290#0" expanded="true" />
-            <element signature="e#3978#4033#0" expanded="true" />
-            <element signature="e#4869#4924#0" expanded="true" />
-            <element signature="e#6004#6171#0" expanded="true" />
-            <element signature="e#6170#6171#0" expanded="true" />
-            <element signature="e#8878#9178#0" expanded="true" />
-            <element signature="e#9177#9178#0" expanded="true" />
-            <element signature="e#9305#9306#0" expanded="true" />
-            <element signature="e#9353#9354#0" expanded="true" />
-            <element signature="e#9440#9441#0" expanded="true" />
-            <element signature="e#9485#9486#0" expanded="true" />
-            <element signature="e#10111#10438#0" expanded="true" />
-            <element signature="e#10437#10438#0" expanded="true" />
-            <element signature="e#10642#10643#0" expanded="true" />
-            <element signature="e#10708#10709#0" expanded="true" />
-            <element signature="e#10986#10987#0" expanded="true" />
-            <element signature="e#11039#11040#0" expanded="true" />
-            <element signature="e#11104#11105#0" expanded="true" />
-            <element signature="e#11164#11165#0" expanded="true" />
-            <element signature="e#11229#11230#0" expanded="true" />
-            <element signature="e#11268#11269#0" expanded="true" />
-            <element signature="e#12007#13105#0" expanded="true" />
-            <element signature="e#12383#12774#0" expanded="true" />
-            <element signature="e#12773#12774#0" expanded="true" />
-            <element signature="e#13104#13105#0" expanded="true" />
-            <element signature="e#13171#13408#0" expanded="true" />
-            <element signature="e#13407#13408#0" expanded="true" />
-            <element signature="e#13477#13891#0" expanded="true" />
-            <element signature="e#13890#13891#0" expanded="true" />
+            <element signature="e#385#400#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/newsdetail_newsimg.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.049701788">
+          <caret line="1" column="10" selection-start-line="1" selection-start-column="10" selection-end-line="1" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/news_more_newsitem.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.45328033">
+          <caret line="19" column="42" selection-start-line="19" selection-start-column="30" selection-end-line="19" selection-end-column="42" />
+          <folding>
+            <element signature="e#775#790#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Android/SDK/sources/android-23/android/media/session/MediaController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.0297397">
+          <caret line="106" column="11" selection-start-line="106" selection-start-column="11" selection-end-line="106" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.25650558">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/dimens.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.232342">
+          <caret line="5" column="27" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/utils/progressdialogUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.0223048">
+          <caret line="22" column="29" selection-start-line="22" selection-start-column="29" selection-end-line="22" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/Fragment/controller/newsCenterController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.44237918">
-          <caret line="184" column="32" selection-start-line="184" selection-start-column="32" selection-end-line="184" selection-end-column="32" />
+        <state vertical-scroll-proportion="1.2620817">
+          <caret line="78" column="26" selection-start-line="78" selection-start-column="26" selection-end-line="78" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/Activity/WeatherDetailActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33271375">
+          <caret line="313" column="19" selection-start-line="313" selection-start-column="19" selection-end-line="313" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/Activity/NewsMoreActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.51858735">
+          <caret line="94" column="6" selection-start-line="94" selection-start-column="6" selection-end-line="94" selection-end-column="6" />
           <folding>
-            <element signature="e#6761#6813#0" expanded="true" />
-            <element signature="e#7146#7198#0" expanded="true" />
+            <element signature="e#2150#3665#0" expanded="false" />
+            <element signature="e#3664#3665#0" expanded="false" />
+            <element signature="e#14077#14491#0" expanded="false" />
+            <element signature="e#14490#14491#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/newsdetail_videoview.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5467197">
+          <caret line="11" column="16" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_newscenter.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5964215">
+          <caret line="12" column="46" selection-start-line="12" selection-start-column="46" selection-end-line="12" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_news_detail.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5964215">
+          <caret line="29" column="52" selection-start-line="29" selection-start-column="52" selection-end-line="29" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/xcu/stu/assistant/Activity/NewsDetailActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5576208">
+          <caret line="170" column="26" selection-start-line="170" selection-start-column="26" selection-end-line="170" selection-end-column="26" />
+          <folding>
+            <element signature="e#4793#5088#0" expanded="true" />
+            <element signature="e#5087#5088#0" expanded="true" />
+            <element signature="e#5416#5468#0" expanded="true" />
+            <element signature="e#5992#6044#0" expanded="true" />
+            <element signature="e#7029#7261#0" expanded="true" />
+            <element signature="e#7260#7261#0" expanded="true" />
+            <element signature="e#7313#7557#0" expanded="true" />
+            <element signature="e#7556#7557#0" expanded="true" />
+            <element signature="e#8429#8621#0" expanded="true" />
+            <element signature="e#8620#8621#0" expanded="true" />
           </folding>
         </state>
       </provider>
