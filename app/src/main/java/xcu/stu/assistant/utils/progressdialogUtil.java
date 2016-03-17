@@ -14,6 +14,7 @@ public class progressdialogUtil {
     public static void showDialog(Context context) {
         dialog = new ProgressDialog(context);
         dialog.setMessage("正在加载....");
+        dialog.setCancelable(false);
         dialog.show();
     }
 

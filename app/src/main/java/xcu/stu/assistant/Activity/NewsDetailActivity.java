@@ -43,6 +43,7 @@ import xcu.stu.assistant.utils.requestUtil;
  * 2016年3月13日
  * 新闻详情页面新闻获取显示处理完成
  * 3月15日
+ * 实现新闻视频信息的播放，对不同类型数据做了统一处理，节省了代码量，新闻模块完成
  */
 public class NewsDetailActivity extends Activity {
     private TextView news_title;//新闻标题
