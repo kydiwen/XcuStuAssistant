@@ -1,6 +1,5 @@
 package xcu.stu.assistant.Activity;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
@@ -10,14 +9,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,8 +26,8 @@ import xcu.stu.assistant.Constant.myConstant;
 import xcu.stu.assistant.DB.CitySqliteOpenHelper;
 import xcu.stu.assistant.R;
 import xcu.stu.assistant.bean.city;
-import xcu.stu.assistant.custom.SystemBarTintManager;
 import xcu.stu.assistant.utils.callback.StringCallback;
+import xcu.stu.assistant.utils.color_same_to_app;
 import xcu.stu.assistant.utils.requestUtil;
 
 /**
@@ -65,7 +62,9 @@ public class GuideActivity extends Activity {
     private void initView() {
         //隐藏标题栏
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setTopColorSameToApp();
+        //改变状态栏颜色与app风格一致
+        color_same_to_app.setTopColorSameToApp(GuideActivity.this);
+        setContentView(R.layout.activity_classes_list_);
         setContentView(R.layout.activity_guide);
         guide_page = (ViewPager) findViewById(R.id.guide_page);
         leapfrog = (TextView) findViewById(R.id.leapfrog);
@@ -80,29 +79,6 @@ public class GuideActivity extends Activity {
             imageView.setImageBitmap(bitmaps.get(i));
             imgs.add(imageView);
         }
-    }
-
-    //设置状态栏颜色与app一直
-    private void setTopColorSameToApp() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            setTranslucentStatus(true);
-            SystemBarTintManager tintManager = new SystemBarTintManager(this);
-            tintManager.setStatusBarTintEnabled(true);
-            tintManager.setStatusBarTintResource(R.color.guide_button_normal);//通知栏所需颜色
-        }
-    }
-
-    @TargetApi(19)
-    private void setTranslucentStatus(boolean on) {
-        Window win = getWindow();
-        WindowManager.LayoutParams winParams = win.getAttributes();
-        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-        if (on) {
-            winParams.flags |= bits;
-        } else {
-            winParams.flags &= ~bits;
-        }
-        win.setAttributes(winParams);
     }
 
     //初始化数据
@@ -300,6 +276,7 @@ public class GuideActivity extends Activity {
             initDB();
             return null;
         }
+
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);

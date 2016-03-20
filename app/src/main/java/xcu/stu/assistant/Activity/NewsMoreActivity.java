@@ -1,10 +1,8 @@
 package xcu.stu.assistant.Activity;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,8 +10,6 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -32,9 +28,9 @@ import xcu.stu.assistant.Constant.myConstant;
 import xcu.stu.assistant.R;
 import xcu.stu.assistant.bean.indicator;
 import xcu.stu.assistant.bean.news;
-import xcu.stu.assistant.custom.SystemBarTintManager;
 import xcu.stu.assistant.utils.callback.HtmlCallback;
 import xcu.stu.assistant.utils.callback.toastUtil;
+import xcu.stu.assistant.utils.color_same_to_app;
 import xcu.stu.assistant.utils.progressdialogUtil;
 import xcu.stu.assistant.utils.requestUtil;
 import xcu.stu.assistant.widget.LazyViewPager;
@@ -155,7 +151,9 @@ public class NewsMoreActivity extends Activity {
         mContext = NewsMoreActivity.this;
         //显示进度条
         progressdialogUtil.showDialog(mContext);
-        setTopColorSameToApp();
+        //改变状态栏颜色与app风格一致
+        color_same_to_app.setTopColorSameToApp(NewsMoreActivity.this);
+        setContentView(R.layout.activity_classes_list_);
         setContentView(R.layout.activity_news_more);
         back = (ImageView) findViewById(R.id.back);
         news_type = (TextView) findViewById(R.id.news_type);
@@ -199,29 +197,6 @@ public class NewsMoreActivity extends Activity {
 
             }
         });
-    }
-
-    //设置状态栏颜色与app一直
-    private void setTopColorSameToApp() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            setTranslucentStatus(true);
-            SystemBarTintManager tintManager = new SystemBarTintManager(this);
-            tintManager.setStatusBarTintEnabled(true);
-            tintManager.setStatusBarTintResource(R.color.main_color);//通知栏所需颜色
-        }
-    }
-
-    @TargetApi(19)
-    private void setTranslucentStatus(boolean on) {
-        Window win = getWindow();
-        WindowManager.LayoutParams winParams = win.getAttributes();
-        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-        if (on) {
-            winParams.flags |= bits;
-        } else {
-            winParams.flags &= ~bits;
-        }
-        win.setAttributes(winParams);
     }
 
     //根部不同的新闻类型加载不同的新闻数据，为viewpager的导航栏加载不同的数据

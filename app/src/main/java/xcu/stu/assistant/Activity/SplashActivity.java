@@ -1,15 +1,12 @@
 package xcu.stu.assistant.Activity;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
@@ -19,7 +16,7 @@ import android.widget.ImageView;
 
 import xcu.stu.assistant.Constant.myConstant;
 import xcu.stu.assistant.R;
-import xcu.stu.assistant.custom.SystemBarTintManager;
+import xcu.stu.assistant.utils.color_same_to_app;
 
 /**
  * 初始化界面
@@ -49,33 +46,12 @@ public class SplashActivity extends Activity {
     private void initView() {
         //隐藏标题栏
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setTopColorSameToApp();
+        //改变状态栏颜色与app风格一致
+        color_same_to_app.setTopColorSameToApp(SplashActivity.this);
+        setContentView(R.layout.activity_classes_list_);
         setContentView(R.layout.activity_splash);
         splash_login_bg = (ImageView) findViewById(R.id.splash_login_bg);
         splash_login_logo = (ImageView) findViewById(R.id.splash_login_logo);
-    }
-
-    //设置状态栏颜色与app一直
-    private void setTopColorSameToApp() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            setTranslucentStatus(true);
-            SystemBarTintManager tintManager = new SystemBarTintManager(this);
-            tintManager.setStatusBarTintEnabled(true);
-            tintManager.setStatusBarTintResource(R.color.splash_top);//通知栏所需颜色
-        }
-    }
-
-    @TargetApi(19)
-    private void setTranslucentStatus(boolean on) {
-        Window win = getWindow();
-        WindowManager.LayoutParams winParams = win.getAttributes();
-        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-        if (on) {
-            winParams.flags |= bits;
-        } else {
-            winParams.flags &= ~bits;
-        }
-        win.setAttributes(winParams);
     }
 
     //初始化图片的动画效果

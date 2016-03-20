@@ -5,7 +5,6 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Vibrator;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 
@@ -33,11 +32,6 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         //收到广播后更新天气信息，并弹出通知
         getWeatherInfo(context);
-        //发出震动，提示用户查看最新天气信息
-        //获取震动管理类对象
-        Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-        //设置震动时常
-        vibrator.vibrate(500);
     }
 
     //获取天气信息，并弹出通知
@@ -58,7 +52,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                                 .setAutoCancel(true)
                                 .setContentTitle(response.getJSONArray("results").getJSONObject
                                         (0).getJSONArray("weather_data").getJSONObject(0).getString
-                                        ("weather") +"   "+ response.getJSONArray("results").getJSONObject
+                                        ("weather") + "   " + response.getJSONArray("results").getJSONObject
                                         (0).getJSONArray("weather_data").getJSONObject(0).getString
                                         ("temperature"))
                                 .setContentText(response

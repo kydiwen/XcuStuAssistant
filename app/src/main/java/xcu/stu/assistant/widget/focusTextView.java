@@ -5,7 +5,9 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 
 /**
- * Created by sunwenquan on 16-3-20.
+ * 孙文权
+ * 16年3月20日
+ * 获取焦点的textview
  */
 public class focusTextView extends TextView {
     public focusTextView(Context context) {
@@ -23,7 +25,8 @@ public class focusTextView extends TextView {
     public focusTextView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
-    //    始终获取焦点，实现滚动效果
+
+    //始终获取焦点，实现滚动效果
     @Override
     public boolean isFocused() {
         return true;

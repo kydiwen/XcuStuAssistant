@@ -1,20 +1,17 @@
 package xcu.stu.assistant.Activity;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -29,9 +26,9 @@ import org.jsoup.select.Elements;
 import xcu.stu.assistant.Constant.myConstant;
 import xcu.stu.assistant.R;
 import xcu.stu.assistant.bean.news;
-import xcu.stu.assistant.custom.SystemBarTintManager;
 import xcu.stu.assistant.utils.callback.BitmapCallback;
 import xcu.stu.assistant.utils.callback.HtmlCallback;
+import xcu.stu.assistant.utils.color_same_to_app;
 import xcu.stu.assistant.utils.progressdialogUtil;
 import xcu.stu.assistant.utils.requestUtil;
 
@@ -95,7 +92,9 @@ public class NewsDetailActivity extends Activity {
 
     //初始化视图界面
     private void initView() {
-        setTopColorSameToApp();
+        //改变状态栏颜色与app风格一致
+        color_same_to_app.setTopColorSameToApp(NewsDetailActivity.this);
+        setContentView(R.layout.activity_classes_list_);
         //显示进度条
         progressdialogUtil.showDialog(mContext);
         setContentView(R.layout.activity_news_detail);
@@ -112,28 +111,6 @@ public class NewsDetailActivity extends Activity {
         initNews();
     }
 
-    //设置状态栏颜色与app一直
-    private void setTopColorSameToApp() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            setTranslucentStatus(true);
-            SystemBarTintManager tintManager = new SystemBarTintManager(this);
-            tintManager.setStatusBarTintEnabled(true);
-            tintManager.setStatusBarTintResource(R.color.main_color);//通知栏所需颜色
-        }
-    }
-
-    @TargetApi(19)
-    private void setTranslucentStatus(boolean on) {
-        Window win = getWindow();
-        WindowManager.LayoutParams winParams = win.getAttributes();
-        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-        if (on) {
-            winParams.flags |= bits;
-        } else {
-            winParams.flags &= ~bits;
-        }
-        win.setAttributes(winParams);
-    }
 
     //初始化普通新闻
     private void initNews() {

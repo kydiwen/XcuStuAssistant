@@ -32,16 +32,19 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/class_manager"
                 style="@style/class_tv_style"
                 android:drawableTop="@drawable/myspace"
                 android:text="班级管理"></TextView>
 
             <TextView
+                android:id="@+id/teacher_open_bt"
                 style="@style/class_tv_style"
                 android:drawableTop="@drawable/setting"
                 android:text="开启蓝牙"></TextView>
 
             <TextView
+                android:id="@+id/scan_device"
                 style="@style/class_tv_style"
                 android:drawableTop="@drawable/delicious"
                 android:text="开始点到"></TextView>
@@ -73,11 +76,13 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/stu_open_bt"
                 style="@style/class_tv_style"
                 android:drawableTop="@drawable/person"
                 android:text="个人信息"></TextView>
 
             <TextView
+                android:id="@+id/scan_record"
                 style="@style/class_tv_style"
                 android:drawableTop="@drawable/record"
                 android:text="点到记录"></TextView>
@@ -90,6 +95,6 @@
         android:ellipsize="marquee"
         android:padding="10dp"
         android:singleLine="true"
-        android:text="请使用iphone的同学自己手动打开蓝牙，并将蓝牙设置为可被其他蓝牙设备发现"
+        android:text="请提醒使用iphone的同学自己手动打开蓝牙，并将蓝牙设置为可被其他蓝牙设备发现"
         android:textColor="@color/error_color"></xcu.stu.assistant.widget.focusTextView>
 </LinearLayout>

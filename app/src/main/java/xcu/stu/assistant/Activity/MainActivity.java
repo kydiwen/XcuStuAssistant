@@ -1,6 +1,5 @@
 package xcu.stu.assistant.Activity;
 
-import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,7 +8,6 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -18,7 +16,6 @@ import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
@@ -48,9 +45,9 @@ import xcu.stu.assistant.Fragment.controller.newsCenterController;
 import xcu.stu.assistant.Fragment.controller.stuClassController;
 import xcu.stu.assistant.R;
 import xcu.stu.assistant.application.MyApplication;
-import xcu.stu.assistant.custom.SystemBarTintManager;
 import xcu.stu.assistant.service.weatherUpdateService;
 import xcu.stu.assistant.utils.callback.jsonCallback;
+import xcu.stu.assistant.utils.color_same_to_app;
 import xcu.stu.assistant.utils.requestUtil;
 
 /**
@@ -110,7 +107,9 @@ public class MainActivity extends FragmentActivity {
 
     //当网络连接正常时加载正常的页面
     private void loadNormalPage() {
-        setTopColorSameToApp();
+        //改变状态栏颜色与app风格一致
+        color_same_to_app.setTopColorSameToApp(MainActivity.this);
+        setContentView(R.layout.activity_classes_list_);
         setContentView(R.layout.activity_main);
         main_rg = (RadioGroup) findViewById(R.id.main_rg);
         main_controller_text = (TextView) findViewById(R.id.main_controller_text);
@@ -319,29 +318,6 @@ public class MainActivity extends FragmentActivity {
                 }
             }
         });
-    }
-
-    //设置状态栏颜色与app一直
-    private void setTopColorSameToApp() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            setTranslucentStatus(true);
-            SystemBarTintManager tintManager = new SystemBarTintManager(this);
-            tintManager.setStatusBarTintEnabled(true);
-            tintManager.setStatusBarTintResource(R.color.main_color);//通知栏所需颜色
-        }
-    }
-
-    @TargetApi(19)
-    private void setTranslucentStatus(boolean on) {
-        Window win = getWindow();
-        WindowManager.LayoutParams winParams = win.getAttributes();
-        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-        if (on) {
-            winParams.flags |= bits;
-        } else {
-            winParams.flags &= ~bits;
-        }
-        win.setAttributes(winParams);
     }
 
     //监听回退键，显示对话框
