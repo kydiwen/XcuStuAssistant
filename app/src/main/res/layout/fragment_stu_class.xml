@@ -1,10 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
-    <TextView
-        android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/emo_im_cool"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="我要点到"
+            android:textColor="@color/error_color"
+            android:textSize="@dimen/big"></TextView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/error_color"></View>
+        <!--老师点到功能-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/class_tv_style"
+                android:drawableTop="@drawable/myspace"
+                android:text="班级管理"></TextView>
+
+            <TextView
+                style="@style/class_tv_style"
+                android:drawableTop="@drawable/setting"
+                android:text="开启蓝牙"></TextView>
+
+            <TextView
+                style="@style/class_tv_style"
+                android:drawableTop="@drawable/delicious"
+                android:text="开始点到"></TextView>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/error_color"></View>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/emo_im_crying"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="我要签到"
+            android:textColor="@color/error_color"
+            android:textSize="@dimen/big"></TextView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/error_color"></View>
+        <!--学生打开蓝牙功能并进行简单设置-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/class_tv_style"
+                android:drawableTop="@drawable/person"
+                android:text="个人信息"></TextView>
+
+            <TextView
+                style="@style/class_tv_style"
+                android:drawableTop="@drawable/record"
+                android:text="点到记录"></TextView>
+        </LinearLayout>
+    </LinearLayout>
+
+    <xcu.stu.assistant.widget.focusTextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="点到助手"></TextView>
+        android:ellipsize="marquee"
+        android:padding="10dp"
+        android:singleLine="true"
+        android:text="请使用iphone的同学自己手动打开蓝牙，并将蓝牙设置为可被其他蓝牙设备发现"
+        android:textColor="@color/error_color"></xcu.stu.assistant.widget.focusTextView>
 </LinearLayout>
