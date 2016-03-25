@@ -6,7 +6,6 @@ import android.os.Build;
 import android.view.Window;
 import android.view.WindowManager;
 
-import xcu.stu.assistant.R;
 import xcu.stu.assistant.custom.SystemBarTintManager;
 
 /**
@@ -14,12 +13,12 @@ import xcu.stu.assistant.custom.SystemBarTintManager;
  */
 public class color_same_to_app {
     //设置状态栏颜色与app一直
-    public static void setTopColorSameToApp(Activity context) {
+    public static void setTopColorSameToApp(Activity context,int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(true, context);
             SystemBarTintManager tintManager = new SystemBarTintManager(context);
             tintManager.setStatusBarTintEnabled(true);
-            tintManager.setStatusBarTintResource(R.color.main_color);//通知栏所需颜色
+            tintManager.setStatusBarTintResource(color);//通知栏所需颜色
         }
     }
 

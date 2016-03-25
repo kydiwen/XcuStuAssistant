@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/main_color"
-    android:orientation="horizontal">
+    android:background="@color/main_color">
     <!-- 顶部回退按钮-->
     <ImageView
         android:id="@+id/back"
@@ -12,4 +11,13 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:background="@drawable/back"></ImageView>
-</LinearLayout>
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/main_nomal"
+        android:textSize="@dimen/big"
+        android:visibility="invisible"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"></TextView>
+</RelativeLayout>

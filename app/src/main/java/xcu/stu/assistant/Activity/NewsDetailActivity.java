@@ -93,7 +93,7 @@ public class NewsDetailActivity extends Activity {
     //初始化视图界面
     private void initView() {
         //改变状态栏颜色与app风格一致
-        color_same_to_app.setTopColorSameToApp(NewsDetailActivity.this);
+        color_same_to_app.setTopColorSameToApp(NewsDetailActivity.this,R.color.main_color);
         setContentView(R.layout.activity_classes_list_);
         //显示进度条
         progressdialogUtil.showDialog(mContext);

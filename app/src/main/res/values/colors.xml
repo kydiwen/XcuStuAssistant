@@ -13,9 +13,10 @@
     <color name="main_nomal">#FFFFFF</color>
     <!-- 天气信息点击-->
     <color name="weather_press">#018574</color>
-    <color name="splash_top">#96C4EB</color>
+    <color name="splash_top">#90C2E7</color>
     <!--网络加载错误页面字体颜色 -->
     <color name="error_color">#D8BFD8</color>
     <!--新闻中心新闻导航背景-->
     <color name="news_more_bg">#ECECEC</color>
+    <color name="guide_top">#FFFAF3</color>
 </resources>

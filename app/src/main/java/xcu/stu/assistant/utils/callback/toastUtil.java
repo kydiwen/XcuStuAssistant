@@ -10,7 +10,7 @@ import android.widget.Toast;
  */
 public class toastUtil {
     public static void show(Context context, String message) {
-        Toast toast = Toast.makeText(context, "无更多信息", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
         //设置土司显示的位置
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();

@@ -1,10 +1,12 @@
 package xcu.stu.assistant.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by 孙文权 on 16-3-20.
  * 班级信息bean类，用来存储班级名称，班级人数
  */
-public class classbean {
+public class classbean implements Serializable {
     private String className;//班级名称
     private int stuNum;//学生人数
 

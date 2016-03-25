@@ -47,7 +47,7 @@ public class SplashActivity extends Activity {
         //隐藏标题栏
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         //改变状态栏颜色与app风格一致
-        color_same_to_app.setTopColorSameToApp(SplashActivity.this);
+        color_same_to_app.setTopColorSameToApp(SplashActivity.this,R.color.splash_top);
         setContentView(R.layout.activity_classes_list_);
         setContentView(R.layout.activity_splash);
         splash_login_bg = (ImageView) findViewById(R.id.splash_login_bg);

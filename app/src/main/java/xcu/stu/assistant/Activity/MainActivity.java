@@ -108,7 +108,7 @@ public class MainActivity extends FragmentActivity {
     //当网络连接正常时加载正常的页面
     private void loadNormalPage() {
         //改变状态栏颜色与app风格一致
-        color_same_to_app.setTopColorSameToApp(MainActivity.this);
+        color_same_to_app.setTopColorSameToApp(MainActivity.this,R.color.main_color);
         setContentView(R.layout.activity_classes_list_);
         setContentView(R.layout.activity_main);
         main_rg = (RadioGroup) findViewById(R.id.main_rg);

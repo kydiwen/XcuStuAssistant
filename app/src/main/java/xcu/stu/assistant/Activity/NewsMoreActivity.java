@@ -152,7 +152,7 @@ public class NewsMoreActivity extends Activity {
         //显示进度条
         progressdialogUtil.showDialog(mContext);
         //改变状态栏颜色与app风格一致
-        color_same_to_app.setTopColorSameToApp(NewsMoreActivity.this);
+        color_same_to_app.setTopColorSameToApp(NewsMoreActivity.this,R.color.main_color);
         setContentView(R.layout.activity_classes_list_);
         setContentView(R.layout.activity_news_more);
         back = (ImageView) findViewById(R.id.back);

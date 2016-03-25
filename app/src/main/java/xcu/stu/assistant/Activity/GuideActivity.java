@@ -63,7 +63,7 @@ public class GuideActivity extends Activity {
         //隐藏标题栏
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         //改变状态栏颜色与app风格一致
-        color_same_to_app.setTopColorSameToApp(GuideActivity.this);
+        color_same_to_app.setTopColorSameToApp(GuideActivity.this,R.color.guide_top);
         setContentView(R.layout.activity_classes_list_);
         setContentView(R.layout.activity_guide);
         guide_page = (ViewPager) findViewById(R.id.guide_page);

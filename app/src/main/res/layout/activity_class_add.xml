@@ -28,6 +28,7 @@
             android:layout_weight="1"></View>
 
         <TextView
+            android:id="@+id/ensure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="10dp"
@@ -56,6 +57,7 @@
             android:background="@color/error_color"></View>
 
         <EditText
+            android:id="@+id/class_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="请输入班级:"
@@ -64,6 +66,7 @@
             android:textSize="@dimen/medium"></EditText>
 
         <EditText
+            android:id="@+id/class_stu_num"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="请输入人数:"
