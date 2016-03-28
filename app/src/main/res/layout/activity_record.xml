@@ -1,9 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
     android:layout_height="match_parent">
     <include
         layout="@layout/top_back"></include>
-</RelativeLayout>
+    <TextView
+        android:id="@+id/start"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:padding="10dp"
+        android:background="@drawable/class_start_end_selector"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:textSize="@dimen/big"
+        android:text="开始点到"></TextView>
+    <ListView
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/stu_scaned_list"></ListView>
+    <TextView
+        android:id="@+id/end"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="结束点到"
+        android:padding="10dp"
+        android:gravity="center"
+        android:clickable="true"
+        android:textSize="@dimen/big"
+        android:background="@drawable/class_start_end_selector"></TextView>
+</LinearLayout>

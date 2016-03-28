@@ -9,4 +9,6 @@ public interface myConstant {
     public static final String IS_FIRST_LAUNCH = "是否是第一次启动";
     public static final String CURRENT_CITY = "当前城市";
     public static final String NEWS_GIVE = "传入的新闻数据信息";
+    public  static  final  String STU_NAME="学生姓名";
+    public  static  final  String STU_NUM="学生学号";
 }

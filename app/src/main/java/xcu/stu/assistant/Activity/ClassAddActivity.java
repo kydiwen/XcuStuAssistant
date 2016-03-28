@@ -32,9 +32,7 @@ public class ClassAddActivity extends Activity {
     private Context mContext;
     public  static  final  String NAME="姓名";//学生姓名列
     public  static  final  String NUM="学号";//学生学号列
-    public static  final  String CALLED_NUM="点到次数";//点到次数列
     public  static  final  String COMED_NUM="已到次数";//已到次数列
-    public  static  final  String UN_COME_NUM="缺勤次数";//缺勤次数
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,8 +116,7 @@ public class ClassAddActivity extends Activity {
             database.insert(ClassSqliteOpenHelper.CLASSES_TABLE, null, values);
             //创建新的班级表，存放点到信息
             String CREATE_TABLE="create table "+className+"(_id integer primary key autoincrement," +
-                    NAME+" text,"+NUM+" integer,"+CALLED_NUM+" integer,"+COMED_NUM+" integer,"
-                    + UN_COME_NUM+" integer"+")";
+                    NAME+" text,"+NUM+" integer,"+COMED_NUM+" integer"+")";
             database.execSQL(CREATE_TABLE);
             database.setTransactionSuccessful();
         }finally {

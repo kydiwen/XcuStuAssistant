@@ -1,6 +1,8 @@
 package xcu.stu.assistant.Fragment.controller;
 
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.le.ScanRecord;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -94,8 +96,8 @@ public class stuClassController extends baseFragment {
             @Override
             public void onClick(View v) {
                 //点击进入信息设置界面
-                Intent intent = new Intent(mContext, stuMsgSetActivity.class);
-                startActivity(intent);
+                Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(intent, 0);
             }
         });
         //为点到记录设置点击事件
@@ -125,6 +127,15 @@ public class stuClassController extends baseFragment {
                     mContext.unregisterReceiver(receiver);
                     break;
             }
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==0&&resultCode== Activity.RESULT_OK){//蓝牙开启后进入信息设置界面
+            Intent intent=new Intent(mContext,stuMsgSetActivity.class);
+            startActivity(intent);
         }
     }
 }
