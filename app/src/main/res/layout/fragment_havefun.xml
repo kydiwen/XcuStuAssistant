@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--糗事百科布局-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+    <RadioGroup
+        android:id="@+id/havefun_rg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#449296">
+        <RadioButton
+            android:id="@+id/rb_joke_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:background="@drawable/havefun_tabbg"
+            android:textColor="@drawable/havefun_tab_text_selector"
+            android:textSize="@dimen/big"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="最新笑话"></RadioButton>
+        <RadioButton
+            android:id="@+id/rb_joke_img"
+            android:padding="8dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/havefun_tabbg"
+            android:textColor="@drawable/havefun_tab_text_selector"
+            android:gravity="center"
+            android:textSize="@dimen/big"
+            android:button="@null"
+            android:text="最新趣图"></RadioButton>
+    </RadioGroup>
+    <!-- 笑话信息容器-->
+    <FrameLayout
+        android:id="@+id/joke_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"></FrameLayout>
+</LinearLayout>
