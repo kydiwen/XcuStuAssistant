@@ -12,4 +12,8 @@
     <string name="news_url">http://www.xcu.edu.cn/</string>
     <!--单条新闻数据-->
     <string name="single_news">http://news.xcu.edu.cn</string>
+    <!--聚合数据笑话请求基本url-->
+    <string name="havefun_xh_url">http://japi.juhe.cn/joke/content/text.from?key=344cc5726e41c6b8dee0e363e6dc77ae</string>
+    <!-- 聚合数据最新趣图请求基本url-->
+    <string name="havefun_img_url">http://japi.juhe.cn/joke/img/text.from?key=344cc5726e41c6b8dee0e363e6dc77ae</string>
 </resources>
