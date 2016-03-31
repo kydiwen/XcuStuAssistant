@@ -23,7 +23,6 @@ public class newscenter_newslistAdapter extends BaseAdapter {
     private ArrayList<news> data;//新闻数据
     private int layout;//布局文件
     private Context mContext;
-    private LinearLayout newstype;
 
     //自定义构造方法，传入需要的参数
     public newscenter_newslistAdapter(ArrayList<news> newses, int news_item_layout, Context context) {
@@ -49,29 +48,33 @@ public class newscenter_newslistAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view = View.inflate(mContext, layout, null);
-        //新闻类型显示栏
-        newstype = (LinearLayout) view.findViewById(R.id.newstype);
+        viewHolder holder=null;
+        if(convertView==null){
+            holder=new viewHolder();
+            convertView=View.inflate(mContext, layout, null);
+            holder.title= (TextView) convertView.findViewById(R.id.news_title);
+            holder.time= (TextView) convertView.findViewById(R.id.news_time);
+            holder.type= (LinearLayout) convertView.findViewById(R.id.newstype);
+            holder.newstype= (TextView) convertView.findViewById(R.id.newscenter_newstype);
+            holder.imageView= (ImageView) convertView.findViewById(R.id.news_loadmore);
+            convertView.setTag(holder);
+        }else {
+            holder= (viewHolder) convertView.getTag();
+        }
         //根据position获取新闻类型
         if (position == getPositionForSection(data.get(position).getNewsType())) {
-            newstype.setVisibility(View.VISIBLE);
-            //新闻类型
-            TextView type = (TextView) view.findViewById(R.id.newscenter_newstype);
-            type.setText(data.get(position).getNewsType());
-            ImageView imageView = (ImageView) view.findViewById(R.id.news_loadmore);
+            holder.type.setVisibility(View.VISIBLE);
+            //显示新闻类型
+            holder.newstype.setText(data.get(position).getNewsType());
             //为加载更多图片设置点击事件
-            initLoadMore(imageView, data.get(position));
+            initLoadMore(holder.imageView, data.get(position));
         } else {
-            newstype.setVisibility(View.GONE);
+            holder.type.setVisibility(View.GONE);
         }
-        //标题
-        TextView title = (TextView) view.findViewById(R.id.news_title);
-        //时间
-        TextView time = (TextView) view.findViewById(R.id.news_time);
         //显示数据
-        title.setText(data.get(position).getNewsTitle());
-        time.setText(data.get(position).getNewsTime());
-        return view;
+        holder.title.setText(data.get(position).getNewsTitle());
+        holder.time.setText(data.get(position).getNewsTime());
+        return convertView;
     }
 
     /**
@@ -99,5 +102,13 @@ public class newscenter_newslistAdapter extends BaseAdapter {
                 mContext.startActivity(intent);
             }
         });
+    }
+    //视图缓存
+    class  viewHolder {
+        TextView title;
+        TextView time;
+        LinearLayout type;
+        TextView newstype;
+        ImageView imageView;
     }
 }

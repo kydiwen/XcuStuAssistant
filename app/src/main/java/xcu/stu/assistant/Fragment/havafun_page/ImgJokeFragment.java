@@ -1,13 +1,18 @@
 package xcu.stu.assistant.Fragment.havafun_page;
 
 import android.graphics.Bitmap;
+import android.support.v4.util.LruCache;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,7 +23,6 @@ import java.util.ArrayList;
 import xcu.stu.assistant.Fragment.baseFragment;
 import xcu.stu.assistant.R;
 import xcu.stu.assistant.bean.jokeBean;
-import xcu.stu.assistant.utils.callback.BitmapCallback;
 import xcu.stu.assistant.utils.callback.jsonCallback;
 import xcu.stu.assistant.utils.requestUtil;
 
@@ -32,7 +36,7 @@ public class ImgJokeFragment extends baseFragment {
     private int currentPage = 1;//当前需要请求的页面
     private ArrayList<jokeBean> jokes = new ArrayList<jokeBean>();//新获取笑话数据
     private myAdapter adapter;//适配器对象
-
+    private  ImageLoader imageLoader;//加载大量图片
     @Override
     protected View initView() {
         View view = View.inflate(mContext, R.layout.joke_list, null);
@@ -43,6 +47,8 @@ public class ImgJokeFragment extends baseFragment {
 
     @Override
     protected void initData() {
+        RequestQueue queue= Volley.newRequestQueue(mContext);
+        imageLoader=new ImageLoader(queue,new myBitmapCache(4*1024*1024));
         //为listview设置适配器
         adapter = new myAdapter();
         textjoke_list.setAdapter(adapter);
@@ -115,24 +121,64 @@ public class ImgJokeFragment extends baseFragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            View view = View.inflate(mContext, R.layout.havefun_imgjoke_item, null);
-            TextView time = (TextView) view.findViewById(R.id.updatetime);
-            TextView content = (TextView) view.findViewById(R.id.content);
-            ImageView imageview = (ImageView) view.findViewById(R.id.img);
-            time.setText(jokes.get(position).getUpdatetime());
-            content.setText(jokes.get(position).getContent());
-            loadImg(jokes.get(position).getImgurl(), imageview);
-            return view;
+            viewHolder holder=null;
+            //判断是否缓存
+            if(convertView==null){
+                holder=new viewHolder();
+                convertView=View.inflate(mContext, R.layout.havefun_imgjoke_item, null);
+                holder.time= (TextView) convertView.findViewById(R.id.updatetime);
+                holder.content= (TextView) convertView.findViewById(R.id.content);
+                holder.image= (NetworkImageView) convertView.findViewById(R.id.img);
+                convertView.setTag(holder);
+            }else {
+                //通过tag找到缓存的视图
+                holder= (viewHolder) convertView.getTag();
+            }
+            holder.time.setText(jokes.get(position).getUpdatetime());
+            holder.content.setText(jokes.get(position).getContent());
+            //设置默认图片
+            holder.image.setDefaultImageResId(R.drawable.loading);
+            //设置加载失败时显示的图片
+            holder.image.setErrorImageResId(R.drawable.loading_failed);
+            holder.image.setImageUrl(jokes.get(position).getImgurl(),imageLoader);
+            return convertView;
         }
     }
+    //视图缓存对象
+    class  viewHolder {
+        TextView time;
+        TextView content;
+        NetworkImageView image;
+    }
+    //图片缓存类
+    class  myBitmapCache extends LruCache<String,Bitmap> implements ImageLoader.ImageCache{
+        private LruCache<String, Bitmap> mCache;
 
-    //加载图片
-    private void loadImg(String url, final ImageView imageView) {
-        requestUtil.getBitmap(url, new BitmapCallback() {
-            @Override
-            public void getBitmap(Bitmap bitmap) {
-                imageView.setImageBitmap(bitmap);
+        /**
+         * @param maxSize for caches that do not override {@link #sizeOf}, this is
+         *                the maximum number of entries in the cache. For all other caches,
+         *                this is the maximum sum of the sizes of the entries in this cache.
+         */
+        public myBitmapCache(int maxSize) {
+            super(maxSize);
+            mCache = new LruCache<String, Bitmap>(maxSize) {
+                @Override
+                protected int sizeOf(String key, Bitmap bitmap) {
+                    return bitmap.getRowBytes() * bitmap.getHeight();
+                }
+            };
+        }
+
+        @Override
+        public Bitmap getBitmap(String url) {
+            return mCache.get(url);
+        }
+
+        @Override
+        public void putBitmap(String url, Bitmap bitmap) {
+            if (bitmap != null) {
+                mCache.put(url, bitmap);
             }
-        });
+        }
     }
 }

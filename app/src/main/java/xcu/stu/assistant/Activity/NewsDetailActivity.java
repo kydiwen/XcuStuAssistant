@@ -178,7 +178,7 @@ public class NewsDetailActivity extends Activity {
                         }
                     });
                     news_content_container.addView(videoViewcontainer);
-                    TextView tv = new TextView(mContext);
+                    TextView tv = (TextView) View.inflate(mContext, R.layout.newsdetail_newsitem, null);
                     tv.setText("点击播放视频");
                     tv.setTextSize(18);
                     tv.setGravity(Gravity.CENTER_HORIZONTAL);

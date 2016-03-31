@@ -326,15 +326,27 @@ public class NewsMoreActivity extends Activity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            View view = View.inflate(mContext, R.layout.news_more_newsitem, null);
-            TextView news_title = (TextView) view.findViewById(R.id.news_title);
-            TextView news_time = (TextView) view.findViewById(R.id.news_time);
+            viewHolder holder=null;
+            if(convertView==null){
+                holder=new viewHolder();
+                convertView=View.inflate(mContext, R.layout.news_more_newsitem, null);
+                holder.title=(TextView) convertView.findViewById(R.id.news_title);
+                holder.time=(TextView) convertView.findViewById(R.id.news_time);
+                convertView.setTag(holder);
+            }else {
+                holder= (viewHolder) convertView.getTag();
+            }
             //显示数据
             news mNews = currentNewsData.get(position);
-            news_title.setText(mNews.getNewsTitle());
-            news_time.setText(mNews.getNewsTime());
-            return view;
+            holder.title.setText(mNews.getNewsTitle());
+            holder.time.setText(mNews.getNewsTime());
+            return convertView;
         }
+    }
+    //视图缓存
+    class  viewHolder{
+        TextView title;
+        TextView time;
     }
 
     //初始化每个新闻类型页面监听事件

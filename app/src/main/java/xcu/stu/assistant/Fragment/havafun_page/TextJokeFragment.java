@@ -108,12 +108,24 @@ public class TextJokeFragment extends baseFragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            View view=View.inflate(mContext,R.layout.havefun_textjoke_item,null);
-            TextView time= (TextView) view.findViewById(R.id.updatetime);
-            TextView content= (TextView) view.findViewById(R.id.content);
-            time.setText(jokes.get(position).getUpdatetime());
-            content.setText(jokes.get(position).getContent());
-            return view;
+            viewHolder holder=null;
+            if(convertView==null){
+                holder=new viewHolder();
+                convertView=View.inflate(mContext,R.layout.havefun_textjoke_item,null);
+                holder.time= (TextView) convertView.findViewById(R.id.updatetime);
+                holder.content= (TextView) convertView.findViewById(R.id.content);
+                convertView.setTag(holder);
+            }else {
+                holder= (viewHolder) convertView.getTag();
+            }
+            holder.time.setText(jokes.get(position).getUpdatetime());
+            holder.content.setText(jokes.get(position).getContent());
+            return convertView;
         }
+    }
+    //视图对象缓存
+    class  viewHolder{
+        TextView time;
+        TextView content;
     }
 }
