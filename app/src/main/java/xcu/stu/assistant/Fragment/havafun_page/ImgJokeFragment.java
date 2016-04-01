@@ -1,8 +1,10 @@
 package xcu.stu.assistant.Fragment.havafun_page;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.v4.util.LruCache;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -11,8 +13,13 @@ import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.drawable.ProgressBarDrawable;
+import com.facebook.drawee.generic.GenericDraweeHierarchy;
+import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
+import com.facebook.drawee.interfaces.DraweeController;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,7 +43,8 @@ public class ImgJokeFragment extends baseFragment {
     private int currentPage = 1;//当前需要请求的页面
     private ArrayList<jokeBean> jokes = new ArrayList<jokeBean>();//新获取笑话数据
     private myAdapter adapter;//适配器对象
-    private  ImageLoader imageLoader;//加载大量图片
+    private ImageLoader imageLoader;//加载大量图片
+
     @Override
     protected View initView() {
         View view = View.inflate(mContext, R.layout.joke_list, null);
@@ -47,8 +55,8 @@ public class ImgJokeFragment extends baseFragment {
 
     @Override
     protected void initData() {
-        RequestQueue queue= Volley.newRequestQueue(mContext);
-        imageLoader=new ImageLoader(queue,new myBitmapCache(4*1024*1024));
+        RequestQueue queue = Volley.newRequestQueue(mContext);
+        imageLoader = new ImageLoader(queue, new myBitmapCache(4 * 1024 * 1024));
         //为listview设置适配器
         adapter = new myAdapter();
         textjoke_list.setAdapter(adapter);
@@ -121,37 +129,63 @@ public class ImgJokeFragment extends baseFragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            viewHolder holder=null;
+            viewHolder holder = null;
             //判断是否缓存
-            if(convertView==null){
-                holder=new viewHolder();
-                convertView=View.inflate(mContext, R.layout.havefun_imgjoke_item, null);
-                holder.time= (TextView) convertView.findViewById(R.id.updatetime);
-                holder.content= (TextView) convertView.findViewById(R.id.content);
-                holder.image= (NetworkImageView) convertView.findViewById(R.id.img);
+            if (convertView == null) {
+                holder = new viewHolder();
+                convertView = View.inflate(mContext, R.layout.havefun_imgjoke_item, null);
+                holder.time = (TextView) convertView.findViewById(R.id.updatetime);
+                holder.content = (TextView) convertView.findViewById(R.id.content);
+                holder.image = (SimpleDraweeView) convertView.findViewById(R.id.img);
                 convertView.setTag(holder);
-            }else {
+            } else {
                 //通过tag找到缓存的视图
-                holder= (viewHolder) convertView.getTag();
+                holder = (viewHolder) convertView.getTag();
             }
             holder.time.setText(jokes.get(position).getUpdatetime());
             holder.content.setText(jokes.get(position).getContent());
-            //设置默认图片
-            holder.image.setDefaultImageResId(R.drawable.loading);
-            //设置加载失败时显示的图片
-            holder.image.setErrorImageResId(R.drawable.loading_failed);
-            holder.image.setImageUrl(jokes.get(position).getImgurl(),imageLoader);
+            //定制更多效果
+            GenericDraweeHierarchyBuilder builder = new GenericDraweeHierarchyBuilder(getResources());
+            GenericDraweeHierarchy hierarchy = builder
+                    .setFadeDuration(300)
+                    .setProgressBarImage(new ProgressBarDrawable())
+                    .build();
+            holder.image.setHierarchy(hierarchy);
+            //判断是动画还是图片
+            if (jokes.get(position).getImgurl().contains(".gif")) {
+                loadGif(jokes.get(position).getImgurl(), holder.image);
+            } else {
+                loadNormalImg(jokes.get(position).getImgurl(), holder.image);
+            }
+
             return convertView;
         }
     }
+
+    //加载动画
+    private void loadGif(String url, SimpleDraweeView imageview) {
+        //显示动画效果
+        DraweeController controller = Fresco.newDraweeControllerBuilder()
+                .setUri(Uri.parse(url))
+                .setAutoPlayAnimations(true)
+                .build();
+        imageview.setController(controller);
+    }
+
+    //加载普通图片
+    private void loadNormalImg(String url, SimpleDraweeView imageview) {
+        imageview.setImageURI(Uri.parse(url));
+    }
+
     //视图缓存对象
-    class  viewHolder {
+    class viewHolder {
         TextView time;
         TextView content;
-        NetworkImageView image;
+        SimpleDraweeView image;
     }
+
     //图片缓存类
-    class  myBitmapCache extends LruCache<String,Bitmap> implements ImageLoader.ImageCache{
+    class myBitmapCache extends LruCache<String, Bitmap> implements ImageLoader.ImageCache {
         private LruCache<String, Bitmap> mCache;
 
         /**

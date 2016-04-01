@@ -29,6 +29,7 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.facebook.drawee.backends.pipeline.Fresco;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -83,6 +84,8 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = MainActivity.this;
+        //初始化gif图片加载
+        Fresco.initialize(mContext);
         initView();
     }
 

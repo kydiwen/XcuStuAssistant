@@ -33,4 +33,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
     compile 'org.jsoup:jsoup:1.8.3'
     compile project(':viewpagerindicatorlibrary')
+    compile 'com.facebook.fresco:fresco:0.9.0'
 }
