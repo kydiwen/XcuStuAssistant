@@ -60,10 +60,10 @@ public class RecordDetailActivity extends Activity {
         cursor.move(-1);
         while (cursor.moveToNext()){
             classbean classbean=new classbean();
-            bean.setClassName(cursor.getString(cursor.getColumnIndex(ClassAddActivity.NAME))+"         "+
+            classbean.setClassName(cursor.getString(cursor.getColumnIndex(ClassAddActivity.NAME)) + "         " +
                     cursor.getString(cursor.getColumnIndex(ClassAddActivity.NUM)));
-            bean.setStuNum(cursor.getInt(cursor.getColumnIndex(ClassAddActivity.COMED_NUM)));
-            datas.add(bean);
+            classbean.setStuNum(cursor.getInt(cursor.getColumnIndex(ClassAddActivity.COMED_NUM)));
+            datas.add(classbean);
             adapter.notifyDataSetChanged();
         }
     }

@@ -1,10 +1,7 @@
 package xcu.stu.assistant.Fragment.havafun_page;
 
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.support.v4.util.LruCache;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -12,7 +9,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.drawable.ProgressBarDrawable;
@@ -43,7 +39,6 @@ public class ImgJokeFragment extends baseFragment {
     private int currentPage = 1;//当前需要请求的页面
     private ArrayList<jokeBean> jokes = new ArrayList<jokeBean>();//新获取笑话数据
     private myAdapter adapter;//适配器对象
-    private ImageLoader imageLoader;//加载大量图片
 
     @Override
     protected View initView() {
@@ -56,7 +51,6 @@ public class ImgJokeFragment extends baseFragment {
     @Override
     protected void initData() {
         RequestQueue queue = Volley.newRequestQueue(mContext);
-        imageLoader = new ImageLoader(queue, new myBitmapCache(4 * 1024 * 1024));
         //为listview设置适配器
         adapter = new myAdapter();
         textjoke_list.setAdapter(adapter);
@@ -182,37 +176,5 @@ public class ImgJokeFragment extends baseFragment {
         TextView time;
         TextView content;
         SimpleDraweeView image;
-    }
-
-    //图片缓存类
-    class myBitmapCache extends LruCache<String, Bitmap> implements ImageLoader.ImageCache {
-        private LruCache<String, Bitmap> mCache;
-
-        /**
-         * @param maxSize for caches that do not override {@link #sizeOf}, this is
-         *                the maximum number of entries in the cache. For all other caches,
-         *                this is the maximum sum of the sizes of the entries in this cache.
-         */
-        public myBitmapCache(int maxSize) {
-            super(maxSize);
-            mCache = new LruCache<String, Bitmap>(maxSize) {
-                @Override
-                protected int sizeOf(String key, Bitmap bitmap) {
-                    return bitmap.getRowBytes() * bitmap.getHeight();
-                }
-            };
-        }
-
-        @Override
-        public Bitmap getBitmap(String url) {
-            return mCache.get(url);
-        }
-
-        @Override
-        public void putBitmap(String url, Bitmap bitmap) {
-            if (bitmap != null) {
-                mCache.put(url, bitmap);
-            }
-        }
     }
 }

@@ -36,13 +36,6 @@
                 style="@style/class_tv_style"
                 android:drawableTop="@drawable/myspace"
                 android:text="班级管理"></TextView>
-
-            <TextView
-                android:id="@+id/teacher_open_bt"
-                style="@style/class_tv_style"
-                android:drawableTop="@drawable/setting"
-                android:text="开启蓝牙"></TextView>
-
             <TextView
                 android:id="@+id/scan_device"
                 style="@style/class_tv_style"

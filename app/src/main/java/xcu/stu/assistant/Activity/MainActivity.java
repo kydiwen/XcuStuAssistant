@@ -1,9 +1,11 @@
 package xcu.stu.assistant.Activity;
 
 import android.app.AlertDialog;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
@@ -46,6 +48,7 @@ import xcu.stu.assistant.Fragment.controller.newsCenterController;
 import xcu.stu.assistant.Fragment.controller.stuClassController;
 import xcu.stu.assistant.R;
 import xcu.stu.assistant.application.MyApplication;
+import xcu.stu.assistant.receiver.bluetoothStateReceiver;
 import xcu.stu.assistant.service.weatherUpdateService;
 import xcu.stu.assistant.utils.callback.jsonCallback;
 import xcu.stu.assistant.utils.color_same_to_app;
@@ -79,6 +82,7 @@ public class MainActivity extends FragmentActivity {
     private JSONObject weather;//传入天气详情界面的json数据
     public static final String WEATHER_GIVE = "weather";
     private LinearLayout main_error;//错误页面
+    private bluetoothStateReceiver receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +90,17 @@ public class MainActivity extends FragmentActivity {
         mContext = MainActivity.this;
         //初始化gif图片加载
         Fresco.initialize(mContext);
+        //注册广播
+        registerBluetoothReceiver();
         initView();
+    }
+
+    //注册广播，监听蓝牙状态
+    private void registerBluetoothReceiver() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
+        receiver = new bluetoothStateReceiver();
+        registerReceiver(receiver, intentFilter);
     }
 
     //初始化视图
@@ -111,7 +125,7 @@ public class MainActivity extends FragmentActivity {
     //当网络连接正常时加载正常的页面
     private void loadNormalPage() {
         //改变状态栏颜色与app风格一致
-        color_same_to_app.setTopColorSameToApp(MainActivity.this,R.color.main_color);
+        color_same_to_app.setTopColorSameToApp(MainActivity.this, R.color.main_color);
         setContentView(R.layout.activity_classes_list_);
         setContentView(R.layout.activity_main);
         main_rg = (RadioGroup) findViewById(R.id.main_rg);
@@ -342,5 +356,10 @@ public class MainActivity extends FragmentActivity {
             }
         });
         builder.show();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 }
