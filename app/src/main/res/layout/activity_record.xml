@@ -2,42 +2,47 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:orientation="vertical"
     android:gravity="center_horizontal"
-    android:layout_height="match_parent">
+    android:orientation="vertical">
+
     <include
         layout="@layout/top_back"></include>
+
+    <EditText
+        android:id="@+id/command"
+        android:inputType="text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:hint="请输入口令"></EditText>
+
     <TextView
         android:id="@+id/start"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/class_start_end_selector"
+        android:clickable="true"
         android:gravity="center"
         android:padding="10dp"
-        android:background="@drawable/class_start_end_selector"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:textSize="@dimen/big"
-        android:text="开始点到"></TextView>
+        android:text="开始点到"
+        android:textSize="@dimen/big"></TextView>
+
     <ListView
-        android:layout_weight="1"
+        android:id="@+id/stu_scaned_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:id="@+id/stu_scaned_list"></ListView>
-    <ImageView
-        android:id="@+id/record_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_gravity="right"
-        android:src="@drawable/record_add"></ImageView>
+        android:layout_weight="1"></ListView>
+
     <TextView
         android:id="@+id/end"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="结束点到"
-        android:padding="10dp"
-        android:gravity="center"
+        android:background="@drawable/class_start_end_selector"
         android:clickable="true"
-        android:textSize="@dimen/big"
-        android:background="@drawable/class_start_end_selector"></TextView>
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="结束点到"
+        android:textSize="@dimen/big"></TextView>
 </LinearLayout>

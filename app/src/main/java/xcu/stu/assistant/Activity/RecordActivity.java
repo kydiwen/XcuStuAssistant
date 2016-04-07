@@ -15,10 +15,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import xcu.stu.assistant.DB.ClassSqliteOpenHelper;
 import xcu.stu.assistant.R;
 import xcu.stu.assistant.bean.classbean;
+import xcu.stu.assistant.utils.callback.toastUtil;
 import xcu.stu.assistant.utils.color_same_to_app;
 import xcu.stu.assistant.utils.progressdialogUtil;
 
@@ -51,6 +53,8 @@ public class RecordActivity extends Activity {
     private RecordActivity.myAdapter myAdapter;//数据显示适配器
     private classbean bean;
     private myReceiver receiver;
+    private EditText command;//点到口令，用来过滤蓝牙信息
+    private String scan_command;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +74,7 @@ public class RecordActivity extends Activity {
         start = (TextView) findViewById(R.id.start);
         end = (TextView) findViewById(R.id.end);
         stu_scaned_list = (ListView) findViewById(R.id.stu_scaned_list);
+        command = (EditText) findViewById(R.id.command);
     }
 
     //初始化数据
@@ -102,14 +107,20 @@ public class RecordActivity extends Activity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //蓝牙信息过滤口令
+                scan_command = command.getText().toString();
+                if(TextUtils.isEmpty(scan_command)){
+                    toastUtil.show(mContext,"请输入口令");
+                }else {
                     //注册广播，监听扫描到的蓝牙设备
                     IntentFilter intentFilter = new IntentFilter();
                     intentFilter.addAction(BluetoothDevice.ACTION_FOUND);
-                    receiver=new myReceiver();
+                    receiver = new myReceiver();
                     registerReceiver(receiver, intentFilter);
                     adapter.startDiscovery();//开始扫描设备
-                //弹出进度条提示
-                progressdialogUtil.showDialog(mContext);
+                    //弹出进度条提示
+                    progressdialogUtil.showDialog(mContext);
+                }
             }
         });
         //结束点到按钮设置点击事件
@@ -153,25 +164,25 @@ public class RecordActivity extends Activity {
                                 for (int i = 0; i < students.size(); i++) {
                                     String select = "select * from " + bean.getClassName() + " where " +
                                             "" + ClassAddActivity.NAME + "=" + "'" + students.get(i)
-                                            .getName().split(":")[0] + "'";
+                                            .getName().split(scan_command)[0] + "'";
                                     Cursor cursor = database.rawQuery(select, null);
                                     if (cursor.moveToNext()) {//数据已添加
                                         int come = cursor.getInt(cursor.getColumnIndex(ClassAddActivity
                                                 .COMED_NUM));
                                         come++;
-                                        ContentValues values=new ContentValues();
+                                        ContentValues values = new ContentValues();
                                         values.put(ClassAddActivity.COMED_NUM, come);
                                         //更新数据
                                         database.update(bean.getClassName(), values, ClassAddActivity
-                                                        .NAME+"=?", new String[]{students.get(i).getName()
-                                                .split(":")[0]});
+                                                .NAME + "=?", new String[]{students.get(i).getName()
+                                                .split(scan_command)[0]});
                                     } else {
                                         ContentValues values = new ContentValues();
                                         //插入新数据
-                                        values.put(ClassAddActivity.NAME, students.get(i).getName().split(":")
-                                                [0]);
+                                        values.put(ClassAddActivity.NAME, students.get(i).getName().split
+                                                (scan_command)[0]);
                                         values.put(ClassAddActivity.NUM, students.get(i).getName().split
-                                                (":")[1]);
+                                                (scan_command)[1]);
                                         values.put(ClassAddActivity.COMED_NUM, 1);
                                         database.insert(bean.getClassName(), null, values);
                                     }
@@ -182,11 +193,11 @@ public class RecordActivity extends Activity {
                         }
 
                 );
-                    builder.create().
+                builder.create().
 
-                    show();
-                }
-            });
+                        show();
+            }
+        });
     }
 
     //点到结果列表适配器
@@ -216,8 +227,8 @@ public class RecordActivity extends Activity {
             TextView num = (TextView) view.findViewById(R.id.class_stu_num);
             //显示数据
             String name_num = students.get(position).getName();
-            name.setText(name_num.split(":")[0]);
-            num.setText(name_num.split(":")[1]);
+            name.setText(name_num.split(scan_command)[0]);
+            num.setText(name_num.split(scan_command)[1]);
             return view;
         }
     }
@@ -231,14 +242,14 @@ public class RecordActivity extends Activity {
                 progressdialogUtil.cancelDialog();
                 //扫描到的蓝牙设备
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                    //判断是否是指定命名
-                    if(device.getName().split(":").length==2){
-                        //防止数据重复
-                        if(!students.contains(device)){
-                            students.add(device);
-                            myAdapter.notifyDataSetChanged();
-                        }
+                //判断是否是指定命名
+                if (device.getName().split(scan_command).length == 2) {
+                    //防止数据重复
+                    if (!students.contains(device)) {
+                        students.add(device);
+                        myAdapter.notifyDataSetChanged();
                     }
+                }
             }
         }
     }

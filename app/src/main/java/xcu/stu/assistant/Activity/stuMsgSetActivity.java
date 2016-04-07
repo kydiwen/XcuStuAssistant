@@ -40,6 +40,8 @@ public class stuMsgSetActivity extends Activity {
     private  Button scan_success;//签到成功按钮，点击关闭蓝牙并保存点到记录
     private  EditText class_name;//课程名称
     private TextView location;//顶部显示当前位置
+    private  EditText command;
+    private  String scan_command;//点到口令
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,7 @@ public class stuMsgSetActivity extends Activity {
         scan_success= (Button) findViewById(R.id.scan_success);
         class_name= (EditText) findViewById(R.id.class_name);
         location= (TextView) findViewById(R.id.location);
+        command= (EditText) findViewById(R.id.command);
     }
 
     //初始化数据
@@ -89,6 +92,8 @@ public class stuMsgSetActivity extends Activity {
         open_bluetooth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //设置口令
+                scan_command=command.getText().toString();
                 //获取输入的姓名和学好信息
                 String stu_name=name.getText().toString().trim();
                 String stu_num=num.getText().toString().trim();
@@ -103,7 +108,7 @@ public class stuMsgSetActivity extends Activity {
                     //弹出对话框提示用户输入
                     toastUtil.show(mContext,"请输入姓名和学号");
                 }else {
-                    String bt_name=stu_name+":"+stu_num;//蓝牙名称
+                    String bt_name=stu_name+scan_command+stu_num;//蓝牙名称
                     //设置蓝牙设备名称
                     adapter.setName(bt_name);
                     //设置蓝牙设备可被发现
@@ -113,6 +118,7 @@ public class stuMsgSetActivity extends Activity {
                 }
             }
         });
+        //点到成功按钮
         scan_success.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
