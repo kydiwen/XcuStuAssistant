@@ -11,9 +11,9 @@ public class progressdialogUtil {
     private static ProgressDialog dialog;
 
     //显示进度条的方法
-    public static void showDialog(Context context) {
+    public static void showDialog(Context context,String message) {
         dialog = new ProgressDialog(context);
-        dialog.setMessage("正在加载....");
+        dialog.setMessage(message);
         dialog.setCancelable(false);
         dialog.show();
     }

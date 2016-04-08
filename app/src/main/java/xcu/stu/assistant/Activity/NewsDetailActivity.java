@@ -96,7 +96,7 @@ public class NewsDetailActivity extends Activity {
         color_same_to_app.setTopColorSameToApp(NewsDetailActivity.this,R.color.main_color);
         setContentView(R.layout.activity_classes_list_);
         //显示进度条
-        progressdialogUtil.showDialog(mContext);
+        progressdialogUtil.showDialog(mContext,"正在加载...");
         setContentView(R.layout.activity_news_detail);
         news_title = (TextView) findViewById(R.id.news_title);
         newsfrom_time = (TextView) findViewById(R.id.newsfrom_time);

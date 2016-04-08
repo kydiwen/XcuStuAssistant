@@ -150,7 +150,7 @@ public class NewsMoreActivity extends Activity {
     private void initView() {
         mContext = NewsMoreActivity.this;
         //显示进度条
-        progressdialogUtil.showDialog(mContext);
+        progressdialogUtil.showDialog(mContext,"正在加载...");
         //改变状态栏颜色与app风格一致
         color_same_to_app.setTopColorSameToApp(NewsMoreActivity.this,R.color.main_color);
         setContentView(R.layout.activity_classes_list_);

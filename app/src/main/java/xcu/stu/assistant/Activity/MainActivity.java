@@ -14,8 +14,10 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -42,6 +44,7 @@ import java.util.Date;
 
 import xcu.stu.assistant.Constant.myConstant;
 import xcu.stu.assistant.Fragment.baseFragment;
+import xcu.stu.assistant.Fragment.business_page.drawerFragment;
 import xcu.stu.assistant.Fragment.controller.businessController;
 import xcu.stu.assistant.Fragment.controller.haveFunController;
 import xcu.stu.assistant.Fragment.controller.newsCenterController;
@@ -83,6 +86,8 @@ public class MainActivity extends FragmentActivity {
     public static final String WEATHER_GIVE = "weather";
     private LinearLayout main_error;//错误页面
     private bluetoothStateReceiver receiver;
+    private DrawerLayout drawerLayout;//抽屉
+    private  ImageView menu;//菜单按钮
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,6 +139,8 @@ public class MainActivity extends FragmentActivity {
         main_weather_city = (TextView) findViewById(R.id.main_weather_city);
         main_weather_temp = (TextView) findViewById(R.id.main_weather_temp);
         weather_info = (LinearLayout) findViewById(R.id.weather_info);
+        drawerLayout= (DrawerLayout) findViewById(R.id.drawerlayout);
+        menu= (ImageView) findViewById(R.id.img_menu);
         initData();
         initListener();
     }
@@ -168,6 +175,8 @@ public class MainActivity extends FragmentActivity {
         main_rg.check(R.id.main_news_rb);
         transaction.show(mainPages.get(0));
         setFragmentToShow(0, transaction);
+        //添加抽屉
+        transaction.add(R.id.drawer_container, new drawerFragment());
         //显示天气信息
         initWeatherInfo();
     }
@@ -318,6 +327,13 @@ public class MainActivity extends FragmentActivity {
                 Intent intent = new Intent(mContext, WeatherDetailActivity.class);
                 intent.putExtra(WEATHER_GIVE, weather.toString());
                 startActivity(intent);
+            }
+        });
+        //菜单按钮点击事件
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(Gravity.LEFT);
             }
         });
     }

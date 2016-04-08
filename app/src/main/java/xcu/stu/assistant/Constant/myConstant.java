@@ -11,4 +11,6 @@ public interface myConstant {
     public static final String NEWS_GIVE = "传入的新闻数据信息";
     public  static  final  String STU_NAME="学生姓名";
     public  static  final  String STU_NUM="学生学号";
+    public  static  final String USER="用户名";
+    public  static  final  String PASSWORD="密码";
 }

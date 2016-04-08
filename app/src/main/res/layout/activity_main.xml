@@ -1,103 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.v4.widget.DrawerLayout
+    android:id="@+id/drawerlayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical">
+    android:fitsSystemWindows="true">
     <!--顶部状态栏，用来显示当前操作信息和天气情况-->
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/main_color"
-        android:padding="5dp">
-        <!--显示当前模块-->
-        <TextView
-            android:id="@+id/main_controller_text"
-            android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:padding="10dp"
-            android:text="新闻中心"
-            android:textColor="@color/main_nomal"
-            android:textSize="@dimen/big"></TextView>
-        <!--显示天气信息-->
-        <LinearLayout
-            android:id="@+id/weather_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/weatherinfo_selector"
-            android:clickable="true"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
+            android:background="@color/main_color"
             android:padding="5dp">
-            <!--天气图片-->
+
             <ImageView
-                android:id="@+id/main_weather_img"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:padding="3dp"></ImageView>
-            <!--天气信息-->
-            <LinearLayout
+                android:id="@+id/img_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/main_weather_city"
+                android:layout_centerVertical="true"
+                android:src="@drawable/img_menu"
+                android:layout_marginLeft="5dp"></ImageView>
+            <!--显示当前模块-->
+            <TextView
+                android:id="@+id/main_controller_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:padding="10dp"
+                android:text="新闻中心"
+                android:textColor="@color/main_nomal"
+                android:textSize="@dimen/big"></TextView>
+            <!--显示天气信息-->
+            <LinearLayout
+                android:id="@+id/weather_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/weatherinfo_selector"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="5dp">
+                <!--天气图片-->
+                <ImageView
+                    android:id="@+id/main_weather_img"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:padding="3dp"></ImageView>
+                <!--天气信息-->
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/main_nomal"
-                    android:textSize="@dimen/medium"></TextView>
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/main_weather_temp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/main_nomal"
-                    android:textSize="@dimen/medium"></TextView>
+                    <TextView
+                        android:id="@+id/main_weather_city"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/main_nomal"
+                        android:textSize="@dimen/medium"></TextView>
+
+                    <TextView
+                        android:id="@+id/main_weather_temp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/main_nomal"
+                        android:textSize="@dimen/medium"></TextView>
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </RelativeLayout>
-    <!--主界面内容显示部分-->
+        </RelativeLayout>
+        <!--主界面内容显示部分-->
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"></FrameLayout>
+        <!--底部导航栏，用来在不同模块进行切换-->
+        <RadioGroup
+            android:id="@+id/main_rg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/main_color"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/main_news_rb"
+                style="@style/main_bottom"
+                android:drawableTop="@drawable/newscenter_selector"
+                android:text="新闻中心"></RadioButton>
+
+            <RadioButton
+                android:id="@+id/main_cla_rb"
+                style="@style/main_bottom"
+                android:drawableTop="@drawable/class_selector"
+                android:text="点到助手"></RadioButton>
+
+            <RadioButton
+                android:id="@+id/main_busi_rb"
+                style="@style/main_bottom"
+                android:drawableTop="@drawable/business_selector"
+                android:text="跳蚤市场"></RadioButton>
+
+            <RadioButton
+                android:id="@+id/main_fun_rb"
+                style="@style/main_bottom"
+                android:drawableTop="@drawable/havafun_selector"
+                android:text="糗事百科"></RadioButton>
+        </RadioGroup>
+    </LinearLayout>
+
     <FrameLayout
-        android:id="@+id/fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"></FrameLayout>
-    <!--底部导航栏，用来在不同模块进行切换-->
-    <RadioGroup
-        android:id="@+id/main_rg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/main_color"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/main_news_rb"
-            style="@style/main_bottom"
-            android:drawableTop="@drawable/newscenter_selector"
-            android:text="新闻中心"></RadioButton>
-
-        <RadioButton
-            android:id="@+id/main_cla_rb"
-            style="@style/main_bottom"
-            android:drawableTop="@drawable/class_selector"
-            android:text="点到助手"></RadioButton>
-
-        <RadioButton
-            android:id="@+id/main_busi_rb"
-            style="@style/main_bottom"
-            android:drawableTop="@drawable/business_selector"
-            android:text="跳蚤市场"></RadioButton>
-
-        <RadioButton
-            android:id="@+id/main_fun_rb"
-            style="@style/main_bottom"
-            android:drawableTop="@drawable/havafun_selector"
-            android:text="糗事百科"></RadioButton>
-    </RadioGroup>
-</LinearLayout>
+        android:id="@+id/drawer_container"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="left"
+        android:background="@android:color/white"
+        android:clickable="true">
+    </FrameLayout>
+</android.support.v4.widget.DrawerLayout>

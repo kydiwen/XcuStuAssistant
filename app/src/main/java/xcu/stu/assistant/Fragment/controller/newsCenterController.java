@@ -75,10 +75,10 @@ public class newsCenterController extends baseFragment {
                     initMediaList(dynamicElements.get(0).select("li"));
                     //通知适配器数据获得更新
                     newscenter_newslistAdapter.notifyDataSetChanged();
-                    progressdialogUtil.cancelDialog();
                     break;
                 case IMG_RUN:
                     autorun_img.setCurrentItem((autorun_img.getCurrentItem() + 1) % (imgNewses.size()));
+                    progressdialogUtil.cancelDialog();
                     break;
             }
         }
@@ -89,7 +89,7 @@ public class newsCenterController extends baseFragment {
     @Override
     protected View initView() {
         //显示进度条
-        progressdialogUtil.showDialog(mContext);
+        progressdialogUtil.showDialog(mContext,"正在加载，请稍候...");
         View view = View.inflate(mContext, R.layout.fragment_newscenter, null);
         news_list = (customListview) view.findViewById(R.id.news_list);
         //初始化头布局

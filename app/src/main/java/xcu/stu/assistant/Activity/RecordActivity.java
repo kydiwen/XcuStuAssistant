@@ -119,7 +119,7 @@ public class RecordActivity extends Activity {
                     registerReceiver(receiver, intentFilter);
                     adapter.startDiscovery();//开始扫描设备
                     //弹出进度条提示
-                    progressdialogUtil.showDialog(mContext);
+                    progressdialogUtil.showDialog(mContext,"正在点到...");
                 }
             }
         });

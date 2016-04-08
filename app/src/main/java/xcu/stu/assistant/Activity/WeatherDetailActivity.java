@@ -67,7 +67,7 @@ public class WeatherDetailActivity extends Activity {
     private void initView() {
         mContext = WeatherDetailActivity.this;
         //显示正在加载进度条
-        progressdialogUtil.showDialog(mContext);
+        progressdialogUtil.showDialog(mContext,"正在加载...");
         //隐藏标题栏
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_weather_detail);

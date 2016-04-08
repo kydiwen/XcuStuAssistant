@@ -1,9 +1,7 @@
 package xcu.stu.assistant.Activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -14,7 +12,7 @@ import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 
-import xcu.stu.assistant.Constant.myConstant;
+import cn.bmob.v3.Bmob;
 import xcu.stu.assistant.R;
 import xcu.stu.assistant.utils.color_same_to_app;
 
@@ -38,6 +36,8 @@ public class SplashActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //初始化bmob
+        Bmob.initialize(SplashActivity.this,"d25c82dae3a4d656facdcf97ae80d975");
         initView();
         initAnimation();
     }
@@ -95,19 +95,10 @@ public class SplashActivity extends Activity {
 
                     @Override
                     public void onAnimationEnd(Animation animation) {
-                        //logo动画结束，根据是否第一次打开应用进入不同页面(引导页面或者主页面)
-                        SharedPreferences sharedPreferences = getSharedPreferences(myConstant.SP_NAME,
-                                Context.MODE_PRIVATE);
-                        boolean is_first = sharedPreferences.getBoolean(myConstant.IS_FIRST_LAUNCH, false);
-                        if (!is_first) {//第一次启动，进入引导页面
-                            Intent intent = new Intent(SplashActivity.this, GuideActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } else {//进入主页面
-                            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
+                        //进入登陆界面
+                        Intent intent=new Intent(SplashActivity.this,LoginACtivity.class);
+                        startActivity(intent);
+                        finish();
                     }
 
                     @Override

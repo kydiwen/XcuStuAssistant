@@ -98,7 +98,7 @@ public class ClassAddActivity extends Activity {
     //将输入内容写入数据库并创建学生表
     private  void  initClass(){
         //显示进度条
-        progressdialogUtil.showDialog(mContext);
+        progressdialogUtil.showDialog(mContext,"正在保存...");
         //获取用户输入信息
         String className=class_name.getText().toString().trim();
         String num=class_stu_num.getText().toString().trim();

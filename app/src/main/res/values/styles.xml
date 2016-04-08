@@ -59,4 +59,10 @@
         <item name="android:clickable">true</item>
         <item name="android:background">@drawable/class_press_bg</item>
     </style>
+    <!-- 用户注册界面输入框样式-->
+    <style name="signup_input_stype">
+        <item name="android:textSize">@dimen/medium</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 </resources>
