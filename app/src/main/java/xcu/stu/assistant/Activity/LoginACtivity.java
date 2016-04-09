@@ -39,6 +39,8 @@ public class LoginACtivity extends Activity {
     private  user mUser;
     private String name;
     private String pass;
+    private SharedPreferences preferences;
+    private  TextView use_nologin;//直接进入按钮
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +60,13 @@ public class LoginACtivity extends Activity {
         login= (TextView) findViewById(R.id.login);
         new_user= (TextView) findViewById(R.id.new_user);
         back= (ImageView) findViewById(R.id.back);
+        use_nologin= (TextView) findViewById(R.id.use_nologin);
     }
     //初始化数据
     private  void  initData(){
         location.setVisibility(View.VISIBLE);
         location.setText("用户登录");
+        preferences = getSharedPreferences(myConstant.SP_NAME, Context.MODE_PRIVATE);
         //读取保存的用户名和密码
         read();
     }
@@ -81,7 +85,7 @@ public class LoginACtivity extends Activity {
                     toastUtil.show(mContext, "请输入密码");
                 } else if (TextUtils.isEmpty(name) && TextUtils.isEmpty(pass)) {
                     toastUtil.show(mContext, "请输入用户名和密码");
-                } else {
+                }else {
                     mUser = new user();
                     mUser.setUsername(name);
                     mUser.setPassword(pass);
@@ -104,9 +108,17 @@ public class LoginACtivity extends Activity {
                 finish();
             }
         });
+        use_nologin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               page_to_load();
+            }
+        });
     }
     //登录事件方法封装
      private  void  login(user u){
+         username.setText(u.getUsername());
+         password.setText(pass);
          //显示正在登录提示
              progressdialogUtil.showDialog(mContext, "正在登录，请稍候...");
              u.login(mContext, new SaveListener() {
@@ -115,18 +127,7 @@ public class LoginACtivity extends Activity {
                      //登录成功，保存密码
                      save();
                      progressdialogUtil.cancelDialog();
-                     SharedPreferences sharedPreferences = getSharedPreferences(myConstant.SP_NAME,
-                             Context.MODE_PRIVATE);
-                     boolean is_first = sharedPreferences.getBoolean(myConstant.IS_FIRST_LAUNCH, false);
-                     if (!is_first) {//第一次启动，进入引导页面
-                         Intent intent = new Intent(mContext, GuideActivity.class);
-                         startActivity(intent);
-                         finish();
-                     } else {//进入主页面
-                         Intent intent = new Intent(mContext, MainActivity.class);
-                         startActivity(intent);
-                         finish();
-                     }
+                    page_to_load();
                  }
 
                  @Override
@@ -137,18 +138,34 @@ public class LoginACtivity extends Activity {
              });
 
      }
+    //进入主页或引导页封装
+    private  void  page_to_load(){
+        SharedPreferences sharedPreferences = getSharedPreferences(myConstant.SP_NAME,
+                Context.MODE_PRIVATE);
+        boolean is_first = sharedPreferences.getBoolean(myConstant.IS_FIRST_LAUNCH, false);
+        if (!is_first) {//第一次启动，进入引导页面
+            Intent intent = new Intent(mContext, GuideActivity.class);
+            startActivity(intent);
+            finish();
+        } else {//进入主页面
+            Intent intent = new Intent(mContext, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode==LOGIN&&resultCode==RESULT_OK){
             user myUser= (user) data.getSerializableExtra(SignUpActivity.USER_RETURNED);
+            pass=data.getStringExtra("pass");
+            name=myUser.getUsername();
             //自动执行登录
             login(myUser);
         }
     }
     //保存用户名和密码
     private  void  save(){
-        SharedPreferences preferences=getSharedPreferences(myConstant.SP_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor=preferences.edit();
         editor.putString(myConstant.USER,name);
         editor.putString(myConstant.PASSWORD,pass);
@@ -156,18 +173,10 @@ public class LoginACtivity extends Activity {
     }
     //读取用户名和密码
     private  void  read(){
-        SharedPreferences preferences=getSharedPreferences(myConstant.SP_NAME,Context.MODE_PRIVATE);
         String myName=preferences.getString(myConstant.USER, "");
         String myPass=preferences.getString(myConstant.PASSWORD,"");
         username.setText(myName);
         password.setText(myPass);
         username.setSelection(myName.length());
-        //自动登录
-        if(!TextUtils.isEmpty(myName)){
-            mUser=new user();
-            mUser.setUsername(myName);
-            mUser.setPassword(myPass);
-            login(mUser);
-        }
     }
 }

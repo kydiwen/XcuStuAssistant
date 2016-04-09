@@ -59,5 +59,15 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:padding="10dp"></TextView>
+        <TextView
+            android:id="@+id/use_nologin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="直接进入"
+            android:textColor="@color/main_color"
+            android:textSize="@dimen/medium"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:padding="10dp"></TextView>
     </RelativeLayout>
 </LinearLayout>
