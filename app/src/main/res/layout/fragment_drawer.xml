@@ -2,10 +2,102 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="测试"></TextView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/main_color">
+
+        <LinearLayout
+            android:id="@+id/user_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:civ_border_width="2dp"
+                android:layout_marginBottom="10dp"
+                app:civ_border_color="@android:color/white"
+                android:src="@drawable/user_img_default"></de.hdodenhof.circleimageview.CircleImageView>
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/medium"></TextView>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#B0E0E6"
+        android:orientation="vertical"
+        android:layout_weight="3">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="50dp"></View>
+        <View
+            style="@style/draw_divide_style"></View>
+        <LinearLayout
+            android:id="@+id/user_info_edit"
+            style="@style/drawer_line_style">
+            <ImageView
+                style="@style/draw_img_style"
+                android:src="@drawable/user_info_editor"></ImageView>
+            <TextView
+                style="@style/draw_tv_style"
+                android:text="修改信息"></TextView>
+        </LinearLayout>
+        <View
+            style="@style/draw_divide_style"></View>
+        <LinearLayout
+            android:id="@+id/my_ershou"
+            style="@style/drawer_line_style">
+            <ImageView
+                style="@style/draw_img_style"
+                android:src="@drawable/my_ershou"></ImageView>
+            <TextView
+                style="@style/draw_tv_style"
+                android:text="我的二手"></TextView>
+        </LinearLayout>
+        <View
+            style="@style/draw_divide_style"></View>>
+        <LinearLayout
+            android:id="@+id/add_ershou"
+            style="@style/drawer_line_style">
+            <ImageView
+                style="@style/draw_img_style"
+                android:src="@drawable/add_ershou"></ImageView>
+            <TextView
+                style="@style/draw_tv_style"
+                android:text="发布二手"></TextView>
+        </LinearLayout>
+        <View
+           style="@style/draw_divide_style"></View>
+        <LinearLayout
+            android:id="@+id/close"
+            style="@style/drawer_line_style">
+            <ImageView
+                style="@style/draw_img_style"
+                android:src="@drawable/close"></ImageView>
+            <TextView
+               style="@style/draw_tv_style"
+                android:text="退出账号"></TextView>
+        </LinearLayout>
+        <View
+            style="@style/draw_divide_style"></View>
+    </LinearLayout>
 </LinearLayout>

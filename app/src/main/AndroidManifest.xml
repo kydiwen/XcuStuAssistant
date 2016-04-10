@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="xcu.stu.assistant"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="xcu.stu.assistant">
     //添加所需要的权限
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION">
     </uses-permission>
@@ -99,6 +99,8 @@
         <activity android:name=".Activity.LoginACtivity">
         </activity>
         <activity android:name=".Activity.SignUpActivity">
+        </activity>
+        <activity android:name=".Activity.UserInfoEditActivity">
         </activity>
     </application>
 

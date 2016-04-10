@@ -17,6 +17,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -42,6 +43,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 
+import cn.bmob.v3.BmobUser;
 import xcu.stu.assistant.Constant.myConstant;
 import xcu.stu.assistant.Fragment.baseFragment;
 import xcu.stu.assistant.Fragment.business_page.drawerFragment;
@@ -87,7 +89,7 @@ public class MainActivity extends FragmentActivity {
     private LinearLayout main_error;//错误页面
     private bluetoothStateReceiver receiver;
     private DrawerLayout drawerLayout;//抽屉
-    private  ImageView menu;//菜单按钮
+    private ImageView menu;//菜单按钮
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,7 +133,6 @@ public class MainActivity extends FragmentActivity {
     private void loadNormalPage() {
         //改变状态栏颜色与app风格一致
         color_same_to_app.setTopColorSameToApp(MainActivity.this, R.color.main_color);
-        setContentView(R.layout.activity_classes_list_);
         setContentView(R.layout.activity_main);
         main_rg = (RadioGroup) findViewById(R.id.main_rg);
         main_controller_text = (TextView) findViewById(R.id.main_controller_text);
@@ -139,8 +140,8 @@ public class MainActivity extends FragmentActivity {
         main_weather_city = (TextView) findViewById(R.id.main_weather_city);
         main_weather_temp = (TextView) findViewById(R.id.main_weather_temp);
         weather_info = (LinearLayout) findViewById(R.id.weather_info);
-        drawerLayout= (DrawerLayout) findViewById(R.id.drawerlayout);
-        menu= (ImageView) findViewById(R.id.img_menu);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
+        menu = (ImageView) findViewById(R.id.img_menu);
         initData();
         initListener();
     }
@@ -356,26 +357,35 @@ public class MainActivity extends FragmentActivity {
     //监听回退键，显示对话框
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("温馨提示");
-        builder.setMessage("点击确定按钮退出");
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-            }
-        });
-        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        builder.show();
+        //如果抽屉处于开启状态，先关闭抽屉
+        if (drawerLayout.isDrawerOpen(findViewById(R.id.drawer_container))) {
+            drawerLayout.closeDrawer(Gravity.LEFT);
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("温馨提示");
+            builder.setMessage("点击确定按钮退出");
+            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //退出当前账号登录
+                    BmobUser.logOut(mContext);
+                    finish();
+                }
+            });
+            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder.show();
+        }
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onDestroy() {
+        //退出当前账号登录
+        BmobUser.logOut(mContext);
+        super.onDestroy();
     }
 }
