@@ -102,6 +102,10 @@
         </activity>
         <activity android:name=".Activity.UserInfoEditActivity">
         </activity>
+        <activity android:name=".Activity.AddErshouActivity">
+        </activity>
+        <activity android:name=".Activity.MyErshouActivity">
+        </activity>
     </application>
 
 </manifest>
