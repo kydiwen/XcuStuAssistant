@@ -2,14 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true">
-
-    <include layout="@layout/top_back"></include>
-
+    android:orientation="vertical">
     <ListView
-        android:id="@+id/my_ershou_list"
+        android:id="@+id/categery"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"></ListView>
+        android:divider="@color/error_color"
+        android:dividerHeight="1dp"
+        android:layout_height="match_parent"></ListView>
 </LinearLayout>

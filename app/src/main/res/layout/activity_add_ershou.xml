@@ -1,9 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:orientation="vertical">
     <include
         layout="@layout/top_back"></include>
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:focusableInTouchMode="true"
+            android:focusable="true">
+            <requestFocus />>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/img_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:gravity="center_vertical">
+            <TextView
+                android:focusable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/choose_img"
+                android:gravity="center"
+                android:padding="5dp"
+                android:clickable="true"
+                android:drawableTop="@android:drawable/ic_menu_camera"
+                android:text="选取图片"> </TextView>
+        </LinearLayout>
+        <View
+            style="@style/draw_divide_style"></View>
+        <TextView
+            android:id="@+id/categary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="分类"
+            android:textSize="@dimen/big"
+            android:drawableRight="@android:drawable/arrow_down_float"
+            android:padding="10dp"></TextView>
+    </LinearLayout>
+    <View
+        style="@style/draw_divide_style"></View>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="商品信息"
+            android:textSize="@dimen/big"
+            android:padding="10dp"></TextView>
+        <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:id="@+id/title"
+        android:hint="请输入标题"
+        android:textColorHint="@color/error_color"></EditText>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:id="@+id/price"
+            android:inputType="number"
+            android:hint="请输入数字，免费填0"
+            android:textColorHint="@color/error_color"></EditText>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:id="@+id/describe"
+            android:hint="请输入描述信息"
+            android:textColorHint="@color/error_color"></EditText>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:id="@+id/transactionplace"
+            android:hint="请输入交易地点"
+            android:textColorHint="@color/error_color"></EditText>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textSize="@dimen/big"
+            android:text="联系方式"></TextView>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:id="@+id/phone"
+            android:inputType="phone"
+            android:hint="请输入手机号码"
+            android:textColorHint="@color/error_color"></EditText>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:id="@+id/qqnumber"
+            android:hint="请输入QQ号码"
+            android:inputType="number"
+            android:textColorHint="@color/error_color"></EditText>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:id="@+id/micromsg"
+            android:hint="请输入微信号码"
+            android:textColorHint="@color/error_color"></EditText>
+        </LinearLayout>
+</ScrollView>
+    <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/ensure"
+        style="@style/signup_input_stype"
+        android:text="确定"
+        android:background="@color/main_color"
+        android:gravity="center"
+        android:padding="10dp"></TextView>
+</LinearLayout>

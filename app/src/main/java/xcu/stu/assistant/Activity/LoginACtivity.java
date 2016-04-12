@@ -132,7 +132,7 @@ public class LoginACtivity extends Activity {
 
                  @Override
                  public void onFailure(int i, String s) {
-                     toastUtil.show(mContext, "用户名或密码错误");
+                     toastUtil.show(mContext, "登录失败,请重试");
                      progressdialogUtil.cancelDialog();
                  }
              });

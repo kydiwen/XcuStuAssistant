@@ -221,7 +221,8 @@ public class MainActivity extends FragmentActivity {
                 SharedPreferences preferences = getSharedPreferences(myConstant.SP_NAME, Context
                         .MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putString(myConstant.CURRENT_CITY, bdLocation.getCity());
+                editor.putString(myConstant.CURRENT_CITY, bdLocation.getCity().substring(0,bdLocation
+                        .getCity().length()-1));
                 editor.commit();
                 //开启服务，后台定时提示天气信息
                 Intent intent = new Intent(MainActivity.this, weatherUpdateService.class);
@@ -235,7 +236,8 @@ public class MainActivity extends FragmentActivity {
     private void getWeatherInfo(String city) {
         //天气信息请求地址
         try {
-            String url = getResources().getString(R.string.bd_weather_url) + URLEncoder.encode(city,
+            String url = getResources().getString(R.string.bd_weather_url) + URLEncoder.encode(city
+                    .substring(0,city.length()-1),
                     "utf-8") + "&output=json&ak=" + getResources().getString(R.string.my_bd_ak)
                     + "&mcode=" + getResources().getString(R.string.bd_mcode);
             requestUtil.jsonRequest(url, new jsonCallback() {
@@ -273,6 +275,7 @@ public class MainActivity extends FragmentActivity {
         //显示温度信息
         String temp = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("weather_data")
                 .getJSONObject(0).getString("date");
+        Log.d("kydiwen",temp+"温度"+imgUrl+"图片");
         main_weather_temp.setText(temp.substring(temp.indexOf("(") + 4, temp.indexOf(")")));
     }
 

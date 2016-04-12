@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -55,7 +56,6 @@ public class SignUpActivity extends Activity {
     private Uri imgUri;//文件保存路径
     private Dialog dialog;
     private  boolean isImgChoosen=false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -183,6 +183,7 @@ public class SignUpActivity extends Activity {
             mUser.setPassword(pass);
             mUser.setMobilePhoneNumber(phone);
             mUser.setQqNumber(qq);
+            Log.d("kydiwen",imgUri.getPath());
             final BmobFile user_img=new BmobFile(new File(Environment.getExternalStorageDirectory(),
                     "/xcustuassistant/user/user.jpg"));
             user_img.uploadblock(mContext, new UploadFileListener() {
