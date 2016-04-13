@@ -13,5 +13,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|top"
-        android:src="@android:drawable/ic_delete"></ImageView>
+        android:src="@android:drawable/ic_menu_close_clear_cancel"></ImageView>
 </FrameLayout>

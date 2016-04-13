@@ -37,8 +37,6 @@
                 android:drawableTop="@android:drawable/ic_menu_camera"
                 android:text="选取图片"> </TextView>
         </LinearLayout>
-        <View
-            style="@style/draw_divide_style"></View>
         <TextView
             android:id="@+id/categary"
             android:layout_width="match_parent"
@@ -48,8 +46,6 @@
             android:drawableRight="@android:drawable/arrow_down_float"
             android:padding="10dp"></TextView>
     </LinearLayout>
-    <View
-        style="@style/draw_divide_style"></View>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"

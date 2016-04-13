@@ -31,7 +31,6 @@
                 android:gravity="center_vertical"
                 android:padding="10dp"
                 android:maxLines="2"
-                android:text="出售自用笔记本电脑"
                 android:textSize="@dimen/medium"></TextView>
         </LinearLayout>
 
@@ -57,7 +56,8 @@
 
             <TextView
                 android:layout_gravity="bottom"
-                android:id="@+id/categery"
+                android:id="@+id/added_time"
+                android:textColor="@color/error_color"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/medium"></TextView>

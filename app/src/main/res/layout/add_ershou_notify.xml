@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--注册和发布商品界面提示用户选择图片来源对话框布局-->
+<!--添加商品界面，提示用户选择商品获取发布需求，取消推出当前界面-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
+                android:layout_width="match_parent"
                 android:padding="15dp"
-              android:layout_height="wrap_content">
+                android:layout_height="wrap_content">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
         android:layout_below="@id/notify"
         android:padding="10dp"
         android:textColor="@color/error_color"
-        android:text="请选择图片来源"></TextView>
+        android:text="您可以发布商品或者选择发布您的需求"></TextView>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,18 +34,18 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/choose"
         android:orientation="horizontal">
-    <TextView
-        android:id="@+id/take_photo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:background="@android:color/holo_red_light"
-        android:textSize="@dimen/big"
-        android:clickable="true"
-        android:layout_marginRight="10dp"
-        android:text="拍照"></TextView>
         <TextView
-            android:id="@+id/choose_album"
+            android:id="@+id/add_ershou"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:background="@android:color/holo_red_light"
+            android:textSize="@dimen/big"
+            android:clickable="true"
+            android:layout_marginRight="10dp"
+            android:text="发布二手"></TextView>
+        <TextView
+            android:id="@+id/add_needs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
@@ -53,6 +53,6 @@
             android:layout_marginLeft="10dp"
             android:background="@android:color/holo_blue_light"
             android:textSize="@dimen/big"
-            android:text="相册"></TextView>
-</LinearLayout>
+            android:text="发布需求"></TextView>
+    </LinearLayout>
 </RelativeLayout>

@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -25,14 +26,13 @@ import java.util.Date;
 import java.util.List;
 
 import cn.bmob.v3.Bmob;
-import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
-import cn.bmob.v3.listener.GetListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UploadBatchListener;
 import xcu.stu.assistant.R;
 import xcu.stu.assistant.bean.goods;
+import xcu.stu.assistant.bean.needs;
 import xcu.stu.assistant.bean.user;
 import xcu.stu.assistant.utils.callback.toastUtil;
 import xcu.stu.assistant.utils.color_same_to_app;
@@ -68,10 +68,12 @@ public class AddErshouActivity extends Activity {
     private final static int CROP_PHOTO = 2;//裁剪照片
     private boolean isImgChoosen = false;//是否已经选取照片
     private final static int CATEGERY_CHOOSE = 3;//选择商品类别
-    private user me;//当前登陆的用户，用来上传
     private List<String> current_ershou;//我的二手商品列表
     private boolean isCategeryChoosed = false;//判断是否选择了类别
-
+    private  AlertDialog operatedialog;//提示对话框
+    private  final static  int ADD_ERSHOU=0;//添加二手商品
+    private  final  static  int ADD_NEEDS=1;//添加需求
+    private  int USER_CHOOSE;//用户选择的操作
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,36 +100,61 @@ public class AddErshouActivity extends Activity {
         qqnumber = (EditText) findViewById(R.id.qqnumber);
         micromsg = (EditText) findViewById(R.id.micromsg);
         ensure = (TextView) findViewById(R.id.ensure);
+        //用户选择操作类型
+        chooseUser_operate();
+    }
+    //用户选择是发布需求还是发布商品
+    private  void  chooseUser_operate(){
+        AlertDialog.Builder builder=new AlertDialog.Builder(mContext);
+        final View view=View.inflate(mContext,R.layout.add_ershou_notify,null);
+        builder.setView(view);
+        TextView add_ershou= (TextView) view.findViewById(R.id.add_ershou);
+        TextView add_needs= (TextView) view.findViewById(R.id.add_needs);
+        ImageView close= (ImageView) view.findViewById(R.id.close);
+        operatedialog=builder.create();
+        //不可取消
+        operatedialog.setCancelable(false);
+        //发布二手点击事件
+        add_ershou.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                USER_CHOOSE=ADD_ERSHOU;
+                toastUtil.show(mContext,"记得添加图片哦");
+                operatedialog.dismiss();
+            }
+        });
+        //发布需求点击事件
+        add_needs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                USER_CHOOSE=ADD_NEEDS;
+                //设置图片添加模块不可见
+                img_container.setVisibility(View.GONE);
+                //设置类别选择不可见
+                categary.setVisibility(View.GONE);
+                operatedialog.dismiss();
+            }
+        });
+        //关闭按钮点击事件
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                operatedialog.dismiss();
+                finish();
+            }
+        });
+        operatedialog.show();
     }
 
     //初始化数据
     private void initData() {
-        //提示用户等待
-        progressdialogUtil.showDialog(mContext, "请稍候...");
         //显示顶部位置指示
         location.setVisibility(View.VISIBLE);
-        location.setText("发布新品");
-        //获取当前用户实例
-        queryCurrentUser();
-    }
-
-    //获取当前用户实例
-    private void queryCurrentUser() {
-        BmobQuery<user> query = new BmobQuery<user>();
-        query.getObject(mContext, BmobUser.getCurrentUser(mContext).getObjectId(), new GetListener<user>() {
-            @Override
-            public void onSuccess(user user) {
-                me = user;
-                //获取到当前用户实例后，获取当前所发布的商品列表
-                current_ershou = me.getMy_ershou();
-                progressdialogUtil.cancelDialog();
-            }
-
-            @Override
-            public void onFailure(int i, String s) {
-
-            }
-        });
+        if(USER_CHOOSE==ADD_ERSHOU){
+            location.setText("发布新品");
+        }else  if(USER_CHOOSE==ADD_NEEDS){
+            location.setText("发布需求");
+        }
     }
 
     //初始化监听事件
@@ -187,94 +214,14 @@ public class AddErshouActivity extends Activity {
         ensure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //点击确定，开始上传
-                if (!isImgChoosen) {//未选择图片
-                    toastUtil.show(mContext, "请至少选择一张图片");
-                } else {//商品信息必填，联系方式至少填一个
-                    if (TextUtils.isEmpty(title.getText().toString()) || TextUtils.isEmpty(price.getText()
-                            .toString()) || TextUtils.isEmpty(describe.getText().toString()) || TextUtils
-                            .isEmpty(transactionplace.getText().toString())) {
-                        toastUtil.show(mContext, "请补全商品信息哦");
-                    } else {
-                        if (TextUtils.isEmpty(phone.getText().toString()) && TextUtils.isEmpty(micromsg
-                                .getText().toString()) && TextUtils.isEmpty(qqnumber.getText().toString())) {
-                            toastUtil.show(mContext, "请至少填写一种联系方式");
-                        } else {
-                            progressdialogUtil.showDialog(mContext, "正在上传，请稍候...");
-                            String[] bmobFiles = new String[imgUris.size()];
-                            for (int i = 0; i < imgUris.size(); i++) {
-                                bmobFiles[i] = imgUris.get(i).getPath();
-                            }
-                            //开始上传图片
-                            Bmob.uploadBatch(mContext, bmobFiles, new UploadBatchListener() {
-                                @Override
-                                public void onSuccess(List<BmobFile> list, List<String> urls) {
-                                    if (urls.size() == imgUris.size()) {
-                                        //图片上传完成后保存
-                                        goods myGood = new goods();
-                                        //设置商品信息
-                                        //设置类别
-                                        if (isCategeryChoosed) {
-                                            myGood.setCategory(categary.getText().toString());
-                                        } else {
-                                            myGood.setCategory("其他");
-                                        }
-                                        //设置主图
-                                        myGood.setMain_img(urls.get(0));
-                                        //设置描述信息
-                                        myGood.setDescribe(describe.getText().toString());
-                                        //设置标题
-                                        myGood.setTitle(title.getText().toString());
-                                        //设置价格
-                                        myGood.setPrice(price.getText().toString());
-                                        //设置交易地点
-                                        myGood.setLocation(transactionplace.getText().toString());
-                                        //设置图片
-                                        myGood.setImgs((ArrayList<String>) urls);
-                                        //设置联系方式
-                                        //设置电话
-                                        if (!TextUtils.isEmpty(phone.getText().toString())) {
-                                            myGood.setPhone(phone.getText().toString());
-                                        }
-                                        //设置微信号码
-                                        if (!TextUtils.isEmpty(micromsg.getText().toString())) {
-                                            myGood.setMicromsg(micromsg.getText().toString());
-                                        }
-                                        //设置qq
-                                        if (!TextUtils.isEmpty(qqnumber.getText().toString())) {
-                                            myGood.setQq(qqnumber.getText().toString());
-                                        }
-                                        //设置发布者
-                                        myGood.setUserid(me.getObjectId());
-                                        //保存商品信息
-                                        myGood.save(mContext, new SaveListener() {
-                                            @Override
-                                            public void onSuccess() {
-                                                toastUtil.show(mContext, "发布成功");
-                                                progressdialogUtil.cancelDialog();
-                                                finish();
-                                            }
-
-                                            @Override
-                                            public void onFailure(int i, String s) {
-                                                Log.d("kydiwen", "商品信息保存失败信息" + s);
-                                            }
-                                        });
-                                    }
-                                }
-
-                                @Override
-                                public void onProgress(int i, int i1, int i2, int i3) {
-
-                                }
-
-                                @Override
-                                public void onError(int i, String s) {
-                                    toastUtil.show(mContext,"上传失败，请检查您的网络设置");
-                                }
-                            });
-                        }
-                    }
+                switch (USER_CHOOSE){
+                    case ADD_ERSHOU:
+                        //发布二手
+                        add_ershou();
+                        break;
+                    case  ADD_NEEDS:
+                        add_needs();
+                        break;
                 }
             }
         });
@@ -286,6 +233,152 @@ public class AddErshouActivity extends Activity {
                 startActivityForResult(intent, CATEGERY_CHOOSE);
             }
         });
+    }
+    //发布商品逻辑
+    private  void  add_ershou(){
+        //点击确定，开始上传
+        if (!isImgChoosen) {//未选择图片
+            toastUtil.show(mContext, "请至少选择一张图片");
+        } else {//商品信息必填，联系方式至少填一个
+            if (TextUtils.isEmpty(title.getText().toString()) || TextUtils.isEmpty(price.getText()
+                    .toString()) || TextUtils.isEmpty(describe.getText().toString()) || TextUtils
+                    .isEmpty(transactionplace.getText().toString())) {
+                toastUtil.show(mContext, "请补全商品信息哦");
+            } else {
+                if (TextUtils.isEmpty(phone.getText().toString()) && TextUtils.isEmpty(micromsg
+                        .getText().toString()) && TextUtils.isEmpty(qqnumber.getText().toString())) {
+                    toastUtil.show(mContext, "请至少填写一种联系方式");
+                } else {
+                    progressdialogUtil.showDialog(mContext, "正在上传，请稍候...");
+                    String[] bmobFiles = new String[imgUris.size()];
+                    for (int i = 0; i < imgUris.size(); i++) {
+                        bmobFiles[i] = imgUris.get(i).getPath();
+                    }
+                    //开始上传图片
+                    Bmob.uploadBatch(mContext, bmobFiles, new UploadBatchListener() {
+                        @Override
+                        public void onSuccess(List<BmobFile> list, List<String> urls) {
+                            if (urls.size() == imgUris.size()) {
+                                //图片上传完成后保存
+                                goods myGood = new goods();
+                                //设置商品信息
+                                //设置类别
+                                if (isCategeryChoosed) {
+                                    myGood.setCategory(categary.getText().toString());
+                                } else {
+                                    myGood.setCategory("其他");
+                                }
+                                //设置主图
+                                myGood.setMain_img(urls.get(0));
+                                //设置描述信息
+                                myGood.setDescribe(describe.getText().toString());
+                                //设置标题
+                                myGood.setTitle(title.getText().toString());
+                                //设置价格
+                                myGood.setPrice(price.getText().toString());
+                                //设置交易地点
+                                myGood.setLocation(transactionplace.getText().toString());
+                                //设置图片
+                                myGood.setImgs((ArrayList<String>) urls);
+                                //设置联系方式
+                                //设置电话
+                                if (!TextUtils.isEmpty(phone.getText().toString())) {
+                                    myGood.setPhone(phone.getText().toString());
+                                }
+                                //设置微信号码
+                                if (!TextUtils.isEmpty(micromsg.getText().toString())) {
+                                    myGood.setMicromsg(micromsg.getText().toString());
+                                }
+                                //设置qq
+                                if (!TextUtils.isEmpty(qqnumber.getText().toString())) {
+                                    myGood.setQq(qqnumber.getText().toString());
+                                }
+                                //设置发布者
+                                myGood.setUserid(BmobUser.getCurrentUser(mContext).getObjectId());
+                                //保存商品信息
+                                myGood.save(mContext, new SaveListener() {
+                                    @Override
+                                    public void onSuccess() {
+                                        toastUtil.show(mContext, "发布成功");
+                                        progressdialogUtil.cancelDialog();
+                                        finish();
+                                    }
+
+                                    @Override
+                                    public void onFailure(int i, String s) {
+                                        Log.d("kydiwen", "商品信息保存失败信息" + s);
+                                    }
+                                });
+                            }
+                        }
+
+                        @Override
+                        public void onProgress(int i, int i1, int i2, int i3) {
+
+                        }
+
+                        @Override
+                        public void onError(int i, String s) {
+                            toastUtil.show(mContext,"上传失败，请检查您的网络设置");
+                        }
+                    });
+                }
+            }
+        }
+    }
+    //发布需求逻辑
+    private  void  add_needs(){
+        if (TextUtils.isEmpty(title.getText().toString()) || TextUtils.isEmpty(price.getText()
+                .toString()) || TextUtils.isEmpty(describe.getText().toString()) || TextUtils
+                .isEmpty(transactionplace.getText().toString())) {//判断商品信息是否完整
+            toastUtil.show(mContext, "请补全商品信息哦");
+        }else {//商品信息完整,判断是否填写联系方式
+            if (TextUtils.isEmpty(phone.getText().toString()) && TextUtils.isEmpty(micromsg
+                    .getText().toString()) && TextUtils.isEmpty(qqnumber.getText().toString())) {
+                toastUtil.show(mContext, "请至少填写一种联系方式");
+            }else {//商品信息完整，并且有联系方式，上传商品
+                //提示正在上传
+                progressdialogUtil.showDialog(mContext,"正在发布，请稍候...");
+                needs myNeed=new needs();
+                //设置标题
+                myNeed.setTitle(title.getText().toString());
+                //设置价格
+                myNeed.setPrice(price.getText().toString());
+                //设置描述信息
+                myNeed.setDescribe(describe.getText().toString());
+                //设置交易地点
+                myNeed.setLocation(transactionplace.getText().toString());
+                //设置发布者
+                myNeed.setUserid(BmobUser.getCurrentUser(mContext).getObjectId());
+                //设置联系方式
+                //设置电话
+                if (!TextUtils.isEmpty(phone.getText().toString())) {
+                    myNeed.setPhone(phone.getText().toString());
+                }
+                //设置微信号码
+                if (!TextUtils.isEmpty(micromsg.getText().toString())) {
+                    myNeed.setMicromsg(micromsg.getText().toString());
+                }
+                //设置qq
+                if (!TextUtils.isEmpty(qqnumber.getText().toString())) {
+                    myNeed.setQq(qqnumber.getText().toString());
+                }
+                //上传信息
+                myNeed.save(mContext, new SaveListener() {
+                    @Override
+                    public void onSuccess() {
+                        toastUtil.show(mContext,"上传成功");
+                        progressdialogUtil.cancelDialog();
+                        finish();
+                    }
+
+                    @Override
+                    public void onFailure(int i, String s) {
+
+                    }
+                });
+            }
+        }
     }
 
     @Override
