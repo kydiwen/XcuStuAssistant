@@ -29,7 +29,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
-                android:padding="10dp"
                 android:maxLines="2"
                 android:textSize="@dimen/medium"></TextView>
         </LinearLayout>

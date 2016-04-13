@@ -14,7 +14,6 @@ import xcu.stu.assistant.Fragment.business_page.myErshousFragent;
 import xcu.stu.assistant.Fragment.business_page.myNeedsFragment;
 import xcu.stu.assistant.R;
 import xcu.stu.assistant.utils.color_same_to_app;
-import xcu.stu.assistant.utils.progressdialogUtil;
 
 /**
  * 我的二手商品显示界面
@@ -45,22 +44,23 @@ public class MyErshouActivity extends FragmentActivity {
         setContentView(R.layout.activity_my_ershou);
         back = (ImageView) findViewById(R.id.back);
         location = (TextView) findViewById(R.id.location);
-        my_ershou_rg= (RadioGroup)findViewById(R.id.my_ershou_rg);
+        my_ershou_rg = (RadioGroup) findViewById(R.id.my_ershou_rg);
     }
 
     //初始化数据
     private void initData() {
-        manager=getSupportFragmentManager();
-        myershous=new myErshousFragent();
-        myneeds=new myNeedsFragment();
+        manager = getSupportFragmentManager();
+        myershous = new myErshousFragent();
+        myneeds = new myNeedsFragment();
         //显示当前位置
         location.setVisibility(View.VISIBLE);
+        location.setText("个人商品管理");
         //默认默认选中第一项
         my_ershou_rg.check(R.id.rb_my_ershous);
-        transaction=manager.beginTransaction();
+        transaction = manager.beginTransaction();
         //添加fragment
-        transaction.add(R.id.goods_container,myershous);
-        transaction.add(R.id.goods_container,myneeds);
+        transaction.add(R.id.goods_container, myershous);
+        transaction.add(R.id.goods_container, myneeds);
         transaction.show(myershous);
         transaction.hide(myneeds);
         transaction.commit();
@@ -72,15 +72,15 @@ public class MyErshouActivity extends FragmentActivity {
         my_ershou_rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId){
+                switch (checkedId) {
                     case R.id.rb_my_ershous:
-                        transaction=manager.beginTransaction();
+                        transaction = manager.beginTransaction();
                         transaction.show(myershous);
                         transaction.hide(myneeds);
                         transaction.commit();
                         break;
-                    case  R.id.rb_my_needs:
-                        transaction=manager.beginTransaction();
+                    case R.id.rb_my_needs:
+                        transaction = manager.beginTransaction();
                         transaction.show(myneeds);
                         transaction.hide(myershous);
                         transaction.commit();

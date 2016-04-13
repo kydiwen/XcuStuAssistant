@@ -1,6 +1,7 @@
 package xcu.stu.assistant.Fragment.business_page;
 
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
@@ -49,14 +50,14 @@ public class myErshousFragent extends baseFragment {
     private ImageLoader imageLoader;//图片加载对象
     private final static int DOWN_REFRESH = 0;//下拉刷新
     private final static int LOAD_MORE = 1;//加载更多
-    private String newsestTime;//最新一条数据的时间
+    private String newsestTime = "";//最新一条数据的时间
     private int currentData = 0;//当前的数据量
-    private  int selected_item;//需要删除的项
+    private int selected_item;//需要删除的项
 
     @Override
     protected View initView() {
-        View view=View.inflate(mContext, R.layout.myershou_needs_list,null);
-        my_ershou_list= (ListView) view.findViewById(R.id.my_list);
+        View view = View.inflate(mContext, R.layout.myershou_needs_list, null);
+        my_ershou_list = (ListView) view.findViewById(R.id.my_list);
         refresh = (upToLoadLayout) view.findViewById(R.id.refresh);
         return view;
     }
@@ -64,7 +65,7 @@ public class myErshousFragent extends baseFragment {
     @Override
     protected void initData() {
         //提示正在加载
-        progressdialogUtil.showDialog(mContext,"正在加载，请稍候...");
+        progressdialogUtil.showDialog(mContext, "正在加载，请稍候...");
         queue = Volley.newRequestQueue(mContext);
         cache = lruImageCache.instance();
         imageLoader = new ImageLoader(queue, cache);
@@ -76,6 +77,7 @@ public class myErshousFragent extends baseFragment {
         //注册上下文菜单
         registerForContextMenu(my_ershou_list);
     }
+
     //获取二手列表数据
     private void loadMyErshou() {
         BmobQuery<goods> query = new BmobQuery<goods>();
@@ -85,12 +87,14 @@ public class myErshousFragent extends baseFragment {
         query.findObjects(mContext, new FindListener<goods>() {
             @Override
             public void onSuccess(List<goods> list) {
-                //提示用户正在加载，更新数据
-                progressdialogUtil.cancelDialog();
-                my_ershou.addAll(list);
-                adapter.notifyDataSetChanged();
-                currentData += list.size();
-                newsestTime = list.get(0).getCreatedAt();
+               if(list.size()>0) {
+                    //提示用户正在加载，更新数据
+                    progressdialogUtil.cancelDialog();
+                    my_ershou.addAll(list);
+                    adapter.notifyDataSetChanged();
+                    currentData += list.size();
+                    newsestTime = list.get(0).getCreatedAt();
+                }
             }
 
             @Override
@@ -121,33 +125,38 @@ public class myErshousFragent extends baseFragment {
         my_ershou_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                selected_item=position;
+                selected_item = position;
                 return false;
             }
         });
     }
+
     //加载数据方法封装
     private void queryData(final int action) {
         BmobQuery<goods> query = new BmobQuery<goods>();
         // 按时间降序查询
         query.order("-createdAt");
-        query.addWhereEqualTo("userid",BmobUser.getCurrentUser(mContext).getObjectId());
+        query.addWhereEqualTo("userid", BmobUser.getCurrentUser(mContext).getObjectId());
         //如果是加载更多
         if (action == LOAD_MORE) {
             // 跳过之前页数并去掉重复数据
             query.setSkip(currentData);
         } else {
             //查询最新数据
-            //处理时间查询
-            Date date = null;
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            try {
-                date = sdf.parse(newsestTime);
-            } catch (ParseException e) {
-                e.printStackTrace();
+            if (TextUtils.isEmpty(newsestTime)) {
+                loadMyErshou();//重复执行，直到有数据
+            } else {
+                //处理时间查询
+                Date date = null;
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                try {
+                    date = sdf.parse(newsestTime);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                //只查询大于最新一条数据发布时间的数据
+                query.addWhereGreaterThanOrEqualTo("createdAt", new BmobDate(date));
             }
-            //只查询大于最新一条数据发布时间的数据
-            query.addWhereGreaterThanOrEqualTo("createdAt", new BmobDate(date));
         }
         // 设置每页数据个数
         query.setLimit(10);
@@ -157,12 +166,12 @@ public class myErshousFragent extends baseFragment {
             public void onSuccess(List<goods> list) {
                 switch (action) {
                     case DOWN_REFRESH:
+                        refresh.setRefreshing(false);
                         if (list.size() > 1) {
                             list.remove(list.size() - 1);
                             for (int i = list.size() - 1; i >= 0; i--) {
                                 my_ershou.add(0, list.get(i));
                                 adapter.notifyDataSetChanged();
-                                refresh.setRefreshing(false);
                             }
                             currentData += list.size();
                             newsestTime = list.get(0).getCreatedAt();
@@ -172,14 +181,13 @@ public class myErshousFragent extends baseFragment {
                         }
                         break;
                     case LOAD_MORE:
+                        refresh.setLoading(false);
                         if (list.size() > 0) {
-                            refresh.setLoading(false);
                             currentData += list.size();
                             my_ershou.addAll(list);
                             adapter.notifyDataSetChanged();
                         } else {
                             toastUtil.show(mContext, "无更多数据");
-                            refresh.setLoading(false);
                         }
                         break;
                 }
@@ -191,6 +199,7 @@ public class myErshousFragent extends baseFragment {
             }
         });
     }
+
     //我的二手商品列表适配器
     class myAdapter extends BaseAdapter {
 
@@ -226,7 +235,7 @@ public class myErshousFragent extends baseFragment {
             }
             //设置数据
             holder.title.setText(my_ershou.get(position).getTitle());
-            holder.price.setText("￥"+my_ershou.get(position).getPrice());
+            holder.price.setText("￥" + my_ershou.get(position).getPrice());
             holder.added_time.setText(my_ershou.get(position).getCreatedAt());
             holder.main_img.setDefaultImageResId(R.drawable.loading);
             holder.main_img.setErrorImageResId(R.drawable.loading_failed);
@@ -247,16 +256,16 @@ public class myErshousFragent extends baseFragment {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add(0,0,0,"删除");
+        menu.add(0, 0, 0, "删除");
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         //提示用户正在删除
-        progressdialogUtil.showDialog(mContext,"正在删除...");
-        if(item.getItemId()==0){
-            final goods good_to_delete=my_ershou.get(selected_item);
-            String id=good_to_delete.getObjectId();
+        progressdialogUtil.showDialog(mContext, "正在删除...");
+        if (item.getItemId() == 0) {
+            final goods good_to_delete = my_ershou.get(selected_item);
+            String id = good_to_delete.getObjectId();
             good_to_delete.delete(mContext, id, new DeleteListener() {
                 @Override
                 public void onSuccess() {

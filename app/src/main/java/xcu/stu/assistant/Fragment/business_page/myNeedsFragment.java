@@ -1,7 +1,7 @@
 package xcu.stu.assistant.Fragment.business_page;
 
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.text.ParseException;
@@ -40,7 +41,7 @@ public class myNeedsFragment extends baseFragment {
     private myAdapter adapter;
     private final static int DOWN_REFRESH = 0;//下拉刷新
     private final static int LOAD_MORE = 1;//加载更多
-    private String newsestTime;//最新一条数据的时间
+    private String newsestTime="";//最新一条数据的时间
     private int currentData = 0;//当前的数据量
     private int selectedItem;//长按删除的项
 
@@ -74,10 +75,12 @@ public class myNeedsFragment extends baseFragment {
         query.findObjects(mContext, new FindListener<needs>() {
             @Override
             public void onSuccess(List<needs> list) {
-                data.addAll(list);
-                adapter.notifyDataSetChanged();
-                currentData += list.size();
-                newsestTime = list.get(0).getCreatedAt();
+                if(list.size()>0) {
+                    data.addAll(list);
+                    adapter.notifyDataSetChanged();
+                    currentData += list.size();
+                    newsestTime = list.get(0).getCreatedAt();
+                }
             }
 
             @Override
@@ -124,59 +127,68 @@ public class myNeedsFragment extends baseFragment {
             // 跳过之前页数并去掉重复数据
             query.setSkip(currentData);
         } else {
-            //查询最新数据
-            //处理时间查询
-            Date date = null;
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            try {
-                date = sdf.parse(newsestTime);
-            } catch (ParseException e) {
-                e.printStackTrace();
+            if(TextUtils.isEmpty(newsestTime)){
+                loadMyNeeds();//数据为空，重新加载，循环执行
+            }else {
+                //查询最新数据
+                //处理时间查询
+                Date date = null;
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                try {
+                    date = sdf.parse(newsestTime);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                //只查询大于最新一条数据发布时间的数据
+                query.addWhereGreaterThanOrEqualTo("createdAt", new BmobDate(date));
             }
-            //只查询大于最新一条数据发布时间的数据
-            query.addWhereGreaterThanOrEqualTo("createdAt", new BmobDate(date));
         }
         // 设置每页数据个数
         query.setLimit(10);
-        //查找数据
-        query.findObjects(mContext, new FindListener<needs>() {
-            @Override
-            public void onSuccess(List<needs> list) {
-                switch (action) {
-                    case DOWN_REFRESH:
-                        if (list.size() > 1) {
-                            list.remove(list.size() - 1);
-                            for (int i = list.size() - 1; i >= 0; i--) {
-                                data.add(0, list.get(i));
-                                adapter.notifyDataSetChanged();
-                                refresh.setRefreshing(false);
+            //查找数据
+            query.findObjects(mContext, new FindListener<needs>() {
+                @Override
+                public void onSuccess(List<needs> list) {
+                    refresh.setRefreshing(false);
+                    refresh.setLoading(false);
+                    switch (action) {
+                        case DOWN_REFRESH:
+                            if (list.size() > 1) {
+                                list.remove(list.size() - 1);
+                                for (int i = list.size() - 1; i >= 0; i--) {
+                                    data.add(0, list.get(i));
+                                    adapter.notifyDataSetChanged();
+                                }
+                                currentData += list.size();
+                                newsestTime = list.get(0).getCreatedAt();
+                            } else {
+                                toastUtil.show(mContext, "暂无更新");
                             }
-                            currentData += list.size();
-                            newsestTime = list.get(0).getCreatedAt();
-                        } else {
-                            toastUtil.show(mContext, "暂无更新");
-                            refresh.setRefreshing(false);
-                        }
-                        break;
-                    case LOAD_MORE:
-                        if (list.size() > 0) {
+                            break;
+                        case LOAD_MORE:
                             refresh.setLoading(false);
-                            currentData += list.size();
-                            data.addAll(list);
-                            adapter.notifyDataSetChanged();
-                        } else {
-                            toastUtil.show(mContext, "无更多数据");
-                            refresh.setLoading(false);
-                        }
-                        break;
+                            if (list.size() > 0) {
+                                currentData += list.size();
+                                data.addAll(list);
+                                adapter.notifyDataSetChanged();
+                            } else {
+                                toastUtil.show(mContext, "无更多数据");
+                            }
+                            break;
+                    }
                 }
-            }
 
-            @Override
-            public void onError(int i, String s) {
-                Log.d("kydiwen", "错误信息：" + s);
-            }
-        });
+                @Override
+                public void onError(int i, String s) {
+                    if(action==DOWN_REFRESH){
+                        toastUtil.show(mContext,"刷新失败，请重试...");
+                        refresh.setRefreshing(false);
+                    }else {
+                        toastUtil.show(mContext,"加载失败，请重试...");
+                        refresh.setLoading(false);
+                    }
+                }
+            });
     }
 
     //适配器对象
