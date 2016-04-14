@@ -25,6 +25,7 @@ import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UploadFileListener;
 import xcu.stu.assistant.R;
 import xcu.stu.assistant.bean.user;
+import xcu.stu.assistant.utils.bitmapUtil;
 import xcu.stu.assistant.utils.callback.toastUtil;
 import xcu.stu.assistant.utils.color_same_to_app;
 import xcu.stu.assistant.utils.progressdialogUtil;
@@ -246,6 +247,8 @@ public class SignUpActivity extends Activity {
             try {
                 user_img.setImageBitmap(BitmapFactory.decodeStream(getContentResolver().openInputStream
                             (imgUri)));
+                //压缩图片
+                bitmapUtil.saveimage(imgUri.getPath());
                 dialog.dismiss();
                 isImgChoosen=true;
             } catch (FileNotFoundException e) {

@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -33,7 +32,7 @@ import cn.bmob.v3.listener.UploadBatchListener;
 import xcu.stu.assistant.R;
 import xcu.stu.assistant.bean.goods;
 import xcu.stu.assistant.bean.needs;
-import xcu.stu.assistant.bean.user;
+import xcu.stu.assistant.utils.bitmapUtil;
 import xcu.stu.assistant.utils.callback.toastUtil;
 import xcu.stu.assistant.utils.color_same_to_app;
 import xcu.stu.assistant.utils.progressdialogUtil;
@@ -414,6 +413,7 @@ public class AddErshouActivity extends Activity {
                 try {
                     //添加图片路径
                     imgUris.add(imgUri);
+                    bitmapUtil.saveimage(imgUri.getPath());
                     final View img = View.inflate(mContext, R.layout.img_add, null);
                     ImageView img_add = (ImageView) img.findViewById(R.id.img_add);
                     ImageView img_del = (ImageView) img.findViewById(R.id.img_del);
