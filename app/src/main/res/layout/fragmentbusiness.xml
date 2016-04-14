@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/refresh"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
         <GridView
             android:id="@+id/goods_type"
@@ -21,17 +16,22 @@
             android:padding="0.5dp"
             android:verticalSpacing="0.5dp">
         </GridView>
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/refresh">
             <ListView
                 android:id="@+id/goods_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"></ListView>
+            </android.support.v4.widget.SwipeRefreshLayout>
             <include
                 layout="@layout/class_null"></include>
         </FrameLayout>
-    </LinearLayout>
-</android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>

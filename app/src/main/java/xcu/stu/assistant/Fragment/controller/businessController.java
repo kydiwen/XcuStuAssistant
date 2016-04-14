@@ -1,5 +1,6 @@
 package xcu.stu.assistant.Fragment.controller;
 
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.View;
@@ -25,6 +26,8 @@ import java.util.List;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobDate;
 import cn.bmob.v3.listener.FindListener;
+import xcu.stu.assistant.Activity.GoodsDetailActivity;
+import xcu.stu.assistant.Activity.GoodsTypeActivity;
 import xcu.stu.assistant.Fragment.baseFragment;
 import xcu.stu.assistant.R;
 import xcu.stu.assistant.bean.goods;
@@ -50,7 +53,7 @@ public class businessController extends baseFragment {
     private String lastTime = "";//最新一条数据的时间
     private int currentGoods = 0;//当前的商品数量
     private  RelativeLayout mess_none;
-
+    public static  final  String GOODS_TYPE="商品分类";
     @Override
     protected View initView() {
         View view = View.inflate(mContext, R.layout.fragmentbusiness, null);
@@ -118,7 +121,7 @@ public class businessController extends baseFragment {
         types.add("运动");
         types.add("美妆");
         types.add("衣服");
-        types.add("其它");
+        types.add("其他");
         typeAdapter = new typeAdapter(types);
         goods_type.setAdapter(typeAdapter);
     }
@@ -129,7 +132,10 @@ public class businessController extends baseFragment {
         goods_type.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                //点击进入分类显示页面
+                Intent intent=new Intent(mContext, GoodsTypeActivity.class);
+                intent.putExtra(GOODS_TYPE,types.get(position));
+                startActivity(intent);
             }
         });
         //设置下拉刷新事件
@@ -137,6 +143,15 @@ public class businessController extends baseFragment {
             @Override
             public void onRefresh() {
                 refresh();
+            }
+        });
+        //为商品设置点击事件
+        goods_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent=new Intent(mContext, GoodsDetailActivity.class);
+                intent.putExtra(GoodsTypeActivity.GOODS_ITEM,newestErshous.get(position));
+                startActivity(intent);
             }
         });
     }
@@ -172,7 +187,8 @@ public class businessController extends baseFragment {
                             newestErshous.add(0, list.get(i));
                             goodsAdapter.notifyDataSetChanged();
                         }
-
+                        //更新最新数据的时间
+                        lastTime=list.get(0).getCreatedAt();
                     } else {
                         toastUtil.show(mContext, "暂无更新");
                     }

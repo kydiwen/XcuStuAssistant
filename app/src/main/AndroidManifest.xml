@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="xcu.stu.assistant">
+          package="xcu.stu.assistant">
     //添加所需要的权限
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"></uses-permission>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"></uses-permission>
-    <uses-permission android:name="android.permission.READ_LOGS" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.WRITE_APN_SETTINGS" />
-    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.READ_LOGS"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.WRITE_APN_SETTINGS"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
     <!-- 添加蓝牙设备所需要的权限 -->
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
 
     <application
         android:name=".application.MyApplication"
@@ -28,79 +28,103 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Holo.Light.NoActionBar">
-        <activity android:name=".Activity.SplashActivity"
+        <activity
+            android:name=".Activity.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.GuideActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".Activity.MainActivity"
-            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".Activity.GuideActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activity.MainActivity"
+            android:screenOrientation="portrait"/>
 
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote"></service>
+            android:process=":remote"/>
         <!-- meta-data需要写在application中 -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="@string/my_bd_ak" />
+            android:value="@string/my_bd_ak"/>
 
-        <activity android:name=".Activity.WeatherDetailActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".Activity.CityListActivity"
-            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".Activity.WeatherDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activity.CityListActivity"
+            android:screenOrientation="portrait"/>
         <!--
              ATTENTION: This was auto-generated to add Google Play services to your project for
              App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
         -->
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
+            android:value="@integer/google_play_services_version"/>
 
-        <service android:name=".service.weatherUpdateService" />
+        <service android:name=".service.weatherUpdateService"/>
 
         <receiver android:name=".receiver.AlarmReceiver">
             <intent-filter>
-                <action android:name="xcu.stu.weather.notification" />
+                <action android:name="xcu.stu.weather.notification"/>
             </intent-filter>
         </receiver>
 
-        <activity android:name=".Activity.NewsDetailActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".Activity.NewsMoreActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".Activity.classes_list_Activity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".Activity.ClassAddActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".Activity.RecordDetailActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".Activity.ClassChooseActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".Activity.RecordActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".Activity.stuMsgSetActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".Activity.ScanRecordActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".Activity.LoginACtivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".Activity.SignUpActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".Activity.UserInfoEditActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".Activity.AddErshouActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".Activity.MyErshouActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".Activity.CategeryChooseActivity"
+        <activity
+            android:name=".Activity.NewsDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activity.NewsMoreActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activity.classes_list_Activity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activity.ClassAddActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activity.RecordDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activity.ClassChooseActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activity.RecordActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activity.stuMsgSetActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activity.ScanRecordActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activity.LoginACtivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activity.SignUpActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activity.UserInfoEditActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activity.AddErshouActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activity.MyErshouActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activity.CategeryChooseActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"></activity>
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"/>
+        <activity android:name=".Activity.GoodsTypeActivity">
+        </activity>
+        <activity android:name=".Activity.GoodsDetailActivity">
+        </activity>
     </application>
 
 </manifest>
