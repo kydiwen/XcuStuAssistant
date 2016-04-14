@@ -1,16 +1,13 @@
 package xcu.stu.assistant.Fragment.controller;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Matrix;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -291,20 +288,7 @@ public class newsCenterController extends baseFragment {
         requestUtil.getBitmap(url, new BitmapCallback() {
             @Override
             public void getBitmap(Bitmap bitmap) {
-                //对图片进行缩放后显示出来
-                //获取屏幕宽度
-                WindowManager manager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
-                int screenWidth = manager.getDefaultDisplay().getWidth();
-                //获取图片的宽高
-                int bitmapWidth = bitmap.getWidth();
-                int bitmapHeight = bitmap.getHeight();
-                //设置缩放比例
-                float scale = screenWidth / bitmap.getWidth();
-                Matrix matrix = new Matrix();
-                matrix.postScale(scale, scale);
-                Bitmap scaleBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmapWidth, bitmapHeight, matrix,
-                        true);
-                imageView.setImageBitmap(scaleBitmap);
+                imageView.setImageBitmap(bitmap);
             }
         });
     }
