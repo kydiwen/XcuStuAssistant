@@ -41,6 +41,7 @@ public class LoginACtivity extends Activity {
     private String pass;
     private SharedPreferences preferences;
     private  TextView use_nologin;//直接进入按钮
+    private  TextView pass_for;//忘记密码按钮
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,7 @@ public class LoginACtivity extends Activity {
         new_user= (TextView) findViewById(R.id.new_user);
         back= (ImageView) findViewById(R.id.back);
         use_nologin= (TextView) findViewById(R.id.use_nologin);
+        pass_for= (TextView) findViewById(R.id.pass_for);
     }
     //初始化数据
     private  void  initData(){
@@ -108,10 +110,19 @@ public class LoginACtivity extends Activity {
                 finish();
             }
         });
+        //未登录方式进入应用
         use_nologin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                page_to_load();
+            }
+        });
+        //修改密码按钮
+        pass_for.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(mContext,Pass_alert_activity.class);
+                startActivity(intent);
             }
         });
     }
@@ -127,7 +138,7 @@ public class LoginACtivity extends Activity {
                      //登录成功，保存密码
                      save();
                      progressdialogUtil.cancelDialog();
-                    page_to_load();
+                     page_to_load();
                  }
 
                  @Override

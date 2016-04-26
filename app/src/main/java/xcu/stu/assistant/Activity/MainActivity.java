@@ -207,26 +207,30 @@ public class MainActivity extends FragmentActivity {
         client.registerLocationListener(new BDLocationListener() {
             @Override
             public void onReceiveLocation(BDLocation bdLocation) {
-                //精确到县级城市
-                String district = bdLocation.getDistrict();
-                //如果不存在则显示市级城市名称
-                if (TextUtils.isEmpty(district)) {
-                    main_weather_city.setText(bdLocation.getCity());
-                } else {//如果存在，精确到县级
-                    main_weather_city.setText(district);
+                if(TextUtils.isEmpty(bdLocation.getCity())){
+                    weather_info.setVisibility(View.INVISIBLE);
+                }else {
+                    //精确到县级城市
+                    String district = bdLocation.getDistrict();
+                    //如果不存在则显示市级城市名称
+                    if (TextUtils.isEmpty(district)) {
+                        main_weather_city.setText(bdLocation.getCity());
+                    } else {//如果存在，精确到县级
+                        main_weather_city.setText(district);
+                    }
+                    //获取天气信息并显示
+                    getWeatherInfo(bdLocation.getCity());
+                    //将当前城市保存到本地文件
+                    SharedPreferences preferences = getSharedPreferences(myConstant.SP_NAME, Context
+                            .MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString(myConstant.CURRENT_CITY, bdLocation.getCity().substring(0,bdLocation
+                            .getCity().length()-1));
+                    editor.commit();
+                    //开启服务，后台定时提示天气信息
+                    Intent intent = new Intent(MainActivity.this, weatherUpdateService.class);
+                    startService(intent);
                 }
-                //获取天气信息并显示
-                getWeatherInfo(bdLocation.getCity());
-                //将当前城市保存到本地文件
-                SharedPreferences preferences = getSharedPreferences(myConstant.SP_NAME, Context
-                        .MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putString(myConstant.CURRENT_CITY, bdLocation.getCity().substring(0,bdLocation
-                        .getCity().length()-1));
-                editor.commit();
-                //开启服务，后台定时提示天气信息
-                Intent intent = new Intent(MainActivity.this, weatherUpdateService.class);
-                startService(intent);
             }
         });
         client.start();

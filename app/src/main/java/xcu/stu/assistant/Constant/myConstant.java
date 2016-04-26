@@ -13,4 +13,5 @@ public interface myConstant {
     public  static  final  String STU_NUM="学生学号";
     public  static  final String USER="用户名";
     public  static  final  String PASSWORD="密码";
+    public  static  final  String ALL_IMAGES="所有图片";
 }

@@ -15,6 +15,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -49,6 +50,8 @@ public class GuideActivity extends Activity {
     private TextView leapfrog;//底部跳过提示
     private Button enter_main;//进入主界面按钮
     private GuideActivity.myAsyncTask myAsyncTask;
+    private  int screenWidth;
+    private  int screenHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +73,10 @@ public class GuideActivity extends Activity {
         leapfrog = (TextView) findViewById(R.id.leapfrog);
         enter_main = (Button) findViewById(R.id.enter_main);
         imgs = new ArrayList<>();
+        //获取屏幕宽高
+        WindowManager manager= (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        screenWidth=manager.getDefaultDisplay().getWidth();
+        screenHeight=manager.getDefaultDisplay().getHeight();
         ArrayList<Bitmap> bitmaps = new ArrayList<>();
         bitmaps.add(BitmapFactory.decodeStream(getResources().openRawResource(R.raw.a)));
         bitmaps.add(BitmapFactory.decodeStream(getResources().openRawResource(R.raw.b)));
@@ -80,7 +87,6 @@ public class GuideActivity extends Activity {
             imgs.add(imageView);
         }
     }
-
     //初始化数据
     private void initData() {
         //为adapter填充数据

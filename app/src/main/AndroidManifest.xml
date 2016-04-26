@@ -125,6 +125,8 @@
         </activity>
         <activity android:name=".Activity.GoodsDetailActivity">
         </activity>
+        <activity android:name=".Activity.Pass_alert_activity">
+        </activity>
     </application>
 
 </manifest>

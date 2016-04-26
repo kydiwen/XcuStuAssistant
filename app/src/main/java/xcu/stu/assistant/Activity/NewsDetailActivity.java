@@ -1,11 +1,13 @@
 package xcu.stu.assistant.Activity;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -22,6 +24,8 @@ import android.widget.VideoView;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+
+import java.util.ArrayList;
 
 import xcu.stu.assistant.Constant.myConstant;
 import xcu.stu.assistant.R;
@@ -50,6 +54,8 @@ public class NewsDetailActivity extends Activity {
     private LinearLayout news_content_container;//新闻内容容器
     private static final int SHOWNEWS = 0;//显示新闻数据消息
     private Context mContext;//全局可用的context
+    private ArrayList<Bitmap> imgs_todeliver = new ArrayList<Bitmap>();//向图片详情页面传送的数据
+    private TextView locaton;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -93,15 +99,16 @@ public class NewsDetailActivity extends Activity {
     //初始化视图界面
     private void initView() {
         //改变状态栏颜色与app风格一致
-        color_same_to_app.setTopColorSameToApp(NewsDetailActivity.this,R.color.main_color);
+        color_same_to_app.setTopColorSameToApp(NewsDetailActivity.this, R.color.main_color);
         setContentView(R.layout.activity_classes_list_);
         //显示进度条
-        progressdialogUtil.showDialog(mContext,"正在加载...");
+        progressdialogUtil.showDialog(mContext, "正在加载...");
         setContentView(R.layout.activity_news_detail);
         news_title = (TextView) findViewById(R.id.news_title);
         newsfrom_time = (TextView) findViewById(R.id.newsfrom_time);
         news_content_container = (LinearLayout) findViewById(R.id.news_content_container);
         back = (ImageView) findViewById(R.id.back);
+        locaton = (TextView) findViewById(R.id.location);
     }
 
     //初始化数据
@@ -109,6 +116,8 @@ public class NewsDetailActivity extends Activity {
         //初始化新闻数据
         newsToLoad = (news) getIntent().getSerializableExtra(myConstant.NEWS_GIVE);
         initNews();
+        locaton.setVisibility(View.VISIBLE);
+        locaton.setText("新闻详情");
     }
 
 
@@ -137,6 +146,7 @@ public class NewsDetailActivity extends Activity {
     }
 
     //显示新闻信息具体内容
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void initNewsContent(Elements elements) {
         for (int i = 1; i < elements.size(); i++) {
             //去除上一条和下一条数据
@@ -184,9 +194,10 @@ public class NewsDetailActivity extends Activity {
                     tv.setGravity(Gravity.CENTER_HORIZONTAL);
                     news_content_container.addView(tv);
                 }
-                if (!TextUtils.isEmpty(elements.get(i).text())) {
+                if (!TextUtils.isEmpty(elements.get(i).text()) && elements.get(i).text().length() > 1) {
+                    elements.get(i).text().replace("&nbsp;", "");
                     TextView tv = (TextView) View.inflate(mContext, R.layout.newsdetail_newsitem, null);
-                    tv.setText("      " + elements.get(i).text().trim());
+                    tv.setText(elements.get(i).text().trim());
                     news_content_container.addView(tv);
                 }
             }
@@ -200,6 +211,7 @@ public class NewsDetailActivity extends Activity {
         requestUtil.getBitmap(url, new BitmapCallback() {
             @Override
             public void getBitmap(Bitmap bitmap) {
+                imgs_todeliver.add(bitmap);
                 //显示图片
                 imageView.setImageBitmap(bitmap);
             }

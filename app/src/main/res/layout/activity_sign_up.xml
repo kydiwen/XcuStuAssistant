@@ -52,18 +52,38 @@
             android:id="@+id/phone_number"
             style="@style/signup_input_stype"
             android:hint="请输入手机号"></EditText>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/verification"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="请输入手机验证码"></EditText>
+        <TextView
+            android:id="@+id/get_verification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/main_color"
+           android:padding="5dp"
+            android:textSize="@dimen/medium"
+            android:text="获取验证码"></TextView>
+        </LinearLayout>
         <EditText
             android:inputType="number"
             android:id="@+id/qqnumber"
             style="@style/signup_input_stype"
             android:hint="请输入QQ号码"></EditText>
-        <TextView
+        <Button
             android:layout_marginTop="10dp"
             android:id="@+id/ensure"
             style="@style/signup_input_stype"
             android:text="确定"
-            android:background="@color/main_color"
+            android:background="@color/error_color"
             android:gravity="center"
-            android:padding="10dp"></TextView>
+            android:clickable="false"
+            android:padding="10dp"></Button>
     </LinearLayout>
 </LinearLayout>

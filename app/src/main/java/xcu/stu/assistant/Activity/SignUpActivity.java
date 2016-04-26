@@ -13,6 +13,7 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,15 +21,21 @@ import android.widget.TextView;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import cn.bmob.v3.BmobSMS;
 import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.RequestSMSCodeListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UploadFileListener;
+import cn.bmob.v3.listener.VerifySMSCodeListener;
 import xcu.stu.assistant.R;
 import xcu.stu.assistant.bean.user;
 import xcu.stu.assistant.utils.bitmapUtil;
 import xcu.stu.assistant.utils.callback.toastUtil;
 import xcu.stu.assistant.utils.color_same_to_app;
 import xcu.stu.assistant.utils.progressdialogUtil;
+
+import static xcu.stu.assistant.R.color.main_color;
 
 /**
  *
@@ -47,7 +54,7 @@ public class SignUpActivity extends Activity {
     private  EditText password_again;//再次输入密码框
     private  EditText phone_number;//手机号码输入框
     private  EditText qqnumber;//qq号码输入框
-    private  TextView ensure;//确定按钮
+    private  Button ensure;//确定按钮
     public static final  String USER_RETURNED="返回新注册用户";
     private  TextView choose_img;//用户选择图片按钮
     private  ImageView user_img;//用户选择要上传的头像
@@ -57,6 +64,8 @@ public class SignUpActivity extends Activity {
     private Uri imgUri;//文件保存路径
     private Dialog dialog;
     private  boolean isImgChoosen=false;
+    private  EditText verification;//手机验证码
+    private TextView get_verification;//获取手机验证码按钮
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +76,7 @@ public class SignUpActivity extends Activity {
     //初始化视图界面
     private  void  initView(){
         mContext=SignUpActivity.this;
-        color_same_to_app.setTopColorSameToApp(SignUpActivity.this, R.color.main_color);
+        color_same_to_app.setTopColorSameToApp(SignUpActivity.this, main_color);
         setContentView(R.layout.activity_sign_up);
         back= (ImageView) findViewById(R.id.back);
         location= (TextView) findViewById(R.id.location);
@@ -76,9 +85,12 @@ public class SignUpActivity extends Activity {
         password_again= (EditText) findViewById(R.id.password_again);
         phone_number= (EditText) findViewById(R.id.phone_number);
         qqnumber= (EditText) findViewById(R.id.qqnumber);
-        ensure= (TextView) findViewById(R.id.ensure);
+        ensure= (Button) findViewById(R.id.ensure);
+        ensure.setClickable(false);
         choose_img= (TextView) findViewById(R.id.choose_img);
         user_img= (ImageView) findViewById(R.id.user_img);
+        get_verification= (TextView) findViewById(R.id.get_verification);
+        verification= (EditText) findViewById(R.id.verification);
     }
     //初始化数据
     private  void  initData(){
@@ -158,6 +170,28 @@ public class SignUpActivity extends Activity {
                 });
             }
         });
+        //获取短信验证按钮
+        get_verification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(TextUtils.isEmpty(phone_number.getText().toString())){
+                    toastUtil.show(mContext,"请输入手机号码");
+                }else {//获取短信验证码
+                    BmobSMS.requestSMSCode(mContext, phone_number.getText().toString(), "许院学梓助手", new RequestSMSCodeListener() {
+                        @Override
+                        public void done(Integer integer, BmobException e) {
+                            if(e==null){
+                                ensure.setBackgroundColor(getResources().getColor(R.color.main_color));
+                                ensure.setClickable(true);
+                                get_verification.setBackgroundColor(getResources().getColor(R.color.error_color));
+                                get_verification.setClickable(false);
+                                toastUtil.show(mContext,"验证码已发送");
+                            }
+                        }
+                    });
+                }
+            }
+        });
     }
     //注册方法封装
     private  void  signUP(){
@@ -179,35 +213,54 @@ public class SignUpActivity extends Activity {
             toastUtil.show(mContext,"您没有选择图片哦");
             progressdialogUtil.cancelDialog();
         }else {
-            final user mUser=new user();
+            if (TextUtils.isEmpty(verification.getText().toString())) {
+                toastUtil.show(mContext, "请输入验证码");
+                progressdialogUtil.cancelDialog();
+            } else {
+            final user mUser = new user();
             mUser.setUsername(name);
             mUser.setPassword(pass);
             mUser.setMobilePhoneNumber(phone);
             mUser.setQqNumber(qq);
-            Log.d("kydiwen",imgUri.getPath());
-            final BmobFile user_img=new BmobFile(new File(Environment.getExternalStorageDirectory(),
+            final BmobFile user_img = new BmobFile(new File(Environment.getExternalStorageDirectory(),
                     "/xcustuassistant/user/user.jpg"));
             user_img.uploadblock(mContext, new UploadFileListener() {
                 @Override
                 public void onSuccess() {
                     mUser.setUser_img(user_img);
                     //图片上传成功，上传用户注册信息
-                    mUser.signUp(mContext, new SaveListener() {
+                    mUser.signOrLogin(mContext, verification.getText().toString(), new SaveListener() {
                         @Override
                         public void onSuccess() {
-                            progressdialogUtil.cancelDialog();
-                            toastUtil.show(mContext,"注册成功");
-                            //返回数据给登陆界面
-                            Intent intent=new Intent();
-                            intent.putExtra(USER_RETURNED,mUser);
-                            intent.putExtra("pass",pass_again);
-                            setResult(RESULT_OK, intent);
-                            finish();
+                            BmobSMS.verifySmsCode(mContext, phone_number.getText().toString(),
+                                    verification.getText().toString(), new VerifySMSCodeListener() {
+                                @Override
+                                public void done(BmobException e) {
+                                    progressdialogUtil.cancelDialog();
+                                    toastUtil.show(mContext, "注册成功");
+                                    //返回数据给登陆界面
+                                    Intent intent = new Intent();
+                                    intent.putExtra(USER_RETURNED, mUser);
+                                    intent.putExtra("pass", pass_again);
+                                    setResult(RESULT_OK, intent);
+                                    finish();
+                                }
+                            });
                         }
 
                         @Override
                         public void onFailure(int i, String s) {
-                            toastUtil.show(mContext,"注册失败，请重试");
+                            if (s.contains("username")) {
+                                toastUtil.show(mContext, "用户名已经被占用");
+                            } else if (s.contains("mobilePhoneNumber")) {
+                                if (s.contains("already taken")) {
+                                    toastUtil.show(mContext, "手机号码已经被占用");
+                                } else if (s.contains("mobilePhoneNumber Must be valid mobile number")) {
+                                    toastUtil.show(mContext, "请输入正确的手机号");
+                                }
+                            }else  if(s.contains("code error")){
+                                toastUtil.show(mContext,"验证码错误");
+                            }
                             progressdialogUtil.cancelDialog();
                         }
                     });
@@ -218,7 +271,7 @@ public class SignUpActivity extends Activity {
 
                 }
             });
-
+        }
         }
     }
 
@@ -231,29 +284,40 @@ public class SignUpActivity extends Activity {
                 intent.putExtra("scale",true);//允许缩放
                 intent.putExtra(MediaStore.EXTRA_OUTPUT,imgUri);//输出路径
                 startActivityForResult(intent,CROP_PHOTO);
+            }else if(resultCode==RESULT_CANCELED){
+                toastUtil.show(mContext,"请先选择图片");
             }
         }else  if(requestCode==CHOOSE_PHOTO){
-            Uri uri_choose;
-            uri_choose=data.getData();//获取选取的图片路径
-            File file=new File(Environment.getExternalStorageDirectory(),
-                    "/xcustuassistant/user/"+"user.jpg");
-            imgUri=Uri.fromFile(file);
-            Intent intent=new Intent("com.android.camera.action.CROP");
-            intent.setDataAndType(uri_choose,"image/*");//第一个参数表示要处理图片的路径
-            intent.putExtra("scale",true);//允许缩放
-            intent.putExtra(MediaStore.EXTRA_OUTPUT,imgUri);//输出路径
-            startActivityForResult(intent,CROP_PHOTO);
-        }else  if(requestCode==CROP_PHOTO){
-            try {
-                user_img.setImageBitmap(BitmapFactory.decodeStream(getContentResolver().openInputStream
-                            (imgUri)));
-                //压缩图片
-                bitmapUtil.saveimage(imgUri.getPath());
-                dialog.dismiss();
-                isImgChoosen=true;
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+            if(resultCode==RESULT_OK){
+                Uri uri_choose;
+                uri_choose=data.getData();//获取选取的图片路径
+                File file=new File(Environment.getExternalStorageDirectory(),
+                        "/xcustuassistant/user/"+"user.jpg");
+                imgUri=Uri.fromFile(file);
+                Intent intent=new Intent("com.android.camera.action.CROP");
+                intent.setDataAndType(uri_choose,"image/*");//第一个参数表示要处理图片的路径
+                intent.putExtra("scale",true);//允许缩放
+                intent.putExtra(MediaStore.EXTRA_OUTPUT,imgUri);//输出路径
+                startActivityForResult(intent,CROP_PHOTO);
+            }else if(resultCode==RESULT_CANCELED){
+                toastUtil.show(mContext,"请先选择图片");
             }
+        }else  if(requestCode==CROP_PHOTO){
+            if(resultCode==RESULT_OK){
+                try {
+                    user_img.setImageBitmap(BitmapFactory.decodeStream(getContentResolver().openInputStream
+                            (imgUri)));
+                    //压缩图片
+                    bitmapUtil.saveimage(imgUri.getPath());
+                    dialog.dismiss();
+                    isImgChoosen=true;
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }else  if(resultCode==RESULT_CANCELED){
+                toastUtil.show(mContext,"请先选择图片");
+            }
+
         }
     }
 }

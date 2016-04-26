@@ -15,7 +15,7 @@ public class ClassSqliteOpenHelper extends SQLiteOpenHelper {
     public static final String CLASS_NAME = "班级名称";//班级名称列
     public static final String STU_NUM = "班级人数";//班级人数列
     public  static  final  String COURSENAME="课程名称";//课程名称列
-    public  static  final  String SCAN_TIME="点到事件";//点到事件列
+    public  static  final  String SCAN_TIME="点到时间";//点到时间列
     String CREATE_NAME_TABLE = "create table " + CLASSES_TABLE + "(_id integer primary key autoincrement," +
             CLASS_NAME + " text," + STU_NUM + " integer" + ")";
     String CREATE_STU_RECORD_TABLE="create table " + STU_RECORD + "(_id integer primary key autoincrement," +

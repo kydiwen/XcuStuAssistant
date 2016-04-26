@@ -199,8 +199,11 @@ public class newsCenterController extends baseFragment {
                         ("href"));
                 mNews.setNewsTitle(e.select("a").attr("title").trim());
                 //判断是否是最新消息
-                if (e.select("img") != null) {
-                    mNews.setGifUrl(e.select("img").attr("src"));
+                if (!TextUtils.isEmpty(e.select("img").attr("src"))) {
+                    mNews.setGifUrl(mContext.getResources().getString(R.string.news_url)
+                            +e.select("img").attr("src"));
+                }else {
+                   mNews.setGifUrl("");
                 }
                 newsList.add(mNews);
             }
@@ -222,8 +225,11 @@ public class newsCenterController extends baseFragment {
                         ("href"));
                 mNews.setNewsTitle(e.select("a").attr("title").trim());
                 //判断是否是最新消息
-                if (e.select("img") != null) {
-                    mNews.setGifUrl(e.select("img").attr("src"));
+                if (!TextUtils.isEmpty(e.select("img").attr("src"))) {
+                    mNews.setGifUrl(mContext.getResources().getString(R.string.news_url)
+                            +e.select("img").attr("src"));
+                }else {
+                    mNews.setGifUrl("");
                 }
                 newsList.add(mNews);
             }

@@ -13,7 +13,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -128,7 +127,9 @@ public class GoodsDetailActivity extends Activity {
                 loadImg(user.getUser_img().getFileUrl(mContext), user_img);
                 user_name.setText(user.getUsername());
                 //设置在用户未设置联系电话时的电话号码
-                phone_number = user.getMobilePhoneNumber();
+                if (TextUtils.isEmpty(phone_number)) {
+                    phone_number = user.getMobilePhoneNumber();
+                }
             }
 
             @Override
