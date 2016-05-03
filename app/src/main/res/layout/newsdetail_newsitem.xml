@@ -7,6 +7,8 @@
     android:lineSpacingExtra="5dp"
     android:lineSpacingMultiplier="1.5"
     android:paddingLeft="10dp"
+    android:focusable="false"
+    android:autoLink="web|phone"
     android:paddingRight="10dp"
     android:textSize="@dimen/medium">
 </TextView>

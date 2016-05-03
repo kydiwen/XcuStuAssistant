@@ -10,7 +10,7 @@
         android:id="@+id/splash_login_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/login"
+        android:background="@mipmap/login"
         android:visibility="invisible"></ImageView>
 
     <ImageView

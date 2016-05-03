@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/top_back"></include>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/xculogo"></ImageView>
+
+    <TextView
+        android:id="@+id/current_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:padding="5dp"
+        android:clickable="true"
+        android:layout_marginBottom="10dp"
+        android:textSize="@dimen/big"></TextView>
+    <View
+        style="@style/draw_divide_style"></View>
+    <TextView
+        android:id="@+id/check_update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/right"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:background="@drawable/pressed_selector"
+        android:clickable="true"
+        android:text="检查更新"></TextView>
+    <View
+        style="@style/draw_divide_style"></View>
+    <TextView
+        android:id="@+id/suggest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/pressed_selector"
+        android:drawableRight="@drawable/right"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:clickable="true"
+        android:text="反馈建议"></TextView>
+    <View
+        style="@style/draw_divide_style"></View>
+</LinearLayout>

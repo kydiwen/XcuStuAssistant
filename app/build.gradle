@@ -36,4 +36,5 @@ dependencies {
     compile 'com.facebook.fresco:fresco:0.9.0'
     compile files('libs/BmobSDK_V3.4.5_1111.jar')
     compile project(':circleimageview')
+    compile 'com.jiechic.library:xUtils:2.6.14'
 }

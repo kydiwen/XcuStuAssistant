@@ -11,6 +11,7 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.GetListener;
 import de.hdodenhof.circleimageview.CircleImageView;
+import xcu.stu.assistant.Activity.AboutActivity;
 import xcu.stu.assistant.Activity.AddErshouActivity;
 import xcu.stu.assistant.Activity.LoginACtivity;
 import xcu.stu.assistant.Activity.MyErshouActivity;
@@ -34,6 +35,7 @@ public class drawerFragment extends baseFragment {
     private LinearLayout user_info_edit;//修改个人信息
     private LinearLayout my_ershou;//我的商品
     private LinearLayout add_ershou;//发布二手
+    private  LinearLayout about;//关于助手
     private LinearLayout close;//退出账号
     private BmobUser currentUser;
     private final int UPDATE_INFO = 0;//修改个人信息
@@ -46,6 +48,7 @@ public class drawerFragment extends baseFragment {
         user_info_edit = (LinearLayout) view.findViewById(R.id.user_info_edit);
         my_ershou = (LinearLayout) view.findViewById(R.id.my_ershou);
         add_ershou = (LinearLayout) view.findViewById(R.id.add_ershou);
+        about= (LinearLayout) view.findViewById(R.id.about);
         close = (LinearLayout) view.findViewById(R.id.close);
         return view;
     }
@@ -97,6 +100,14 @@ public class drawerFragment extends baseFragment {
                     Intent intent=new Intent(mContext, AddErshouActivity.class);
                     startActivity(intent);
                 }
+            }
+        });
+        //为关于助手设置点击事件
+        about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(mContext, AboutActivity.class);
+                startActivity(intent);
             }
         });
         //为退出账号设置点击事件

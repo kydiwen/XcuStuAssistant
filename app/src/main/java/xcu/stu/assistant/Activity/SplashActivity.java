@@ -97,6 +97,8 @@ public class SplashActivity extends Activity {
                     public void onAnimationEnd(Animation animation) {
                         //进入登陆界面
                         Intent intent=new Intent(SplashActivity.this,LoginACtivity.class);
+                        //淡入浅出效果
+                        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
                         startActivity(intent);
                         finish();
                     }

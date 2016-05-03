@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="xcu.stu.assistant">
+          package="xcu.stu.assistant"
+          android:versionCode="1"
+          android:versionName="1.0">
     //添加所需要的权限
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -126,6 +128,10 @@
         <activity android:name=".Activity.GoodsDetailActivity">
         </activity>
         <activity android:name=".Activity.Pass_alert_activity">
+        </activity>
+        <activity android:name=".Activity.AboutActivity">
+        </activity>
+        <activity android:name=".Activity.SuggestActivity">
         </activity>
     </application>
 

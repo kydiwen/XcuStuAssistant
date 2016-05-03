@@ -31,6 +31,7 @@ public class RecordDetailActivity extends Activity {
     private ArrayList<classbean>datas=new ArrayList<classbean>();//数据
     private  myAdapter adapter;//适配器对象
     private ListView record_list;
+    private  TextView location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class RecordDetailActivity extends Activity {
         color_same_to_app.setTopColorSameToApp(mContext,R.color.main_color);
         setContentView(R.layout.activity_record_detail);
         record_list= (ListView) findViewById(R.id.record_list);
+        location= (TextView) findViewById(R.id.location);
     }
     //初始化数据
     private  void  initData(){
@@ -54,9 +56,12 @@ public class RecordDetailActivity extends Activity {
         //获取传递的数据
         Intent intent=getIntent();
         classbean bean= (classbean) intent.getSerializableExtra(classes_list_Activity.CLASS_CLICKED);
+        //顶部显示班级名称
+        location.setVisibility(View.VISIBLE);
+        location.setText(bean.getClassName());
         ClassSqliteOpenHelper helper=ClassSqliteOpenHelper.getInstanse(this);
         SQLiteDatabase database=helper.getWritableDatabase();
-        Cursor cursor=database.query(bean.getClassName(), null, null, null, null, null, null);
+        Cursor cursor=database.query(("["+bean.getClassName()+"]"), null, null, null, null, null, null);
         cursor.move(-1);
         while (cursor.moveToNext()){
             classbean classbean=new classbean();

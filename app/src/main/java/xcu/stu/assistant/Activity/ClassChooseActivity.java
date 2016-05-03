@@ -81,7 +81,8 @@ public class ClassChooseActivity extends Activity {
         cursor.move(-1);
         while (cursor.moveToNext()){
            classbean bean=new classbean();
-            bean.setClassName(cursor.getString(cursor.getColumnIndex(ClassSqliteOpenHelper.CLASS_NAME)));
+            String name=cursor.getString(cursor.getColumnIndex(ClassSqliteOpenHelper.CLASS_NAME));
+            bean.setClassName(name.substring(0,name.length()));
             bean.setStuNum(cursor.getInt(cursor.getColumnIndex(ClassSqliteOpenHelper.STU_NUM)));
             classes.add(bean);
             adapter.notifyDataSetChanged();

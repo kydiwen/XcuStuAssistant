@@ -16,6 +16,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -109,9 +110,9 @@ public class RecordActivity extends Activity {
             public void onClick(View v) {
                 //蓝牙信息过滤口令
                 scan_command = command.getText().toString();
-                if(TextUtils.isEmpty(scan_command)){
-                    toastUtil.show(mContext,"请输入口令");
-                }else {
+                if (TextUtils.isEmpty(scan_command)) {
+                    toastUtil.show(mContext, "请输入口令");
+                } else {
                     //注册广播，监听扫描到的蓝牙设备
                     IntentFilter intentFilter = new IntentFilter();
                     intentFilter.addAction(BluetoothDevice.ACTION_FOUND);
@@ -119,7 +120,7 @@ public class RecordActivity extends Activity {
                     registerReceiver(receiver, intentFilter);
                     adapter.startDiscovery();//开始扫描设备
                     //弹出进度条提示
-                    progressdialogUtil.showDialog(mContext,"正在点到...");
+                    progressdialogUtil.showDialog(mContext, "正在点到...");
                 }
             }
         });
@@ -162,8 +163,10 @@ public class RecordActivity extends Activity {
                                 SQLiteDatabase database = helper.getWritableDatabase();
                                 //遍历所有数据
                                 for (int i = 0; i < students.size(); i++) {
-                                    String select = "select * from " + bean.getClassName() + " where " +
-                                            "" + ClassAddActivity.NAME + "=" + "'" + students.get(i)
+                                    String select = "select * from " + ("[" + bean.getClassName() + "]") +
+                                            " " +
+                                            "where " + "" + ClassAddActivity.NAME + "=" + "'" + students
+                                            .get(i)
                                             .getName().split(scan_command)[0] + "'";
                                     Cursor cursor = database.rawQuery(select, null);
                                     if (cursor.moveToNext()) {//数据已添加
@@ -173,9 +176,9 @@ public class RecordActivity extends Activity {
                                         ContentValues values = new ContentValues();
                                         values.put(ClassAddActivity.COMED_NUM, come);
                                         //更新数据
-                                        database.update(bean.getClassName(), values, ClassAddActivity
-                                                .NAME + "=?", new String[]{students.get(i).getName()
-                                                .split(scan_command)[0]});
+                                        database.update(("[" + bean.getClassName() + "]"), values,
+                                                ClassAddActivity.NAME + "=?", new String[]{students.get(i)
+                                                        .getName().split(scan_command)[0]});
                                     } else {
                                         ContentValues values = new ContentValues();
                                         //插入新数据
@@ -184,7 +187,7 @@ public class RecordActivity extends Activity {
                                         values.put(ClassAddActivity.NUM, students.get(i).getName().split
                                                 (scan_command)[1]);
                                         values.put(ClassAddActivity.COMED_NUM, 1);
-                                        database.insert(bean.getClassName(), null, values);
+                                        database.insert(("[" + bean.getClassName() + "]"), null, values);
                                     }
                                 }
                                 database.close();

@@ -7,4 +7,5 @@
     android:layout_height="match_parent"
     android:adjustViewBounds="true"
     android:padding="10dp"
+    android:focusable="false"
     android:scaleType="fitXY"></ImageView>

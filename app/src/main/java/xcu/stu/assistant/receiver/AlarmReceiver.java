@@ -1,5 +1,6 @@
 package xcu.stu.assistant.receiver;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -57,6 +58,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                                         ("temperature"))
                                 .setContentText(response
                                         .getJSONArray("results").getJSONObject(0).getString("currentCity"));
+                        mBuilder.setPriority(Notification.PRIORITY_HIGH);
                         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context
                                 .getApplicationContext());
                         stackBuilder.addParentStack(WeatherDetailActivity.class);

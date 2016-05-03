@@ -115,8 +115,8 @@ public class ClassAddActivity extends Activity {
             values.put(ClassSqliteOpenHelper.STU_NUM, num);
             database.insert(ClassSqliteOpenHelper.CLASSES_TABLE, null, values);
             //创建新的班级表，存放点到信息
-            String CREATE_TABLE="create table "+className+"(_id integer primary key autoincrement," +
-                    NAME+" text,"+NUM+" integer,"+COMED_NUM+" integer"+")";
+            String CREATE_TABLE="create table "+("["+className+"]")+"(_id integer primary key " +
+                    "autoincrement," + NAME+" text,"+NUM+" integer,"+COMED_NUM+" integer"+")";
             database.execSQL(CREATE_TABLE);
             database.setTransactionSuccessful();
         }finally {

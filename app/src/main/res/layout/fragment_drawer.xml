@@ -94,8 +94,20 @@
                 style="@style/draw_img_style"
                 android:src="@drawable/close"></ImageView>
             <TextView
-               style="@style/draw_tv_style"
+                style="@style/draw_tv_style"
                 android:text="退出账号"></TextView>
+        </LinearLayout>
+        <View
+            style="@style/draw_divide_style"></View>
+        <LinearLayout
+            android:id="@+id/about"
+            style="@style/drawer_line_style">
+            <ImageView
+                style="@style/draw_img_style"
+                android:src="@drawable/about"></ImageView>
+            <TextView
+                style="@style/draw_tv_style"
+                android:text="关于助手"></TextView>
         </LinearLayout>
         <View
             style="@style/draw_divide_style"></View>
