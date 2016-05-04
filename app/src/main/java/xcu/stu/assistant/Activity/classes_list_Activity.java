@@ -25,6 +25,7 @@ import xcu.stu.assistant.utils.color_same_to_app;
 //显示班级列表以及班级人数，点击可查看点到记录
 public class classes_list_Activity extends Activity {
     private ImageView back;//返回按钮
+    private  TextView location;
     private ImageView add_class;//添加班级
     private FrameLayout class_list_container;//布局容器，显示班级列表或者暂无班级信息
     private Context mContext;//全局可用的context
@@ -50,10 +51,13 @@ public class classes_list_Activity extends Activity {
         back = (ImageView) findViewById(R.id.back);
         class_list_container = (FrameLayout) findViewById(R.id.class_list_container);
         add_class = (ImageView) findViewById(R.id.add_class);
+        location= (TextView) findViewById(R.id.location);
     }
 
     //初始化数据
     private void initData() {
+        location.setVisibility(View.VISIBLE);
+        location.setText("班级管理");
         //获取查询班级列表数据库结果
         Cursor classCursor = classesList.getClasses(mContext);
         if (!classCursor.moveToNext()) {//数据为空

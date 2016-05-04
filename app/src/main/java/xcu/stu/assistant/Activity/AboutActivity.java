@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -93,6 +94,7 @@ public class AboutActivity extends Activity {
                     public void onSuccess(List<version> list) {
                         //获取最新版
                         final version newestVersion = list.get(0);
+                        Log.d("kydiwen",newestVersion.getVersionName());
                         progressdialogUtil.cancelDialog();
                         if (newestVersion.getVersionCode() == currentCode) {
                             toastUtil.show(mContext, "已是最新版本");
@@ -197,8 +199,7 @@ public class AboutActivity extends Activity {
     private void initCurrentVersuion() {
         PackageManager manager = getPackageManager();
         try {
-            PackageInfo info = manager.getPackageInfo(getPackageName(), PackageManager
-                    .COMPONENT_ENABLED_STATE_DEFAULT);
+            PackageInfo info = manager.getPackageInfo(getPackageName(), 0);
             currentCode = info.versionCode;
             current_version.setText("当前版本：" + info.versionName);
         } catch (PackageManager.NameNotFoundException e) {

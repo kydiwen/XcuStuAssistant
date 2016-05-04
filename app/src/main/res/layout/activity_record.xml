@@ -12,11 +12,11 @@
 
     <EditText
         android:id="@+id/command"
-        android:inputType="text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:hint="请输入口令"></EditText>
+        android:hint="请输入口令"
+        android:inputType="text"></EditText>
 
     <TextView
         android:id="@+id/start"
@@ -28,6 +28,28 @@
         android:padding="10dp"
         android:text="开始点到"
         android:textSize="@dimen/big"></TextView>
+
+    <LinearLayout
+        android:id="@+id/progress_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="invisible">
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></ProgressBar>
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:textSize="@dimen/big"></TextView>
+    </LinearLayout>
 
     <ListView
         android:id="@+id/stu_scaned_list"

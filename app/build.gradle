@@ -4,12 +4,12 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
 
-    defaultConfig {
+    defaultConfig {//在mani中修改版本信息无效
         applicationId "xcu.stu.assistant"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.2"
     }
     buildTypes {
         release {

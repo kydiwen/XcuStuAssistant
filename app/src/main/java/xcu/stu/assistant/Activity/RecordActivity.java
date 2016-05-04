@@ -15,14 +15,17 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
@@ -33,7 +36,6 @@ import xcu.stu.assistant.R;
 import xcu.stu.assistant.bean.classbean;
 import xcu.stu.assistant.utils.callback.toastUtil;
 import xcu.stu.assistant.utils.color_same_to_app;
-import xcu.stu.assistant.utils.progressdialogUtil;
 
 /**
  * 点到界面
@@ -56,6 +58,39 @@ public class RecordActivity extends Activity {
     private myReceiver receiver;
     private EditText command;//点到口令，用来过滤蓝牙信息
     private String scan_command;
+    private LinearLayout progress_container;
+    private ProgressBar progressbar;
+    private TextView time;//点到过程中剩余时长
+    private final static int SCAN = 0;//开启扫描
+    private int time_last = 120;//扫描剩余时长
+    private final static int UPDATE_TIME = 1;//更新时间
+
+    //使用handler实现每十秒扫描一次一共扫描120秒
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case SCAN:
+                    //开启扫描
+                    adapter.startDiscovery();
+                    if (time_last == 0) {
+                        handler.removeMessages(SCAN);
+                    }
+                    break;
+                case UPDATE_TIME:
+                    //更新剩余扫描时长
+                    if(time_last==0){
+                        handler.removeMessages(UPDATE_TIME);
+                        time.setText("点到结束");
+                        progressbar.setVisibility(View.GONE);
+                    }else {
+                        time_last--;
+                        time.setText(time_last + "");
+                    }
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +111,9 @@ public class RecordActivity extends Activity {
         end = (TextView) findViewById(R.id.end);
         stu_scaned_list = (ListView) findViewById(R.id.stu_scaned_list);
         command = (EditText) findViewById(R.id.command);
+        progress_container = (LinearLayout) findViewById(R.id.progress_container);
+        progressbar = (ProgressBar) findViewById(R.id.progressbar);
+        time = (TextView) findViewById(R.id.time);
     }
 
     //初始化数据
@@ -119,8 +157,31 @@ public class RecordActivity extends Activity {
                     receiver = new myReceiver();
                     registerReceiver(receiver, intentFilter);
                     adapter.startDiscovery();//开始扫描设备
-                    //弹出进度条提示
-                    progressdialogUtil.showDialog(mContext, "正在点到...");
+                    //显示进度
+                    progress_container.setVisibility(View.VISIBLE);
+                    //开启扫描
+                    Runnable scanrunnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            Message message = new Message();
+                            message.what = SCAN;
+                            handler.sendMessage(message);
+                            handler.postDelayed(this, 10000);
+                        }
+                    };
+                    handler.postDelayed(scanrunnable, 10000);
+                    //更新剩余时长
+                    Runnable timeRunnable=new Runnable() {
+                        @Override
+                        public void run() {
+                            Message message=new Message();
+                            message.what=UPDATE_TIME;
+                            handler.sendMessage(message);
+                            //每秒发送一次消息
+                            handler.postDelayed(this,1000);
+                        }
+                    };
+                    handler.postDelayed(timeRunnable,1000);
                 }
             }
         });
@@ -242,11 +303,10 @@ public class RecordActivity extends Activity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction() == BluetoothDevice.ACTION_FOUND) {
-                progressdialogUtil.cancelDialog();
                 //扫描到的蓝牙设备
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 //判断是否是指定命名
-                if (device.getName().split(scan_command).length == 2) {
+                if (device.getName().contains(scan_command)) {
                     //防止数据重复
                     if (!students.contains(device)) {
                         students.add(device);
