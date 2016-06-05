@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -79,11 +80,11 @@ public class RecordActivity extends Activity {
                     break;
                 case UPDATE_TIME:
                     //更新剩余扫描时长
-                    if(time_last==0){
+                    if (time_last == 0) {
                         handler.removeMessages(UPDATE_TIME);
                         time.setText("点到结束");
                         progressbar.setVisibility(View.GONE);
-                    }else {
+                    } else {
                         time_last--;
                         time.setText(time_last + "");
                     }
@@ -171,17 +172,17 @@ public class RecordActivity extends Activity {
                     };
                     handler.postDelayed(scanrunnable, 10000);
                     //更新剩余时长
-                    Runnable timeRunnable=new Runnable() {
+                    Runnable timeRunnable = new Runnable() {
                         @Override
                         public void run() {
-                            Message message=new Message();
-                            message.what=UPDATE_TIME;
+                            Message message = new Message();
+                            message.what = UPDATE_TIME;
                             handler.sendMessage(message);
                             //每秒发送一次消息
-                            handler.postDelayed(this,1000);
+                            handler.postDelayed(this, 1000);
                         }
                     };
-                    handler.postDelayed(timeRunnable,1000);
+                    handler.postDelayed(timeRunnable, 1000);
                 }
             }
         });
@@ -306,11 +307,15 @@ public class RecordActivity extends Activity {
                 //扫描到的蓝牙设备
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 //判断是否是指定命名
-                if (device.getName().contains(scan_command)) {
-                    //防止数据重复
-                    if (!students.contains(device)) {
-                        students.add(device);
-                        myAdapter.notifyDataSetChanged();
+                //防止蓝牙名称为空
+                if (!TextUtils.isEmpty(device.getName())) {
+                    if (device.getName().contains(scan_command)) {
+                        //防止数据重复
+                        if (!students.contains(device)) {
+                            students.add(device);
+                            Log.d("kydiwen",device.getName());
+                            myAdapter.notifyDataSetChanged();
+                        }
                     }
                 }
             }

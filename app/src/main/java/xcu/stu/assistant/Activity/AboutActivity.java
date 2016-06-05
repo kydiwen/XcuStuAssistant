@@ -94,7 +94,7 @@ public class AboutActivity extends Activity {
                     public void onSuccess(List<version> list) {
                         //获取最新版
                         final version newestVersion = list.get(0);
-                        Log.d("kydiwen",newestVersion.getVersionName());
+                        Log.d("kydiwen", newestVersion.getVersionName());
                         progressdialogUtil.cancelDialog();
                         if (newestVersion.getVersionCode() == currentCode) {
                             toastUtil.show(mContext, "已是最新版本");
@@ -189,7 +189,7 @@ public class AboutActivity extends Activity {
         suggest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(mContext,SuggestActivity.class);
+                Intent intent = new Intent(mContext, SuggestActivity.class);
                 startActivity(intent);
             }
         });

@@ -86,8 +86,6 @@ public class CityListActivity extends Activity {
     /**
      * 为ListView填充数据
      *
-     * @param
-     * @return
      */
     private List<SortModel> filledData(ArrayList<city> cities) {
         List<SortModel> mSortList = new ArrayList<SortModel>();

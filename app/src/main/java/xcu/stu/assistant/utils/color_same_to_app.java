@@ -9,7 +9,8 @@ import android.view.WindowManager;
 import xcu.stu.assistant.custom.SystemBarTintManager;
 
 /**
- * Created by sunwenquan on 16-3-20.
+ * 孙文权 16-3-20.
+ * 设置系统状态栏颜色与app保持一直
  */
 public class color_same_to_app {
     //设置状态栏颜色与app一直
